@@ -119,9 +119,10 @@ button.conj_tab_button:hover {
     background-color: #ff5151;
 }
 
-.cls_conj_tab_active {
+button.cls_conj_tab_active {
     background-color: #ff7a7a;
 }
+
 .conj_tab_content {
     padding: 10px;
     background-color: darkgray;
@@ -158,4 +159,9 @@ button.conj_tab_button:hover {
 .base_conj {
     width: 50%;
     background-color: lightgray;
+}
+
+.inflection_highlight {
+    color: red;
+    font-weight: bold;
 }

@@ -1,5 +1,5 @@
+<!-- Copyright (C) 2025 baltazarus -->
 <!DOCTYPE html>
-
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
@@ -9,14 +9,17 @@
 <body>
     <div class="main_panel">
         <div class="main_panel_subdiv" style="text-align: center;"><h1>Conjugator</h1></div>
+        <div class="main_panel_subdiv" style="text-align: center;">
+            <p style="font-size: 12px;margin: 0;">Enter a dictionary form of a verb using HIRAGANA (Kanji is allowed)</p>
+        </div>
         <div class="main_panel_subdiv" style="display: flex;flex-direction: row;">
             <div style="width: 90%;"><input type="text" id="conj_text_input" placeholder="Enter dictionary verb..." /></div>
             <div style="width: 10%;"><input type="button" id="conj_text_button" value="Conjugate" /></div>
         </div>
         <div class="main_panel_subdiv">
             <div style="display: flex;flex-direction: row;">
-                <div><button class="conj_tab_button" style="width: 100px;border-top-left-radius: 10px;"><b>Plain</b></button></div>
-                <div><button class="conj_tab_button" style="width: 100px;border-top-right-radius: 10px;"><b>Formal</b></button></div>
+                <div><button class="conj_tab_button cls_conj_tab_active" id="id_tab_normal" style="width: 100px;border-top-left-radius: 10px;" onclick="conj_normal();"><b>Plain</b></button></div>
+                <div><button class="conj_tab_button" id="id_tab_formal" style="width: 100px;border-top-right-radius: 10px;" onclick="conj_formal();"><b>Formal</b></button></div>
             </div>
             <div class="conj_tab_content" style="display: flex; flex-direction: row-reverse;">
                 <div style="width: 40%; padding: 10px;padding-top: 0;">
@@ -42,38 +45,54 @@
                         </tr>
                         <tr>
                             <td class="conj_cell varb_form">Standard</td>
-                            <td class="conj_cell conj_cell_def"><p></p></td>
-                            <td class="conj_cell conj_cell_def_neg"><!-- --></td>
+                            <td class="conj_cell conj_cell_def" id="id_conj_standard_positive"></td>
+                            <td class="conj_cell conj_cell_def_neg" id="id_conj_standard_negative"><!-- --></td>
                         </tr>
                         <tr>
                             <td class="conj_cell varb_form">Perfective</td>
-                            <td class="conj_cell conj_cell_def"><!-- --></td>
-                            <td class="conj_cell conj_cell_def_neg"><!-- --></td>
+                            <td class="conj_cell conj_cell_def" id="id_conj_perfective_positive"><!-- --></td>
+                            <td class="conj_cell conj_cell_def_neg" id="id_conj_perfective_negative"><!-- --></td>
                         </tr>
                         <tr>
                             <td class="conj_cell varb_form">Presumptive</td>
-                            <td class="conj_cell conj_cell_def"><!-- --></td>
-                            <td class="conj_cell conj_cell_def_neg"><!-- --></td>
+                            <td class="conj_cell conj_cell_def" id="id_conj_presumptive_positive"><!-- --></td>
+                            <td class="conj_cell conj_cell_def_neg" id="id_conj_presumptive_negative"><!-- --></td>
                         </tr>
                         <tr>
                             <td class="conj_cell varb_form">Conditional</td>
-                            <td class="conj_cell conj_cell_def"><!-- --></td>
-                            <td class="conj_cell conj_cell_def_neg"><!-- --></td>
+                            <td class="conj_cell conj_cell_def" id="id_conj_conditional_positive"><!-- --></td>
+                            <td class="conj_cell conj_cell_def_neg" id="id_conj_conditional_negative"><!-- --></td>
+                        </tr>
+                        <tr>
+                            <td class="conj_cell varb_form">Imperative</td>
+                            <td class="conj_cell conj_cell_def" id="id_conj_imperative_positive"><!-- --></td>
+                            <td class="conj_cell conj_cell_def_neg" id="id_conj_imperative_negative"><!-- --></td>
                         </tr>
                         <tr>
                             <td class="conj_cell varb_form">Potential</td>
-                            <td class="conj_cell conj_cell_def"><!-- --></td>
-                            <td class="conj_cell conj_cell_def_neg"><!-- --></td>
+                            <td class="conj_cell conj_cell_def" id="id_conj_potential_positive"><!-- --></td>
+                            <td class="conj_cell conj_cell_def_neg" id="id_conj_potential_negative"><!-- --></td>
                         </tr>
                         <tr>
                             <td class="conj_cell varb_form">Causative</td>
-                            <td class="conj_cell conj_cell_def"><!-- --></td>
-                            <td class="conj_cell conj_cell_def_neg"><!-- --></td>
+                            <td class="conj_cell conj_cell_def" id="id_conj_causative_positive"><!-- --></td>
+                            <td class="conj_cell conj_cell_def_neg" id="id_conj_causative_negative"><!-- --></td>
                         </tr>
                         <tr>
                             <td class="conj_cell varb_form">Passive</td>
-                            <td class="conj_cell conj_cell_def"><!-- --></td>
-                            <td class="conj_cell conj_cell_def_neg"><!-- --></td>
+                            <td class="conj_cell conj_cell_def" id="id_conj_passive_positive"><!-- --></td>
+                            <td class="conj_cell conj_cell_def_neg" id="id_conj_passive_negative"><!-- --></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <table style="width: 100%;border-collapse: collapse;text-align: center;">
+                        <tr>
+                            <td class="conj_cell varb_form" style="text-align: center;width: 30%;">Category</td>
+                            <td class="conj_cell conj_cell_def" id="id_conj_category"></td>
+                        </tr>
+                        <tr>
+                            <td class="conj_cell varb_form" style="text-align: center;"><b>て</b> Form</td>
+                            <td class="conj_cell conj_cell_def" id="id_conj_te"></td>
                         </tr>
                     </table>
                 </div>
@@ -88,15 +107,34 @@
         <div><button class="menu_button">Dictionary<br><b>辞書</b></button></div>
         <div style="width: 50px;"></div>
     </div>
-
+    
+    <script src="script/conjugator.js"></script>
     <script>
+        var btn_normal = document.getElementById("id_tab_normal");
+        var btn_formal = document.getElementById("id_tab_formal");
+
         document.getElementById("conj_text_button").addEventListener("click", function() {
             let verb = document.getElementById("conj_text_input").value;
-            conjugate_verb(verb);
+            conjugate_verb(verb, bFormalActive); // bFormalActive is global in conjugator.js
         });
+
+        function conj_normal()
+        {
+            let verb = document.getElementById("conj_text_input").value;
+            btn_normal.classList.add("cls_conj_tab_active");
+            btn_formal.classList.remove("cls_conj_tab_active");
+            conjugate_verb(verb, false);
+        }
+
+        function conj_formal()
+        {
+            let verb = document.getElementById("conj_text_input").value;
+            btn_formal.classList.add("cls_conj_tab_active");
+            btn_normal.classList.remove("cls_conj_tab_active");
+            conjugate_verb(verb, true);
+        }
     </script>
 
     <script src="script/main.js"></script>
-    <script src="script/conjugator.js"></script>
 </body>
 </html>
