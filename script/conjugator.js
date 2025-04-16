@@ -247,6 +247,14 @@ function set_conj_values(
     document.getElementById("id_conj_category").innerHTML = cat;
 }
 
+function hiraganaKanjiCheck(char)
+{
+    const code = char.charCodeAt(0);
+    const isHiragana = code >= 0x3040 && code <= 0x309F;
+    const isKanji = code >= 0x4E00 && code <= 0x9FBF;
+    return !(isHiragana || isKanji);
+}
+
 function conjugate_verb(verb, formal = false)
 {
     let strval = String(verb); 
@@ -257,6 +265,14 @@ function conjugate_verb(verb, formal = false)
     }
     else
     {
+        for(let i = 0; i < strval.length; ++i)
+        {
+            if(hiraganaKanjiCheck(strval[i]))
+            {
+                alert("Invalid verb specification.");
+                return;
+            }
+        }
         if(verb === "くる" || verb === "来る")
         {
             conjugate_kuru();
