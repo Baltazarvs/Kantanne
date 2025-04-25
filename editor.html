@@ -1,0 +1,70 @@
+<!-- Copyright (C) 2025 baltazarus -->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Kantan-Ne?</title>
+    <link href="style/main.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="main_panel">
+        <div class="main_panel_subdiv" style="text-align: center;"><h1>Flashcard Editor 1.0</h1></div>
+        <div class="main_panel_subdiv">
+            
+            <div class="editor_list" style="height: auto;overflow: hidden;">
+                <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;">
+                    <div class="editor_column_cell" style="width: 2%;"></div>
+                    <div class="editor_column_cell" style="width: 5%;"><span id="id_editor_field_index_auto">#</span></div>
+                    <div class="editor_column_cell"><input type="text" placeholder="Word*" id="id_editor_field_word" class="add_field_stl" /></div>
+                    <div class="editor_column_cell"><input type="text" placeholder="Reading*" id="id_editor_field_reading" class="add_field_stl" /></div>
+                    <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Meaning*" id="id_editor_field_meaning" class="add_field_stl" /></div>
+                    <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Romaji" id="id_editor_field_romaji" class="add_field_stl" /></div>
+                    <div class="editor_column_cell"><button class="insert_button_cls" onclick="pushWord();">Add</button></div>
+                    <div class="editor_column_cell"><button class="insert_button_cls" style="background-color: blue;" onclick="saveJson();">Save</button></div>
+                </div>
+            </div>
+            <div class="editor_list" id="id_list_em">
+                <div class="editor_list_item editor_list_item_nopadd">
+                    <div class="editor_column_cell" style="width: 2%;"></div>
+                    <div class="editor_column_cell" style="width: 5%;">#</div>
+                    <div class="editor_column_cell">Word</div>
+                    <div class="editor_column_cell">Reading</div>
+                    <div class="editor_column_cell editor_col_cell_non_terminal">Meaning</div>
+                </div>
+            </div>
+            <div class="editor_list" style="flex-direction: row;height: auto;overflow: hidden;border-top: 1px solid darkgray;">
+                <div class="editor_column_cell"><button class="insert_button_cls" onclick="displayWindow('id_popup_window');">View JSON</button></div>
+                <div class="editor_column_cell">
+                    <label class="json_upload_editor">
+                        <input type="file" style="width: 100%;" class="json_upload_old" id="id_upload_json_input"/>
+                        Upload JSON
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main_menu">
+        <div><button class="menu_button" style="background-color: white;"><img src="media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
+        <div><button class="menu_button">Home<br><b>家</b></button></div>
+        <div><button class="menu_button">Study<br><b>勉強</b></button></div>
+        <div><button class="menu_button">Dictionary<br><b>辞書</b></button></div>
+        <div><button class="menu_button" onclick="window.location.href = 'conj.html';">Conjugator<br><b>変化</b></button></div>
+        <div style="width: 50px;"></div>
+    </div>
+
+    <div class="popup_window_dim" id="id_popup_window_dim"></div>
+    <div class="popup_window" id="id_popup_window">
+        <div style="height: auto;" class="popup_window_title" onclick="closeWindow('id_popup_window')">JSON Source</div>
+        <div style="height: 100%;">
+            <textarea class="jsonSrc" id="id_textarea_json_code" style="padding: 10px;" disabled>
+"words": [
+]           
+            </textarea>
+        </div>
+    </div>
+
+    <script src="script/main.js"></script>
+    <script src="script/popup_window.js"></script>
+    <script src="script/editor.js"></script>
+</body>
+</html>

@@ -115,6 +115,14 @@ button.conj_tab_button {
     color: white;
 }
 
+button.conj_tab_button:disabled {
+    background-color: gray;
+}
+
+button.conj_tab_button:disabled:hover {
+    background-color: gray;
+}
+
 button.conj_tab_button:hover {
     background-color: #ff5151;
 }
@@ -164,4 +172,163 @@ button.cls_conj_tab_active {
 .inflection_highlight {
     color: red;
     font-weight: bold;
+}
+
+.inflection_highlight_custom {
+    font-weight: bold;
+}
+
+div.editor_list {
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    background-color: azure;
+    overflow-x: auto;
+    overflow-y: scroll;
+}
+
+div.editor_list_item {
+    display: flex;
+    flex-direction: row;
+    background-color: #ceffff;
+}
+
+div.editor_list_item_nopadd {
+    padding: 0;
+}
+
+div.item_non_terminal {
+    border-bottom: 1px solid lightgray;
+}
+
+.editor_column_cell {
+    padding: 10px;
+    background-color: azure;
+    border-right: 1px solid #ceffff;
+    border-bottom: 1px solid #ceffff;
+    width: 10%;
+}
+
+.editor_col_cell_non_terminal {
+    border-right: 0;
+}
+
+.editor_list_item_cell {
+    border-right: 1px solid azure;
+    width: 10%;
+    padding: 10px;
+}
+
+.insert_button_cls {
+    width: calc(100% - 10px);
+    border: 0;
+    background-color: #ff5151;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.insert_button_cls:hover {
+    background-color: #ff6e6e;
+}
+
+.add_field_stl {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 0;
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+
+.popup_window {
+    background-color: #ff2a2a;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: calc(100% - 200px);
+    height: calc(100% - 200px);
+    border-radius: 10px;
+    margin: 100px;
+    border: 1px solid black;
+    display: none;
+}
+
+.popup_window_title {
+    padding: 10px;
+    color: black;
+    background-color: darkgray;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: center;
+}
+
+.popup_window_title:hover {
+    background-color: #ff7a7a;
+    cursor: pointer;
+}
+
+textarea.jsonSrc {
+    border: 0;
+    font-family: Consolas, sans-serif, Verdana, Geneva, Tahoma;
+    font-size: 20px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: calc(100% - 20px);
+    height: calc(100% - 60px);
+    max-width: calc(100% - 20px);
+    max-height: calc(100% - 60px);
+    min-width: calc(100% - 20px);
+    min-height: calc(100% - 60px);
+}
+
+textarea.jsonSrc:disabled {
+    background-color: lightgray;
+}
+
+div.popup_window_dim {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: black;
+    opacity: 0.8;
+    display: none;
+}
+
+input[type=button].xitmbtn {
+    border: 0;
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 10%;
+    font-weight: bold;
+    height: 100%;
+    width: auto;
+}
+
+input[type=button].xitmbtn:hover {
+    background-color: #ff5151;
+}
+
+.delcelmod {
+    display: none;
+}
+
+input[type=file].json_upload_old {
+    display: none;
+}
+
+.json_upload_editor {
+    display: inline-block;
+    padding: 7px 13px;
+    width: calc(100% - 26px);
+    height: calc(100% - 13px);
+    cursor: pointer;
+    border: 0;
+    color: white;
+    background-color: #ff5151;
+    border-radius: 5px;
+    text-align: center;
 }

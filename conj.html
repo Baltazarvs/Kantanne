@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Conjugator - Kantan-Ne?</title>
+    <script src="https://unpkg.com/wanakana"></script>
     <link href="style/main.css" rel="stylesheet"/>
 </head>
 <body>
     <div class="main_panel">
         <div class="main_panel_subdiv" style="text-align: center;"><h1>Conjugator</h1></div>
         <div class="main_panel_subdiv" style="text-align: center;">
-            <p style="font-size: 12px;margin: 0;">Enter a dictionary form of a verb using HIRAGANA (Kanji is allowed)</p>
+            <p style="font-size: 12px;margin: 0;">Enter a dictionary form of a verb using HIRAGANA (Kanji works only for GODAN verbs)</p>
         </div>
         <div class="main_panel_subdiv" style="display: flex;flex-direction: row;">
             <div style="width: 90%;"><input type="text" id="conj_text_input" placeholder="Enter dictionary verb..." /></div>
@@ -109,32 +110,6 @@
     </div>
     
     <script src="script/conjugator.js"></script>
-    <script>
-        var btn_normal = document.getElementById("id_tab_normal");
-        var btn_formal = document.getElementById("id_tab_formal");
-
-        document.getElementById("conj_text_button").addEventListener("click", function() {
-            let verb = document.getElementById("conj_text_input").value;
-            conjugate_verb(verb, bFormalActive); // bFormalActive is global in conjugator.js
-        });
-
-        function conj_normal()
-        {
-            let verb = document.getElementById("conj_text_input").value;
-            btn_normal.classList.add("cls_conj_tab_active");
-            btn_formal.classList.remove("cls_conj_tab_active");
-            conjugate_verb(verb, false);
-        }
-
-        function conj_formal()
-        {
-            let verb = document.getElementById("conj_text_input").value;
-            btn_formal.classList.add("cls_conj_tab_active");
-            btn_normal.classList.remove("cls_conj_tab_active");
-            conjugate_verb(verb, true);
-        }
-    </script>
-
     <script src="script/main.js"></script>
 </body>
 </html>
