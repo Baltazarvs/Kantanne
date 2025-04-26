@@ -11,5 +11,7 @@
   簡単ね is in early state of development and supports only GODAN verb conjugation. Development will continue
   until Kantanne is fully functional. It is planned to have full functional conjugator that supports GODAN,
   ICHIDAN, Irregular verbs and I-adjectives, as same as DA/DESU. Also, it will have fully functional flashcards
-  that will be customizable by user using TXT file and will allow rich customization.
+  that will be customizable by user using TXT file and will allow rich customization. If you wonder how does
+  input text supports hiragana natively in conjugator, Kantanne uses WanaKana as it is great and
+  helpful tool for this matter because writing one again and again is bottleneck. 
 </h6>
