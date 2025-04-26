@@ -1,0 +1,305 @@
+{
+	"words":
+	[
+		{
+			"word": "簡単",
+			"furigana": "かんたん",
+			"romaji": "kantan",
+			"meaning": "simple,easy"
+		},
+		{
+			"word": "美味しい",
+			"furigana": "おいしい",
+			"romaji": "oi-shii",
+			"meaning": "delicious"
+		},
+		{
+			"word": "不味い",
+			"furigana": "まずい",
+			"romaji": "mazui",
+			"meaning": "undelicious"
+		},
+		{
+			"word": "関係",
+			"furigana": "かんけい",
+			"romaji": "",
+			"meaning": "Relationship"
+		},
+		{
+			"word": "黒板",
+			"furigana": "こくばん",
+			"romaji": "",
+			"meaning": "blackboard"
+		},
+		{
+			"word": "相談",
+			"furigana": "そうだん",
+			"romaji": "",
+			"meaning": "consultation"
+		},
+		{
+			"word": "原因",
+			"furigana": "げんいん",
+			"romaji": "gen'in",
+			"meaning": "cause, reason"
+		},
+		{
+			"word": "痛い",
+			"furigana": "いた-い",
+			"romaji": "itai",
+			"meaning": "painful, hurt"
+		},
+		{
+			"word": "委員",
+			"furigana": "いいん",
+			"romaji": "iin",
+			"meaning": "comitee member"
+		},
+		{
+			"word": "宿題",
+			"furigana": "しゅくだい",
+			"romaji": "shukudai",
+			"meaning": "homework"
+		},
+		{
+			"word": "宿",
+			"furigana": "やど",
+			"romaji": "yado",
+			"meaning": "inn"
+		},
+		{
+			"word": "お礼",
+			"furigana": "お-れい",
+			"romaji": "orei",
+			"meaning": "thanks, gratitude"
+		},
+		{
+			"word": "返す",
+			"furigana": "かえす",
+			"romaji": "kaesu",
+			"meaning": "to return (something), to restore, to put back"
+		},
+		{
+			"word": "返事",
+			"furigana": "へんじ",
+			"romaji": "henji",
+			"meaning": "reply, answer, response"
+		},
+		{
+			"word": "指",
+			"furigana": "ゆび",
+			"romaji": "yubi",
+			"meaning": "finger"
+		},
+		{
+			"word": "指輪",
+			"furigana": "ゆびわ",
+			"romaji": "yubiwa",
+			"meaning": "ring"
+		},
+		{
+			"word": "近い",
+			"furigana": "ちか-い",
+			"romaji": "chikai",
+			"meaning": "close, near"
+		},
+		{
+			"word": "遠い",
+			"furigana": "とお-い",
+			"romaji": "tōi",
+			"meaning": "far, away"
+		},
+		{
+			"word": "声",
+			"furigana": "こえ",
+			"romaji": "koe",
+			"meaning": "voice"
+		},
+		{
+			"word": "野",
+			"furigana": "の",
+			"romaji": "no",
+			"meaning": "field"
+		},
+		{
+			"word": "運ぶ",
+			"furigana": "はこぶ",
+			"romaji": "hakobu",
+			"meaning": "carry, transport"
+		},
+		{
+			"word": "運転",
+			"furigana": "うんてん",
+			"romaji": "unten",
+			"meaning": "Driving, to drive (SURU)"
+		},
+		{
+			"word": "薬",
+			"furigana": "くすり",
+			"romaji": "kusuri",
+			"meaning": "medicine, medication"
+		},
+		{
+			"word": "霧",
+			"furigana": "きり",
+			"romaji": "kiri",
+			"meaning": "fog, mist"
+		},
+		{
+			"word": "場所",
+			"furigana": "ばしょ",
+			"romaji": "basho",
+			"meaning": "location, place"
+		},
+		{
+			"word": "番号",
+			"furigana": "ばんごう",
+			"romaji": "bangō",
+			"meaning": "number, digits"
+		},
+		{
+			"word": "店員",
+			"furigana": "てんいん",
+			"romaji": "ten'in",
+			"meaning": "shop worker, salesperson"
+		},
+		{
+			"word": "医者",
+			"furigana": "いしゃ",
+			"romaji": "isha",
+			"meaning": "doctor, medic"
+		},
+		{
+			"word": "演技",
+			"furigana": "えんぎ",
+			"romaji": "engi",
+			"meaning": "acting, performance"
+		},
+		{
+			"word": "易しい",
+			"furigana": "やさ-しい",
+			"romaji": "yasa-shii",
+			"meaning": "easy, plain"
+		},
+		{
+			"word": "衛星",
+			"furigana": "えいせい",
+			"romaji": "eisei",
+			"meaning": "hygiene"
+		},
+		{
+			"word": "利益",
+			"furigana": "りえき",
+			"romaji": "rieki",
+			"meaning": "profit, gains"
+		},
+		{
+			"word": "次の",
+			"furigana": "つぎ の",
+			"romaji": "tsugi no",
+			"meaning": "next, following"
+		},
+		{
+			"word": "決定",
+			"furigana": "けってい",
+			"romaji": "kettei",
+			"meaning": "decision, decide (SURU)"
+		},
+		{
+			"word": "短い",
+			"furigana": "みじか-い",
+			"romaji": "mijika-i",
+			"meaning": "short, not long"
+		},
+		{
+			"word": "祭り",
+			"furigana": "まつり",
+			"romaji": "matsuri",
+			"meaning": "festival"
+		},
+		{
+			"word": "球",
+			"furigana": "たま",
+			"romaji": "tama",
+			"meaning": "ball, sphere"
+		},
+		{
+			"word": "道路",
+			"furigana": "どうろ",
+			"romaji": "dōro",
+			"meaning": "road, highway"
+		},
+		{
+			"word": "進化",
+			"furigana": "しんか",
+			"romaji": "shinka",
+			"meaning": "evolution"
+		},
+		{
+			"word": "仕事",
+			"furigana": "しごと",
+			"romaji": "shigoto",
+			"meaning": "work, job"
+		},
+		{
+			"word": "流れ",
+			"furigana": "ながれ",
+			"romaji": "nagare",
+			"meaning": "sink, flow"
+		},
+		{
+			"word": "育てる",
+			"furigana": "そだてる",
+			"romaji": "sodateru",
+			"meaning": "to raise, to bring up, to train"
+		},
+		{
+			"word": "強調",
+			"furigana": "きょうちょう",
+			"romaji": "kyōchō",
+			"meaning": "emphasis, emphasize (SURU)"
+		},
+		{
+			"word": "級",
+			"furigana": "キュウ",
+			"romaji": "kyū",
+			"meaning": "class, rank, grade"
+		},
+		{
+			"word": "注ぐ",
+			"furigana": "そそぐ",
+			"romaji": "sosogu",
+			"meaning": "to pour (into)"
+		},
+		{
+			"word": "正式",
+			"furigana": "せいしき",
+			"romaji": "seishiki",
+			"meaning": "formal, official, regular, proper, legal"
+		},
+		{
+			"word": "役",
+			"furigana": "ヤク",
+			"romaji": "yaku",
+			"meaning": "role, assignment, responsibility, duty, service"
+		},
+		{
+			"word": "荷物",
+			"furigana": "にもつ",
+			"romaji": "nimotsu",
+			"meaning": "luggage"
+		},
+		{
+			"word": "教育",
+			"furigana": "きょういく",
+			"romaji": "kyūiku",
+			"meaning": "education, schooling, teaching, upbringing, (SURU)"
+		},
+		{
+			"word": "意味",
+			"furigana": "いみ",
+			"romaji": "imi",
+			"meaning": "meaning, sense, to mean (SURU)"
+		}
+	]
+}

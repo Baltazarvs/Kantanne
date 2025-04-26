@@ -4,6 +4,16 @@ body {
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+    color: #135ddc;
+}
+
+a:hover {
+    color: #135fff;
+    text-decoration: underline;
+}
+
 div.main_menu {
     position: fixed;
     background: darkgray;
@@ -31,7 +41,7 @@ button.menu_button:hover {
 .card_main {
     background-color: lightgray;
     position: absolute;
-    display: flex;
+    display: none;
     flex-direction: column;
     padding: 20px;
     border-radius: 20px;
@@ -42,7 +52,7 @@ button.menu_button:hover {
     right: 40%;
     top: 20%;
     bottom: 40%;
-    overflow: auto;
+    overflow: hidden;
 }
 
 a.kanji_link {
@@ -331,4 +341,98 @@ input[type=file].json_upload_old {
     background-color: #ff5151;
     border-radius: 5px;
     text-align: center;
+}
+
+div.fc_controls {
+    position: absolute;
+    background-color: lightgray;
+    border: 3px solid gray;
+    border-radius: 10px;
+    border-bottom: 0;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    left: 30%;
+    bottom: 0;
+    top: calc(100% - 100px);
+    right: 30%;
+    padding: 10px;
+}
+
+button.control_button {
+    border: 0;
+    color: white;
+    background-color: rgb(255, 49, 90);
+    border-radius: 10px;
+    padding: 5px;
+    width: calc(100% / 2 - 5px);
+    height: 100%;
+}
+
+button.control_button:hover {
+    background-color: #ff6e6e;
+    cursor: pointer;
+}
+
+button.control_button:disabled {
+    background-color: #444;
+    color: white;
+    cursor: default;
+}
+
+.controls_span {
+    display: none;
+}
+
+#fc_separator, #fc_meaning {
+    display: none;
+}
+
+div.control_cbx {
+    left: 80%;
+    right: 0;
+    top: 80%;
+    padding: 20px;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+div.control_cbx_subdiv {
+    width: 100%;
+    height: 100%;
+}
+
+.fc_main_subdiv {
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    width: calc(100% - 20px);
+    display: flex;
+    flex-direction: column;
+}
+
+button.start_again_button {
+    margin: 10px;
+    border: 0;
+    background-color: #135ddc;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    display: none;
+}
+
+button.start_again_button:hover {
+    background-color: #135fff;
+    cursor: pointer;
+}
+
+.file_upload_mod {
+    width: 20%;
+    padding: 10px;
+}
+
+.file_upload_mod:hover {
+    background-color: #ff7a7a;
 }

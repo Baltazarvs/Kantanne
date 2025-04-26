@@ -1,0 +1,67 @@
+<!-- Copyright (C) 2025 baltazarus -->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Kantan-Ne?</title>
+    <link href="style/main.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="card_main" id="id_fc">
+        <div class="card_main_furigana" id="fc_furigana"></div>
+        <div class="card_main_kanji"><a class="kanji_link" href="javascript:void(0);" id="kanji_redirect"></a></div>
+        <div id="fc_separator"><hr class="card_main_separator"></div>
+        <div class="card_main_meaning" id="fc_meaning"></div>
+    </div>
+    <div class="card_main" id="id_fc_flipped">
+        <div class="card_main_meaning"><span id="id_flipped_meaning">-</span></div>
+    </div>
+
+    <div class="main_panel" id="id_mp">
+        <div class="main_panel_subdiv" style="text-align: center;">
+            <h1>簡単ね Flashcards</h1>
+            <h5>
+                Upload Kantan-ne JSON file and use flashcards to improve your learning.<br>
+                Use <a href="editor.html">editor</a> to generate JSON or edit it yourself if you know. It is not that hard<br>
+                just follow the Kantanne's JSON template.
+            </h5>
+        </div>
+        <div class="main_panel_subdiv fc_main_subdiv">
+            <label class="json_upload_editor file_upload_mod">
+                <input type="file" style="width: 100%;" class="json_upload_old" id="id_file_input"/>
+                Upload JSON
+            </label>
+            <button class="start_again_button" id="id_start_again" onclick="startFC();">Start Again</button>
+        </div>
+        <div class="main_panel_subdiv" style="text-align: center;">
+            <h6>Copyright (C) 2025 <a href="https://github.com/baltazarvs">Baltazarus</a>. Kantanne is free.</h6>
+        </div>
+    </div>
+
+    <span class="controls_span" id="id_controls_span">
+        <div class="fc_controls" style="left: 0; right: 90%;">
+            <button class="control_button" style="width: 100%;" onclick="stopFC();">Quit</button>
+        </div>
+        <div class="fc_controls">
+            <button class="control_button" id="id_flip_button" onclick="flipFlashcard();">Flip</button>
+            <button class="control_button" onclick="newFlashcard();">Next</button>
+        </div>
+        <div class="fc_controls control_cbx">
+            <div class="control_cbx_subdiv"><label><input type="checkbox" onchange="g_ReuseCards = !g_ReuseCards;" checked/>Reuse Cards</label></div>
+            <div class="control_cbx_subdiv"><label><input type="checkbox" onchange="toggleFurigana();"/>Hide Furigana</label></div>
+            <div class="control_cbx_subdiv"><label><input type="checkbox" onchange="toggleAll();"/>Show All</label></div>
+        </div>
+    </span>
+
+    <div class="main_menu">
+        <div><button class="menu_button" style="background-color: white;"><img src="media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
+        <div><button class="menu_button">Home<br><b>家</b></button></div>
+        <div><button class="menu_button">Study<br><b>勉強</b></button></div>
+        <div><button class="menu_button">Dictionary<br><b>辞書</b></button></div>
+        <div><button class="menu_button" onclick="window.location.href = 'conj.html';">Conjugator<br><b>変化</b></button></div>
+    </div>
+
+    <script src="script/main.js"></script>
+    <script src="script/flashcards.js"></script>
+</body>
+</html>

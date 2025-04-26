@@ -1,4 +1,4 @@
-var jsonInitialInline = "{\n\t\"words\": [\n";
+var jsonInitialInline = "{\n\t\"words\":\n\t[\n";
 var jsonFinalInline = "\t]\n}";
 var g_JsonObjCounter = 0;
 var g_WordArray = new Array();
