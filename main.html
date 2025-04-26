@@ -54,10 +54,11 @@
             <button class="control_button" id="id_flip_button" onclick="flipFlashcard();">Flip</button>
             <button class="control_button" onclick="newFlashcard();">Next</button>
         </div>
-        <div class="fc_controls control_cbx">
+        <div class="fc_controls control_cbx" style="text-align: left;">
             <div class="control_cbx_subdiv"><label><input type="checkbox" id="id_cbx_reuse" onchange="g_ReuseCards = !g_ReuseCards;" checked/>Reuse Cards</label></div>
             <div class="control_cbx_subdiv"><label><input type="checkbox" id="id_cbx_hfur" onchange="toggleFurigana();"/>Hide Furigana</label></div>
             <div class="control_cbx_subdiv"><label><input type="checkbox" id="id_cbx_showall" onchange="toggleAll();"/>Show All</label></div>
+            <div class="control_cbx_subdiv"><label><input type="checkbox" id="id_cbx_disppn" onchange="flagSwap();"/>Swap Reading</label></div>
             <div class="control_cbx_subdiv"><label><input type="checkbox" id="id_cbx_disppn" onchange="togglePN();"/>Display Prev/Next</label></div>
         </div>
     </span>

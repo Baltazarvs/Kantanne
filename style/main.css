@@ -267,6 +267,7 @@ div.item_non_terminal {
 
 .insert_button_cls {
     width: calc(100% - 10px);
+    height: 100%;
     border: 0;
     background-color: #ff5151;
     color: white;
@@ -280,6 +281,7 @@ div.item_non_terminal {
 
 .add_field_stl {
     width: calc(100% - 20px);
+    height: calc(100% - 20px);
     padding: 10px;
     border: 0;
     border: 2px solid gray;
@@ -426,7 +428,7 @@ button.control_button:disabled {
 div.control_cbx {
     left: 80%;
     right: 0;
-    top: 80%;
+    top: 70%;
     padding: 20px;
     align-items: center;
     text-align: center;
@@ -475,4 +477,18 @@ button.start_again_button:hover {
 
 div.prev_next_class {
     display: none;
+}
+
+.editor_htmlbox {
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    text-align: left;
+    padding: 10px;
+    display: none;
+    font-family: Consolas, sans-serif, Arial, Tahoma;
+}
+
+.word_found_mod {
+    background-color: mediumspringgreen;
 }

@@ -8,19 +8,36 @@
 </head>
 <body>
     <div class="main_panel">
-        <div class="main_panel_subdiv" style="text-align: center;"><h1>Flashcard Editor 1.0</h1></div>
+        <div class="main_panel_subdiv" style="text-align: center;">
+            <h1>Flashcard Editor 1.0</h1>
+            <h6>HTML is allowed in fields. <u><a href="javascript:void(0);" id="id_show_hide_html" onclick="toggleShowHideHTML();">show</a></u></h6>
+            <div class="editor_htmlbox" id="id_html">
+                <span style="font-size: 12px;">
+                    <span style="color: blue;">&lt;span style="color: <b>COLOR</b>;"&gt;</span> colored text... <span style="color: blue;">&lt;/span&gt;</span><br>
+                    <span style="color: blue;">&lt;span style="text-decoration: <b>underline</b>;"&gt;</span> decorated text... <span style="color: blue;">&lt;/span&gt;</span><br>
+                    <span style="color: blue;">&lt;span style="<span style="color: green;">text-decoration: <b>underline</b>;</span> <span style="color: red;">color: COLOR;</span>"&gt;</span> decorated + colored text... <span style="color: blue;">&lt;/span&gt;</span>
+                    <br><br>Text Decorations:<br>
+                    <span style="text-decoration: underline;">text-decoration: underline;</span><br>
+                    <span style="text-decoration: line-through;">text-decoration: line-through;</span>
+                </span>
+            </div>
+        </div>
         <div class="main_panel_subdiv">
             
             <div class="editor_list" style="height: auto;overflow: hidden;">
                 <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;">
-                    <div class="editor_column_cell" style="width: 2%;"></div>
+                    <div class="editor_column_cell" style="width: 2%;border-top-left-radius: 5px;"></div>
                     <div class="editor_column_cell" style="width: 5%;"><span id="id_editor_field_index_auto">#</span></div>
-                    <div class="editor_column_cell"><input type="text" placeholder="Word*" id="id_editor_field_word" class="add_field_stl" /></div>
+                    <div class="editor_column_cell"><input type="text" placeholder="Word*" id="id_editor_field_word" class="add_field_stl"/></div>
                     <div class="editor_column_cell"><input type="text" placeholder="Reading*" id="id_editor_field_reading" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Meaning*" id="id_editor_field_meaning" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Romaji" id="id_editor_field_romaji" class="add_field_stl" /></div>
                     <div class="editor_column_cell"><button class="insert_button_cls" onclick="pushWord();">Add</button></div>
                     <div class="editor_column_cell"><button class="insert_button_cls" style="background-color: blue;" onclick="saveJson();">Save</button></div>
+                    <div class="editor_column_cell" style="border-top-right-radius: 5px;" id="id_word_search_div">
+                        <p id="id_word_search" style="display: none;"><img src="media/loading.gif" style="width: 32px; height: auto;"/></p>
+                        <p id="id_word_found" style="display: none;height: 32px;">Word not found.</p>
+                    </div>
                 </div>
             </div>
             <div class="editor_list" id="id_list_em">

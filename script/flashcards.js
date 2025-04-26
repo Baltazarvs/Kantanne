@@ -12,6 +12,7 @@ var g_Flipped = new Boolean(false);
 
 var g_HideFurigana = new Boolean(false);
 var g_CurrentIndex = 0;
+var g_SwapWordMeaning = new Boolean(false);
 
 var g_ShowAll = new Boolean(false);
 var g_DisplayPN = new Boolean(false);
@@ -104,8 +105,8 @@ function newFlashcard(index = -1)
                 newObj.bUsed = true;
             }
 
-            document.getElementById("kanji_redirect").innerHTML = newObj.word;
-            document.getElementById("fc_furigana").innerHTML = newObj.reading;
+            document.getElementById("kanji_redirect").innerHTML = g_SwapWordMeaning ? newObj.word : newObj.reading;
+            document.getElementById("fc_furigana").innerHTML = g_SwapWordMeaning ? newObj.reading : newObj.word;
             document.getElementById("fc_meaning").innerHTML = newObj.meaning;
             document.getElementById("id_flipped_meaning").innerHTML = newObj.meaning;
             break;
@@ -173,4 +174,9 @@ function prevCard()
         g_CurrentIndex = g_WordArray.length-1;
         newFlashcard(g_CurrentIndex);
     }
+}
+
+function flagSwap()
+{
+    g_SwapWordMeaning = !g_SwapWordMeaning;
 }

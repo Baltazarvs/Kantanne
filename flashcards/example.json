@@ -300,6 +300,18 @@
 			"furigana": "いみ",
 			"romaji": "imi",
 			"meaning": "meaning, sense, to mean (SURU)"
+		},
+		{
+			"word": "繭",
+			"furigana": "まゆ",
+			"romaji": "mayu",
+			"meaning": "cocoon"
+		},
+		{
+			"word": "凸凹",
+			"furigana": "<u>でこぼこ</u>、おうとつ",
+			"romaji": "dekoboko",
+			"meaning": "unevenness, roughness, (NA), (SURU)"
 		}
 	]
 }

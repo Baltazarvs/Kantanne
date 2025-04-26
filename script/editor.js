@@ -6,6 +6,40 @@ var g_SelectedWordIndexes = new Array();
 var g_ShowDeleteButton = new Boolean(false);
 var g_CurrentCode = null;
 var file_input = document.getElementById("id_upload_json_input");
+var g_SearchExecuted = new Boolean(false);
+
+var checkExistingWord = () => {
+    if(g_WordArray.length == 0)
+    {
+        g_SearchExecuted = false;
+        return;
+    }
+
+    document.getElementById("id_word_found").style.display = "block";
+
+    let bFound = false;
+
+    for(let i = 0; i < g_WordArray.length; ++i)
+    {
+        if(g_WordArray[i].word === document.getElementById("id_editor_field_word").value)
+        {
+            bFound = true;
+            document.getElementById("id_word_found").innerHTML = "Word found.";
+            document.getElementById("id_word_search_div").classList.add("word_found_mod");
+            break;
+        }
+    }
+    
+    if(!bFound)
+    {    
+        document.getElementById("id_word_found").innerHTML = "&nbsp;";
+        document.getElementById("id_word_search_div").classList.remove("word_found_mod");
+    }
+
+    document.getElementById("id_word_search").style.display = "none";
+    g_SearchExecuted = false;
+    return;
+};
 
 file_input.addEventListener("change", function() {
     const fn = file_input.files[0];
@@ -134,6 +168,17 @@ function pushWord(a = null, b = null, c = null, d = null)
         return;
     }
 
+    for(let i = 0; i < g_WordArray.length; ++i)
+    {
+        if(g_WordArray[i].word === word.value || g_WordArray[i].word === a)
+        {
+            let conf = confirm("The world already exists in collection. Do you wish to proceed?");
+            if(!conf)
+                return;
+            break;
+        }
+    }
+
     g_JsonObjCounter += 1;
     g_WordArray.push(new WordObject(g_JsonObjCounter, (a == null) ? word.value : a, (b == null) ? furigana.value : b, (c == null) ? romaji.value : c, (d == null) ? meaning.value : d));
 
@@ -153,3 +198,36 @@ function saveJson()
     link.click();
     URL.revokeObjectURL(link.href);
 }
+
+function toggleShowHideHTML()
+{
+    let showHide = document.getElementById("id_show_hide_html");
+    let htmlBox = document.getElementById("id_html");
+
+    if(htmlBox.style.display === "block")
+    {
+        htmlBox.style.display = "none";
+        showHide.innerHTML = "show";
+    }
+    else
+    {
+        htmlBox.style.display = "block";
+        showHide.innerHTML = "hide";
+    }
+}
+
+document.getElementById("id_editor_field_word").addEventListener("input", () => {
+    if(!g_SearchExecuted.valueOf())
+    {
+        document.getElementById("id_word_found").style.display = "none";
+        document.getElementById("id_word_search").style.display = "block";
+        document.getElementById("id_word_search_div").classList.remove("word_found_mod");
+
+        setTimeout(
+            () => {
+                checkExistingWord();
+            }, 1000
+        );
+        g_SearchExecuted = true;
+    }
+});
