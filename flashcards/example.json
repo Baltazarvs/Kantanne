@@ -312,6 +312,180 @@
 			"furigana": "<u>でこぼこ</u>、おうとつ",
 			"romaji": "dekoboko",
 			"meaning": "unevenness, roughness, (NA), (SURU)"
+		},
+		{
+			"word": "商品",
+			"furigana": "しょうひん",
+			"romaji": "shōhin",
+			"meaning": "goods, articles"
+		},
+		{
+			"word": "整理",
+			"furigana": "せいり",
+			"romaji": "seiri",
+			"meaning": "sorting, arrangement, organization"
+		},
+		{
+			"word": "研究",
+			"furigana": "けんきゅう",
+			"romaji": "kenkyū",
+			"meaning": "research, study, (SURU)"
+		},
+		{
+			"word": "海岸",
+			"furigana": "かいがん",
+			"romaji": "kaigan",
+			"meaning": "beach"
+		},
+		{
+			"word": "期間",
+			"furigana": "きかん",
+			"romaji": "kikan",
+			"meaning": "period, interval"
+		},
+		{
+			"word": "期待",
+			"furigana": "きたい",
+			"romaji": "kitai",
+			"meaning": "expectation, await, (SURU)"
+		},
+		{
+			"word": "時期",
+			"furigana": "じき",
+			"romaji": "jiki",
+			"meaning": "time, season"
+		},
+		{
+			"word": "箱",
+			"furigana": "はこ",
+			"romaji": "hako",
+			"meaning": "box"
+		},
+		{
+			"word": "警官",
+			"furigana": "けいかん",
+			"romaji": "keikan",
+			"meaning": "police"
+		},
+		{
+			"word": "横",
+			"furigana": "よこ",
+			"romaji": "yoko",
+			"meaning": "horizontal"
+		},
+		{
+			"word": "植える",
+			"furigana": "うえる",
+			"romaji": "ueru",
+			"meaning": "to plant, to grow"
+		},
+		{
+			"word": "中央",
+			"furigana": "ちゅうおう",
+			"romaji": "chūō",
+			"meaning": "center, middle, centre"
+		},
+		{
+			"word": "深い",
+			"furigana": "ふか-い",
+			"romaji": "fuka‐i",
+			"meaning": "deep"
+		},
+		{
+			"word": "取る",
+			"furigana": "とる",
+			"romaji": "toru",
+			"meaning": "to take, to pick up, to grab"
+		},
+		{
+			"word": "西洋",
+			"furigana": "せいよう",
+			"romaji": "seiyō",
+			"meaning": "The West"
+		},
+		{
+			"word": "登る",
+			"furigana": "のぼる",
+			"romaji": "noboru",
+			"meaning": "to climb, to go up"
+		},
+		{
+			"word": "登山",
+			"furigana": "とざん",
+			"romaji": "tozan",
+			"meaning": "mountain climbing"
+		},
+		{
+			"word": "<span style=\"color: red;\"><b>畑</b></span>",
+			"furigana": "はたけ",
+			"romaji": "hatake",
+			"meaning": "farm"
+		},
+		{
+			"word": "軽い",
+			"furigana": "かる‐い",
+			"romaji": "karu-i",
+			"meaning": "light, easy, not heavy"
+		},
+		{
+			"word": "平和",
+			"furigana": "へいわ",
+			"romaji": "heiwa",
+			"meaning": "peace, harmony"
+		},
+		{
+			"word": "戦争",
+			"furigana": "せんそう",
+			"romaji": "sensō",
+			"meaning": "war, (SURU)"
+		},
+		{
+			"word": "文章",
+			"furigana": "ぶんしょう",
+			"romaji": "bunshō",
+			"meaning": "writing, composition, essay"
+		},
+		{
+			"word": "鉛筆",
+			"furigana": "えんぴつ",
+			"romaji": "enpitsu",
+			"meaning": "pencil"
+		},
+		{
+			"word": "万年筆",
+			"furigana": "まんねんひつ",
+			"romaji": "man'nenhitsu",
+			"meaning": "fountain pen"
+		},
+		{
+			"word": "勝つ",
+			"furigana": "かつ",
+			"romaji": "katsu",
+			"meaning": "to win, to gain victory"
+		},
+		{
+			"word": "練習",
+			"furigana": "れんしゅう",
+			"romaji": "renshū",
+			"meaning": "practice, training, drill"
+		},
+		{
+			"word": "生命",
+			"furigana": "せいめい",
+			"romaji": "seimei",
+			"meaning": "life, existence"
+		},
+		{
+			"word": "命令",
+			"furigana": "めいれい",
+			"romaji": "meirei",
+			"meaning": "command, order, directive, (SURU)"
+		},
+		{
+			"word": "坂",
+			"furigana": "さか",
+			"romaji": "saka",
+			"meaning": "slope"
 		}
 	]
 }

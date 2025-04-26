@@ -13,12 +13,17 @@
             <h6>HTML is allowed in fields. <u><a href="javascript:void(0);" id="id_show_hide_html" onclick="toggleShowHideHTML();">show</a></u></h6>
             <div class="editor_htmlbox" id="id_html">
                 <span style="font-size: 12px;">
-                    <span style="color: blue;">&lt;span style="color: <b>COLOR</b>;"&gt;</span> colored text... <span style="color: blue;">&lt;/span&gt;</span><br>
-                    <span style="color: blue;">&lt;span style="text-decoration: <b>underline</b>;"&gt;</span> decorated text... <span style="color: blue;">&lt;/span&gt;</span><br>
-                    <span style="color: blue;">&lt;span style="<span style="color: green;">text-decoration: <b>underline</b>;</span> <span style="color: red;">color: COLOR;</span>"&gt;</span> decorated + colored text... <span style="color: blue;">&lt;/span&gt;</span>
-                    <br><br>Text Decorations:<br>
-                    <span style="text-decoration: underline;">text-decoration: underline;</span><br>
-                    <span style="text-decoration: line-through;">text-decoration: line-through;</span>
+                    &lt;b&gt;<b>bold text</b>&lt;/b&gt;<br>
+                    &lt;i&gt;<i>italic text</i>&lt;/i&gt;<br>
+                    &lt;u&gt;<u>underline text</u>&lt;/u&gt;<br>
+                    &lt;s&gt;<s>strikethrough text</s>&lt;/s&gt;<br>
+                    &lt;i&gt;&lt;u&gt;<i><u>italic + underline text</u></i>&lt;/u&gt;&lt;/i&gt;
+                    <span style="background-color: gray; color: blue;">
+                        <b>
+                            &lt;-- You can combine HTML tags.
+                        </b>
+                    </span><br><br>
+                    You can use style attribute and &lt;span&gt; tag too, but be careful as you must use \" instead of normal double quote "
                 </span>
             </div>
         </div>
