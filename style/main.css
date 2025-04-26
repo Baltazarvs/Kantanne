@@ -48,11 +48,51 @@ button.menu_button:hover {
     border-style: dashed;
     border-color: gray;
     text-align: center;
-    left: 40%;
-    right: 40%;
-    top: 20%;
-    bottom: 40%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 20%;
+    min-height: calc((16/9)*20%);
+    width: auto;
+    height: auto;
     overflow: hidden;
+}
+
+.card_mod {
+    background-color: #ff3131;
+    color: white;
+    user-select: none;
+}
+
+.card_mod:hover {
+    background-color: #ff5151;
+    cursor: pointer;
+}
+
+.card_mod_prev {
+    left: calc((100% - 50%) - 20%);
+    top: 50%;
+    min-width: 5%;
+    max-width: 5%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    border: 0;
+}
+
+.card_mod_next {
+    left: calc(100% - 30%);
+    top: 50%;
+    min-width: 5%;
+    max-width: 5%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    border: 0;
 }
 
 a.kanji_link {
@@ -61,11 +101,7 @@ a.kanji_link {
 }
 
 .card_main_kanji {
-    font-size: 10px;
-}
-
-.card_main_kanji {
-    font-size: 60px;
+    font-size: 40px;
 }
 
 .card_main_meaning {
@@ -361,7 +397,7 @@ div.fc_controls {
 button.control_button {
     border: 0;
     color: white;
-    background-color: rgb(255, 49, 90);
+    background-color: #ff3131;
     border-radius: 10px;
     padding: 5px;
     width: calc(100% / 2 - 5px);
@@ -435,4 +471,8 @@ button.start_again_button:hover {
 
 .file_upload_mod:hover {
     background-color: #ff7a7a;
+}
+
+div.prev_next_class {
+    display: none;
 }

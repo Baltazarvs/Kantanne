@@ -1,0 +1,287 @@
+{
+	"words":
+	[
+		{
+			"word": "一、１",
+			"furigana": "いち",
+			"romaji": "いち",
+			"meaning": "One"
+		},
+		{
+			"word": "二、２",
+			"furigana": "に",
+			"romaji": "ni",
+			"meaning": "two"
+		},
+		{
+			"word": "三、３",
+			"furigana": "さん",
+			"romaji": "san",
+			"meaning": "three"
+		},
+		{
+			"word": "四、４",
+			"furigana": "よん、よ、シ",
+			"romaji": "yon, shi",
+			"meaning": "four"
+		},
+		{
+			"word": "五、５",
+			"furigana": "ご",
+			"romaji": "go",
+			"meaning": "five"
+		},
+		{
+			"word": "六、６",
+			"furigana": "ろく",
+			"romaji": "roku",
+			"meaning": "six"
+		},
+		{
+			"word": "七、７",
+			"furigana": "しち、なな",
+			"romaji": "shichi, nana",
+			"meaning": "seven"
+		},
+		{
+			"word": "八、８",
+			"furigana": "はち",
+			"romaji": "hachi",
+			"meaning": "eight"
+		},
+		{
+			"word": "九、９",
+			"furigana": "きゅう",
+			"romaji": "kyuu",
+			"meaning": "nine"
+		},
+		{
+			"word": "十、１０",
+			"furigana": "じゅう",
+			"romaji": "juu",
+			"meaning": "ten"
+		},
+		{
+			"word": "一つ",
+			"furigana": "ひと-つ",
+			"romaji": "hitotsu",
+			"meaning": "one"
+		},
+		{
+			"word": "二つ",
+			"furigana": "ふた-つ",
+			"romaji": "futatsu",
+			"meaning": "two"
+		},
+		{
+			"word": "三つ",
+			"furigana": "みっつ",
+			"romaji": "mittsu",
+			"meaning": "three"
+		},
+		{
+			"word": "四つ",
+			"furigana": "よっつ",
+			"romaji": "yottsu",
+			"meaning": "four"
+		},
+		{
+			"word": "五つ",
+			"furigana": "いつ-つ",
+			"romaji": "itsutsu",
+			"meaning": "five"
+		},
+		{
+			"word": "六つ",
+			"furigana": "むっつ",
+			"romaji": "muttsu",
+			"meaning": "six"
+		},
+		{
+			"word": "七つ",
+			"furigana": "ななつ",
+			"romaji": "nanatsu",
+			"meaning": "seven"
+		},
+		{
+			"word": "八つ",
+			"furigana": "やっつ",
+			"romaji": "yattsu",
+			"meaning": "eight"
+		},
+		{
+			"word": "九つ",
+			"furigana": "ここの-つ",
+			"romaji": "kokonotsu",
+			"meaning": "nine"
+		},
+		{
+			"word": "十",
+			"furigana": "とう、と",
+			"romaji": "tō, to",
+			"meaning": "ten"
+		},
+		{
+			"word": "十一、１１",
+			"furigana": "じゅういち",
+			"romaji": "juuichi",
+			"meaning": "eleven"
+		},
+		{
+			"word": "十二、１２",
+			"furigana": "じゅうに",
+			"romaji": "juuni",
+			"meaning": "twelve"
+		},
+		{
+			"word": "十三、１３",
+			"furigana": "じゅうさん",
+			"romaji": "juusan",
+			"meaning": "thirteen"
+		},
+		{
+			"word": "十四、１４",
+			"furigana": "じゅうよん、じゅうし",
+			"romaji": "juuyonn, juushi",
+			"meaning": "fourteen"
+		},
+		{
+			"word": "十五、１７",
+			"furigana": "じゅうご",
+			"romaji": "juugo",
+			"meaning": "fifteen"
+		},
+		{
+			"word": "十六、１６",
+			"furigana": "じゅうろく",
+			"romaji": "juuroku",
+			"meaning": "sixteen"
+		},
+		{
+			"word": "十七、１７",
+			"furigana": "じゅうなな、じゅうしち",
+			"romaji": "juunana, juushichi",
+			"meaning": "seventeen"
+		},
+		{
+			"word": "十八、１８",
+			"furigana": "じゅうはち",
+			"romaji": "juuhachi",
+			"meaning": "eighteen"
+		},
+		{
+			"word": "十九、１９",
+			"furigana": "じゅうきゅう",
+			"romaji": "juukyuu",
+			"meaning": "nineteen"
+		},
+		{
+			"word": "二十、２０",
+			"furigana": "にじゅう",
+			"romaji": "nijuu",
+			"meaning": "twenty"
+		},
+		{
+			"word": "三十、３０",
+			"furigana": "さんじゅう",
+			"romaji": "sanjuu",
+			"meaning": "thirty"
+		},
+		{
+			"word": "四十、４０",
+			"furigana": "よんじゅう",
+			"romaji": "yonjuu",
+			"meaning": "fourty"
+		},
+		{
+			"word": "五十、５０",
+			"furigana": "ごじゅう",
+			"romaji": "gojuu",
+			"meaning": "fifty"
+		},
+		{
+			"word": "六十、６０",
+			"furigana": "ろくじゅう",
+			"romaji": "rokujuu",
+			"meaning": "sixty"
+		},
+		{
+			"word": "七十、７０",
+			"furigana": "ななじゅう",
+			"romaji": "nanajuu",
+			"meaning": "seventy"
+		},
+		{
+			"word": "八十、８０",
+			"furigana": "はちじゅう",
+			"romaji": "hachijuu",
+			"meaning": "eighty"
+		},
+		{
+			"word": "九十、９０",
+			"furigana": "きゅうじゅう",
+			"romaji": "kyuujuu",
+			"meaning": "ninety"
+		},
+		{
+			"word": "百、１００",
+			"furigana": "ひゃく",
+			"romaji": "hyaku",
+			"meaning": "hundred"
+		},
+		{
+			"word": "二百、２００",
+			"furigana": "にひゃく",
+			"romaji": "nihyaku",
+			"meaning": "two hundred"
+		},
+		{
+			"word": "三百、３００",
+			"furigana": "さんびゃく",
+			"romaji": "sanbyaku",
+			"meaning": "three hundred"
+		},
+		{
+			"word": "四百、４００",
+			"furigana": "よんひゃく",
+			"romaji": "yonhyaku",
+			"meaning": "four hundred"
+		},
+		{
+			"word": "五百、５００",
+			"furigana": "ごひゃく",
+			"romaji": "gohyaku",
+			"meaning": "five hundred"
+		},
+		{
+			"word": "六百、６００",
+			"furigana": "ろっぴゃく",
+			"romaji": "roppyaku",
+			"meaning": "six hundred"
+		},
+		{
+			"word": "七百、７００",
+			"furigana": "ななひゃく",
+			"romaji": "nanahyaku",
+			"meaning": "seven hundred"
+		},
+		{
+			"word": "八百、８００",
+			"furigana": "はっぴゃく",
+			"romaji": "happyaku",
+			"meaning": "eight hundred"
+		},
+		{
+			"word": "九百、９００",
+			"furigana": "きゅうひゃく",
+			"romaji": "kyuuhyaku",
+			"meaning": "nine hundred"
+		},
+		{
+			"word": "千、１０００",
+			"furigana": "セン",
+			"romaji": "sen",
+			"meaning": "thousand"
+		}
+	]
+}

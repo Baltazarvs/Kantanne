@@ -16,7 +16,15 @@
     <div class="card_main" id="id_fc_flipped">
         <div class="card_main_meaning"><span id="id_flipped_meaning">-</span></div>
     </div>
+    <div class="prev_next_class" id="prev_next_id" style="display: none;">
+        <div class="card_main card_mod card_mod_prev" onclick="prevCard();">
+            <div class="card_main_kanji">Prev</div>
+        </div>
 
+        <div class="card_main card_mod card_mod_next" onclick="nextCard();">
+            <div class="card_main_kanji">Next</div>
+        </div>
+    </div>
     <div class="main_panel" id="id_mp">
         <div class="main_panel_subdiv" style="text-align: center;">
             <h1>簡単ね Flashcards</h1>
@@ -47,17 +55,16 @@
             <button class="control_button" onclick="newFlashcard();">Next</button>
         </div>
         <div class="fc_controls control_cbx">
-            <div class="control_cbx_subdiv"><label><input type="checkbox" onchange="g_ReuseCards = !g_ReuseCards;" checked/>Reuse Cards</label></div>
-            <div class="control_cbx_subdiv"><label><input type="checkbox" onchange="toggleFurigana();"/>Hide Furigana</label></div>
-            <div class="control_cbx_subdiv"><label><input type="checkbox" onchange="toggleAll();"/>Show All</label></div>
+            <div class="control_cbx_subdiv"><label><input type="checkbox" id="id_cbx_reuse" onchange="g_ReuseCards = !g_ReuseCards;" checked/>Reuse Cards</label></div>
+            <div class="control_cbx_subdiv"><label><input type="checkbox" id="id_cbx_hfur" onchange="toggleFurigana();"/>Hide Furigana</label></div>
+            <div class="control_cbx_subdiv"><label><input type="checkbox" id="id_cbx_showall" onchange="toggleAll();"/>Show All</label></div>
+            <div class="control_cbx_subdiv"><label><input type="checkbox" id="id_cbx_disppn" onchange="togglePN();"/>Display Prev/Next</label></div>
         </div>
     </span>
 
     <div class="main_menu">
         <div><button class="menu_button" style="background-color: white;"><img src="media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
-        <div><button class="menu_button">Home<br><b>家</b></button></div>
-        <div><button class="menu_button">Study<br><b>勉強</b></button></div>
-        <div><button class="menu_button">Dictionary<br><b>辞書</b></button></div>
+        <div><a href="editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
         <div><button class="menu_button" onclick="window.location.href = 'conj.html';">Conjugator<br><b>変化</b></button></div>
     </div>
 

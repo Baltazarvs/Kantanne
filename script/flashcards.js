@@ -14,6 +14,7 @@ var g_HideFurigana = new Boolean(false);
 var g_CurrentIndex = 0;
 
 var g_ShowAll = new Boolean(false);
+var g_DisplayPN = new Boolean(false);
 
 var g_ReuseCards = new Boolean(true);
 var g_ReusedCounter = 0;
@@ -49,6 +50,16 @@ function startFC()
     document.getElementById("id_mp").style.display = "none";
     document.getElementById("id_fc").style.display = "flex";
     document.getElementById("id_controls_span").style.display = "block";
+    
+    if(g_DisplayPN)
+    {
+        document.getElementById("prev_next_id").style.display = "none";
+    }
+    else
+    {
+        document.getElementById("prev_next_id").style.display = "block"
+    }
+    
     newFlashcard();
 }
 
@@ -62,19 +73,20 @@ function stopFC()
     document.getElementById("id_mp").style.display = "flex";
     document.getElementById("id_fc").style.display = "none";   
     document.getElementById("id_controls_span").style.display = "none";
+    document.getElementById("prev_next_id").style.display = "none";
 }
 
-function newFlashcard()
+function newFlashcard(index = -1)
 {
     while(true)
     {
-        let randIndex = Math.floor(Math.random() * g_WordArray.length);
+        let randIndex = (index == -1) ? Math.floor(Math.random() * g_WordArray.length) : index;
         let newObj = g_WordArray[randIndex];
         g_CurrentIndex = randIndex;
 
         if(newObj.bUsed)
         {
-            randIndex = Math.floor(Math.random() * g_WordArray.length);
+            randIndex = (index == -1) ? Math.floor(Math.random() * g_WordArray.length) : index;
             newObj = g_WordArray[randIndex];
             g_CurrentIndex = randIndex;
             if(g_ReusedCounter == g_WordArray.length)
@@ -129,4 +141,36 @@ function toggleAll()
     document.getElementById("id_flip_button").disabled = g_ShowAll ? "disabled" : "";
 
     g_ShowAll = !g_ShowAll;
+}
+
+function togglePN()
+{
+    document.getElementById("prev_next_id").style.display = g_DisplayPN ? "block" : "none";
+    g_DisplayPN = !g_DisplayPN;
+}
+
+function nextCard()
+{
+    if(g_CurrentIndex < g_WordArray.length-1)
+    {
+        newFlashcard(g_CurrentIndex+1);
+    }
+    else
+    {
+        g_CurrentIndex = 0;
+        newFlashcard(0);
+    }
+}
+
+function prevCard()
+{
+    if(g_CurrentIndex > 0)
+    {
+        newFlashcard(g_CurrentIndex-1);
+    }
+    else
+    {
+        g_CurrentIndex = g_WordArray.length-1;
+        newFlashcard(g_CurrentIndex);
+    }
 }
