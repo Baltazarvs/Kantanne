@@ -350,7 +350,6 @@ input[type=button].xitmbtn {
     background-color: red;
     color: white;
     padding: 5px;
-    border-radius: 10%;
     font-weight: bold;
     height: 100%;
     width: auto;
@@ -379,6 +378,9 @@ input[type=file].json_upload_old {
     background-color: #ff5151;
     border-radius: 5px;
     text-align: center;
+    align-items: center;
+    align-content: center;
+    
 }
 
 div.fc_controls {
@@ -491,4 +493,18 @@ div.prev_next_class {
 
 .word_found_mod {
     background-color: mediumspringgreen;
+}
+
+input[type=text].search_field {
+    background-color: white;
+    border: 2px solid black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 10px;
+    border-radius: 10px;
+    width: calc(100% - 25px);
+    height: calc(100% - 20px);
+}
+
+.found_word_mod {
+    background-color: aqua;
 }

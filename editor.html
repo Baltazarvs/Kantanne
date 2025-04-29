@@ -28,7 +28,6 @@
             </div>
         </div>
         <div class="main_panel_subdiv">
-            
             <div class="editor_list" style="height: auto;overflow: hidden;">
                 <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;">
                     <div class="editor_column_cell" style="width: 2%;border-top-left-radius: 5px;"></div>
@@ -62,6 +61,13 @@
                         Upload JSON
                     </label>
                 </div>
+                <div class="editor_column_cell">
+                    <input type="text" class="search_field" placeholder="Search Word..." id="id_search_field" />
+                </div>
+                <div class="editor_column_cell">
+                    <img src="media/loading.gif" style="width: 32px; height: auto; display: none;" id="id_search_loading_icon"/>
+                    <p id="id_search_message">&nbsp;</p>
+                </div>
             </div>
         </div>
     </div>
@@ -70,7 +76,6 @@
         <div><a href="main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
         <div><button class="menu_button" onclick="window.location.href = 'conj.html';">Conjugator<br><b>変化</b></button></div>
     </div>
-
     <div class="popup_window_dim" id="id_popup_window_dim"></div>
     <div class="popup_window" id="id_popup_window">
         <div style="height: auto;" class="popup_window_title" onclick="closeWindow('id_popup_window')">JSON Source</div>

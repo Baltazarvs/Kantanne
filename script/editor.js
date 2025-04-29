@@ -7,6 +7,7 @@ var g_ShowDeleteButton = new Boolean(false);
 var g_CurrentCode = null;
 var file_input = document.getElementById("id_upload_json_input");
 var g_SearchExecuted = new Boolean(false);
+var g_WordSearchExecuted = new Boolean(false);
 
 var checkExistingWord = () => {
     if(g_WordArray.length == 0)
@@ -38,6 +39,37 @@ var checkExistingWord = () => {
 
     document.getElementById("id_word_search").style.display = "none";
     g_SearchExecuted = false;
+    return;
+};
+
+var searchExistingWord = () => {
+    if(g_WordArray.length == 0)
+    {
+        g_WordSearchExecuted = false;
+        return;
+    }
+
+    let bFound = false;
+    document.getElementById("id_search_message").style.display = "block";
+    
+    for(let i = 0; i < g_WordArray.length; i++)
+    {
+        if(g_WordArray[i].word === document.getElementById("id_search_field").value)
+        {
+            bFound = true;
+            document.getElementById("id_search_message").innerHTML = "Word found!";
+            document.getElementById("xbtnid_" + i).scrollIntoView();
+            break;
+        }
+    }
+
+    if(!bFound)
+    {
+        document.getElementById("id_search_message").innerHTML = "&nbsp;";
+    }
+
+    document.getElementById("id_search_loading_icon").style.display = "none";
+    g_WordSearchExecuted = false;
     return;
 };
 
@@ -139,6 +171,8 @@ function restartIDs()
     {
         items[i].id = "xbtnid_" + toString(i);
     }
+
+
 }
 
 function deleteItem(index)
@@ -162,7 +196,7 @@ function pushWord(a = null, b = null, c = null, d = null)
     let romaji = document.getElementById("id_editor_field_romaji");
     let meaning = document.getElementById("id_editor_field_meaning");
 
-    if(!word.value.length || !furigana.value.length || !meaning.value.length)
+    if(!word.value.length || !meaning.value.length)
     {
         alert("Enter required values.");
         return;
@@ -229,5 +263,21 @@ document.getElementById("id_editor_field_word").addEventListener("input", () => 
             }, 1000
         );
         g_SearchExecuted = true;
+    }
+});
+
+document.getElementById("id_search_field").addEventListener("input", () => {
+    if(!g_WordSearchExecuted.valueOf())
+    {
+        document.getElementById("id_search_message").style.display = "none";
+        document.getElementById("id_search_loading_icon").style.display = "block";
+        
+        setTimeout(
+            () => {
+                searchExistingWord();
+            }, 1000
+        );
+
+        g_WordSearchExecuted = true;
     }
 });
