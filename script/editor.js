@@ -130,7 +130,7 @@ function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = null, bF
     finalStr += "\t\t\t\"furigana\": \"" + furigana + "\",\n";
     finalStr += "\t\t\t\"romaji\": \"" + romaji + "\",\n";
     finalStr += "\t\t\t\"meaning\": \"" + meaning + "\",\n";
-    if(jlpt_level != null) { finalStr += "\t\t\t\"jlptlevel\": \"" + jlpt_level + "\"\n"; }
+    if(jlpt_level != null) { finalStr += "\t\t\t\"jlptlevel\": " + jlpt_level + "\n"; }
     finalStr += "\t\t}";
     return finalStr;
 }
@@ -253,6 +253,7 @@ function pushWord(a = null, b = null, c = null, d = null, e = null)
 
 function saveJson()
 {
+    updateCode();
     const text = document.getElementById("id_textarea_json_code").value;
     const blob = new Blob([text], { type: 'application/json' });
     const link = document.createElement('a');

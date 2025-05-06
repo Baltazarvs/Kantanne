@@ -110,7 +110,11 @@ function newFlashcard(index = -1)
                 newObj.bUsed = true;
             }
 
+            let absolute_addr = "https://jisho.org/search/" + (g_SwapWordMeaning ? newObj.word : newObj.reading);
+
             document.getElementById("kanji_redirect").innerHTML = g_SwapWordMeaning ? newObj.word : newObj.reading;
+            document.getElementById("kanji_redirect").href = absolute_addr;
+
             document.getElementById("fc_furigana").innerHTML = g_SwapWordMeaning ? newObj.reading : newObj.word;
             document.getElementById("fc_meaning").innerHTML = newObj.meaning;
             document.getElementById("id_flipped_meaning").innerHTML = newObj.meaning;
