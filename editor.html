@@ -8,6 +8,10 @@
 </head>
 <body>
     <div class="main_panel">
+        <div style="border-bottom: 1px solid black; display: flex;background-color: white;" id="id_tabs_in_editor">
+            <div><button class="editor_tab_button button_radius_mod_right active" onclick="activateTab(this); changeTab(0);">Flashcards</button></div>
+            <div><button class="editor_tab_button button_radius_mod_left" onclick="activateTab(this); changeTab(1);">Quiz</button></div>
+        </div>
         <div class="main_panel_subdiv" style="text-align: center;">
             <h1>Flashcard Editor 1.0</h1>
             <h6>HTML is allowed in fields. <u><a href="javascript:void(0);" id="id_show_hide_html" onclick="toggleShowHideHTML();">show</a></u></h6>
@@ -36,9 +40,19 @@
                     <div class="editor_column_cell"><input type="text" placeholder="Reading*" id="id_editor_field_reading" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Meaning*" id="id_editor_field_meaning" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Romaji" id="id_editor_field_romaji" class="add_field_stl" /></div>
+                    <div class="editor_column_cell" style="border-top-right-radius: 5px;">
+                        <select class="level_select" id="id_jlpt_level" style="height: 100%;">
+                            <option value="0">Level: N-</option>
+                            <option value="5">Level: N5</option>
+                            <option value="4">Level: N4</option>
+                            <option value="3">Level: N3</option>
+                            <option value="2">Level: N2</option>
+                            <option value="1">Level: N1</option>
+                        </select>
+                    </div>
                     <div class="editor_column_cell"><button class="insert_button_cls" onclick="pushWord();">Add</button></div>
-                    <div class="editor_column_cell"><button class="insert_button_cls" style="background-color: blue;" onclick="saveJson();">Save</button></div>
-                    <div class="editor_column_cell" style="border-top-right-radius: 5px;" id="id_word_search_div">
+                    <div class="editor_column_cell"><button class="insert_button_cls" style="background-color: blue;" onclick="updateCode(); saveJson();">Save</button></div>
+                    <div class="editor_column_cell" id="id_word_search_div" style="height: calc(32px + 20px);">
                         <p id="id_word_search" style="display: none;"><img src="media/loading.gif" style="width: 32px; height: auto;"/></p>
                         <p id="id_word_found" style="display: none;height: 32px;">Word not found.</p>
                     </div>
@@ -53,8 +67,8 @@
                     <div class="editor_column_cell editor_col_cell_non_terminal">Meaning</div>
                 </div>
             </div>
-            <div class="editor_list" style="flex-direction: row;height: auto;overflow: hidden;border-top: 1px solid darkgray;">
-                <div class="editor_column_cell"><button class="insert_button_cls" onclick="displayWindow('id_popup_window');">View JSON</button></div>
+            <div class="editor_list" style="flex-direction: row;height: auto;overflow: hidden;border-top: 1px solid darkgray;height: calc(32px + 20px);">
+                <div class="editor_column_cell"><button class="insert_button_cls" onclick="displayWindow('id_popup_window'); updateCode();">View JSON</button></div>
                 <div class="editor_column_cell">
                     <label class="json_upload_editor">
                         <input type="file" style="width: 100%;" class="json_upload_old" id="id_upload_json_input"/>
@@ -62,11 +76,11 @@
                     </label>
                 </div>
                 <div class="editor_column_cell">
-                    <input type="text" class="search_field" placeholder="Search Word..." id="id_search_field" />
+                    <input type="text" class="search_field" placeholder="Search Word..." title="If word is found, it will appear at the top of table." id="id_search_field" />
                 </div>
                 <div class="editor_column_cell">
                     <img src="media/loading.gif" style="width: 32px; height: auto; display: none;" id="id_search_loading_icon"/>
-                    <p id="id_search_message">&nbsp;</p>
+                    <span id="id_search_message" style="padding: 8px;">&nbsp;</span>
                 </div>
             </div>
         </div>
@@ -74,7 +88,9 @@
     <div class="main_menu">
         <div><button class="menu_button" style="background-color: white;"><img src="media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
         <div><a href="main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
+        <div><button class="menu_button" onclick="window.location.href = 'quiz.html';">Quiz<br><b>クイズ</b></button></div>
         <div><button class="menu_button" onclick="window.location.href = 'conj.html';">Conjugator<br><b>変化</b></button></div>
+        <div><button class="menu_button" onclick="window.location.href = 'kanji.html';">Kanji<br><b>漢字</b></button></div>
     </div>
     <div class="popup_window_dim" id="id_popup_window_dim"></div>
     <div class="popup_window" id="id_popup_window">
@@ -90,5 +106,6 @@
     <script src="script/main.js"></script>
     <script src="script/popup_window.js"></script>
     <script src="script/editor.js"></script>
+    <script src="script/editorQuiz.js"></script>
 </body>
 </html>

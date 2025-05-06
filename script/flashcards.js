@@ -66,6 +66,11 @@ function startFC()
 
 function stopFC()
 {
+    if(!g_Flipped)
+    {
+        flipFlashcard();
+    }
+
     g_ReusedCounter = 0;
     g_WordArray.forEach(element => {
         element.bUsed = false;

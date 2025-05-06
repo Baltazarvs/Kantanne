@@ -125,6 +125,31 @@ hr.card_main_separator {
     top: 64px;
 }
 
+.editor_tab_button {
+    background-color: crimson;
+    border: 0;
+    padding: 10px;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.button_radius_mod_right {
+    border-top-right-radius: 0;
+}
+
+.button_radius_mod_left {
+    border-top-left-radius: 0;
+}
+
+.editor_tab_button:hover {
+    background-color: #ff7a7a;
+}
+
+.editor_tab_button.active {
+    background-color: #ff5252;
+}
+
 .main_panel_subdiv {
     padding: 10px;
 }
@@ -236,7 +261,6 @@ div.editor_list {
 div.editor_list_item {
     display: flex;
     flex-direction: row;
-    background-color: #ceffff;
 }
 
 div.editor_list_item_nopadd {
@@ -244,7 +268,7 @@ div.editor_list_item_nopadd {
 }
 
 div.item_non_terminal {
-    border-bottom: 1px solid lightgray;
+    border-bottom: 2px solid lightgray;
 }
 
 .editor_column_cell {
@@ -260,9 +284,10 @@ div.item_non_terminal {
 }
 
 .editor_list_item_cell {
-    border-right: 1px solid azure;
+    border-right: 2px solid lightgray;
     width: 10%;
     padding: 10px;
+    overflow: auto;
 }
 
 .insert_button_cls {
@@ -507,4 +532,119 @@ input[type=text].search_field {
 
 .found_word_mod {
     background-color: aqua;
+}
+
+.kanji_week_graph {
+    background-color: lightgray;
+    border: 1px solid black;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.kanji_week_graph_cellist {
+    background-color: white;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.kanji_week_graph_cellist_cell {
+    padding: 5px 10px;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    border-bottom: 1px solid gray;
+}
+
+.mod_gray {
+    background-color: lightgray;
+}
+
+.kanji_week_graph_cellist_cell_data {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 0;
+}
+
+.graph_kanji {
+    user-select: none;
+    color: white;
+    font-weight: bold;
+    background-color: crimson;
+    border-radius: 3px;
+    padding: 5px;
+    margin: 2px;
+}
+
+div.quiz_div {
+    background-color: lightgray;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    text-align: center; 
+    border: 1px solid lightgray;
+    width: calc(100% - 20px);
+    padding: 10px;
+    height: auto;
+}
+
+button.kotae_button {
+    border: 0;
+    background-color: crimson;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    min-width: 100px;
+    min-height: 50px;
+    margin: 2px;
+}
+
+button.kotae_button:hover {
+    background-color: green;
+    cursor: pointer;
+}
+
+.answer_cell {
+    width: 100%;
+    padding: 5px;
+}
+
+.prev_next_btn {
+    background-color: crimson;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    padding: 10px;
+}
+
+.prev_next_btn:hover {
+    background-color: #ff5151;
+    cursor: pointer;
+}
+
+.n5 { background-color: rgb(126, 170, 250); }
+.n4 { background-color: #3ad98f; }
+.n3 { background-color: #bf7bff; }
+.n2 { background-color: rgb(255, 197, 88); }
+.n1 { background-color: #ff5f5f; }
+.nn { background-color: #fff;}
+
+.n5:hover { background-color: rgb(152, 188, 255); }
+.n4:hover { background-color: #5edba1; }
+.n3:hover { background-color: #d1a0ff; }
+.n2:hover { background-color: rgb(255, 213, 136); }
+.n1:hover { background-color: #ff9090; }
+.nn:hover { background-color: #efefef;}
+
+select.level_select {
+    border: 0;
+    padding: 10px;
+    background-color: aquamarine;
+    color: black;
+    width: 100%;
+    border-radius: 5px;
 }

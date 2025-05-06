@@ -1,0 +1,44 @@
+<!-- Copyright (C) 2025 baltazarus -->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Kantan-Ne?</title>
+    <link href="style/main.css" rel="stylesheet"/>
+</head>
+<body style="user-select: none;">
+    <div class="main_menu">
+        <div><button class="menu_button" style="background-color: white;"><img src="media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
+        <div><a href="main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
+        <div><a href="editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
+        <div><button class="menu_button" onclick="window.location.href = 'conj.html';">Conjugator<br><b>変化</b></button></div>
+    </div><br>
+    <span>
+        <div style="margin-top: 55px;"></div>
+        <div class="quiz_div">
+            <div style="width: 100%;">
+                <button class="prev_next_btn">Prev</button>
+            </div>
+            <div style="width: 100%;">
+                <p style="user-select: none;">質問: 0/10</p>
+            </div>
+            <div style="width: 100%;">
+                <button class="prev_next_btn">Next</button>
+            </div>
+        </div><br>
+        <div class="quiz_div">
+            <div style="width: 100%; font-size: 40px;">
+                <p id="id_quiz_question">「箱」の読みは何ですか？</p>
+            </div>
+        </div><br>
+        <div class="quiz_div">
+            <div class="answer_cell"><button class="kotae_button" id="id_answer_a">A:&nbsp;&nbsp;&nbsp;はか</button></div>
+            <div class="answer_cell"><button class="kotae_button" id="id_answer_b">B:&nbsp;&nbsp;&nbsp;かばん</button></div>
+            <div class="answer_cell"><button class="kotae_button" id="id_answer_c">C:&nbsp;&nbsp;&nbsp;はこ</button></div>
+        </div>
+    </span>
+
+    <script src="script/main.js"></script>
+    <script src="script/quiz.js"></script>
+</body>
+</html>
