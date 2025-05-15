@@ -10,7 +10,7 @@
     <div class="main_panel">
         <div style="border-bottom: 1px solid black; display: flex;background-color: white;" id="id_tabs_in_editor">
             <div><button class="editor_tab_button button_radius_mod_right active" onclick="activateTab(this); changeTab(0);">Flashcards</button></div>
-            <div><button class="editor_tab_button button_radius_mod_left" onclick="activateTab(this); changeTab(1);">Quiz</button></div>
+            <div><button class="editor_tab_button button_radius_mod_left" onclick="activateTab(this); changeTab(1); alert('Not yet.');">Quiz</button></div>
         </div>
         <div class="main_panel_subdiv" style="text-align: center;">
             <h1>Flashcard Editor 1.0</h1>
@@ -40,6 +40,32 @@
                     <div class="editor_column_cell"><input type="text" placeholder="Reading*" id="id_editor_field_reading" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Meaning*" id="id_editor_field_meaning" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Romaji" id="id_editor_field_romaji" class="add_field_stl" /></div>
+                    <div class="editor_column_cell" style="border-top-right-radius: 5px;">
+                        <select class="level_select" id="id_word_type" style="height: 100%;">
+                            <option>Unspecified</option>
+                            <option value="Noun">Noun (名詞)</option>
+                            <option value="Adverb">Adverb (副詞)</option>
+                            <option value="Noun">Noun, Adverb (名詞, 副詞)</option>
+                            <option value="Verb (Ichidan) [Transitive]">Verb (Ichidan) [Transitive] (一段動詞)</option>
+                            <option value="Verb (Godan) [Transitive]">Verb (Godan) [Transitive] (一段動詞)</option>
+                            <option value="Verb (Ichidan) [Intransitive]">Verb (Ichidan) [Intransitive] (五段動詞)</option>
+                            <option value="Verb (Godan) [Intransitive]">Verb (Godan) [Intransitive] (五段動詞)</option>
+                            <option value="Verb (Irregular)">Verb (Irregular) (不規則動詞)</option>
+                            <option value="I-Adjective">い Adjective (形容詞)</option>
+                            <option value="NA-Adjective">な Adjective (形容動詞)</option>
+                            <option value="NA-Adjective, Noun">な Adjective (形容動詞), Noun (名詞)</option>
+                            <option value="NO-Adjective">の Adjective (genitive の)</option>
+                            <option value="NO-Adjective">の Adjective (genitive の), な Adjective (形容動詞), Noun (名詞)</option>
+                            <option value="NO-Adjective, Noun">の Adjective, Noun (名詞)</option>
+                            <option value="SURU Verb">する Verb (する動詞)</option>
+                            <option value="Noun, SURU Verb">Noun (名詞), する Verb</option>
+                            <option value="Noun, SURU Verb [Transitive]">Noun (名詞), する Verb, [Transitive]</option>
+                            <option value="Noun, SURU Verb [Intransitive]">Noun (名詞), する Verb, [Intransitive]</option>
+                            <option value="Noun, SURU Verb [Transitive, Intransitive]">Noun, する Verb, [Transitive, Intransitive]</option>
+                            <option value="Conjunction">Conjunction (接続詞)</option>
+                            <option value="Expression">Expression</option>
+                        </select>
+                    </div>
                     <div class="editor_column_cell" style="border-top-right-radius: 5px;">
                         <select class="level_select" id="id_jlpt_level" style="height: 100%;">
                             <option value="0">Level: N-</option>

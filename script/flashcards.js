@@ -11,6 +11,7 @@ var g_WordArray = new Array();
 var g_Flipped = new Boolean(false);
 
 var g_HideFurigana = new Boolean(false);
+var g_HideRomaji = new Boolean(true);
 var g_CurrentIndex = 0;
 var g_SwapWordMeaning = new Boolean(false);
 
@@ -114,6 +115,7 @@ function newFlashcard(index = -1)
 
             document.getElementById("kanji_redirect").innerHTML = g_SwapWordMeaning ? newObj.word : newObj.reading;
             document.getElementById("kanji_redirect").href = absolute_addr;
+            document.getElementById("fc_romaji").innerHTML = newObj.romaji;
 
             document.getElementById("fc_furigana").innerHTML = g_SwapWordMeaning ? newObj.reading : newObj.word;
             document.getElementById("fc_meaning").innerHTML = newObj.meaning;
@@ -140,14 +142,21 @@ function flipFlashcard()
 
 function toggleFurigana()
 {
-    document.getElementById("fc_furigana").style.display = !g_HideFurigana ? "block" : "none";
     g_HideFurigana = !g_HideFurigana;
+    document.getElementById("fc_furigana").style.display = !g_HideFurigana ? "none" : "block";
+}
+
+function toggleRomaji()
+{
+    g_HideRomaji = !g_HideRomaji;
+    document.getElementById("fc_romaji").style.display = g_HideRomaji ? "none" : "block";
 }
 
 function toggleAll()
 {
     document.getElementById("fc_separator").style.display = g_ShowAll ? "block" : "none";
     document.getElementById("fc_meaning").style.display = g_ShowAll ? "block" : "none";
+    document.getElementById("fc_romaji").style.display = g_ShowAll ? "block" : "none";
     document.getElementById("id_flip_button").disabled = g_ShowAll ? "disabled" : "";
 
     g_ShowAll = !g_ShowAll;
@@ -188,4 +197,12 @@ function prevCard()
 function flagSwap()
 {
     g_SwapWordMeaning = !g_SwapWordMeaning;
+}
+
+function readWord()
+{
+    let textWord = document.getElementById("kanji_redirect").innerHTML;
+    const syn = new SpeechSynthesisUtterance(textWord);
+    syn.lang = "ja-JP";
+    window.speechSynthesis.speak(syn);
 }

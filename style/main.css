@@ -202,6 +202,18 @@ button.cls_conj_tab_active {
     background-color: #ff7a7a;
 }
 
+.no-padding {
+    padding: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.no-bold {
+    font-weight: inherit;
+}
+
 .conj_tab_content {
     padding: 10px;
     background-color: darkgray;
@@ -249,7 +261,7 @@ button.cls_conj_tab_active {
     font-weight: bold;
 }
 
-div.editor_list {
+.editor_list {
     display: flex;
     flex-direction: column;
     height: 250px;
@@ -258,16 +270,16 @@ div.editor_list {
     overflow-y: scroll;
 }
 
-div.editor_list_item {
+.editor_list_item {
     display: flex;
     flex-direction: row;
 }
 
-div.editor_list_item_nopadd {
+.editor_list_item_nopadd {
     padding: 0;
 }
 
-div.item_non_terminal {
+.item_non_terminal {
     border-bottom: 2px solid lightgray;
 }
 
@@ -327,8 +339,11 @@ div.item_non_terminal {
     display: none;
 }
 
+.color-gray {
+    color: #444;
+}
+
 .popup_window_title {
-    padding: 10px;
     color: black;
     background-color: darkgray;
     border-top-left-radius: 5px;
@@ -341,18 +356,18 @@ div.item_non_terminal {
     cursor: pointer;
 }
 
-textarea.jsonSrc {
+.jsonSrc {
+    background-color: white;
+    color: black;
     border: 0;
     font-family: Consolas, sans-serif, Verdana, Geneva, Tahoma;
     font-size: 20px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     width: calc(100% - 20px);
-    height: calc(100% - 60px);
-    max-width: calc(100% - 20px);
-    max-height: calc(100% - 60px);
-    min-width: calc(100% - 20px);
-    min-height: calc(100% - 60px);
+    height: calc(100% - 20px);
+    overflow: auto;
+    cursor: default;
 }
 
 textarea.jsonSrc:disabled {
@@ -370,17 +385,16 @@ div.popup_window_dim {
     display: none;
 }
 
-input[type=button].xitmbtn {
-    border: 0;
+.xitmbtn {
+    align-items: center;
+    align-content: center;
+    text-align: center;
     background-color: red;
     color: white;
-    padding: 5px;
-    font-weight: bold;
-    height: 100%;
-    width: auto;
+    user-select: none;
 }
 
-input[type=button].xitmbtn:hover {
+.xitmbtn:hover {
     background-color: #ff5151;
 }
 
@@ -429,7 +443,7 @@ button.control_button {
     background-color: #ff3131;
     border-radius: 10px;
     padding: 5px;
-    width: calc(100% / 2 - 5px);
+    width: calc(100% / 3 - 5px);
     height: 100%;
 }
 
