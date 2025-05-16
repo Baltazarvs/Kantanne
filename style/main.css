@@ -437,6 +437,17 @@ div.fc_controls {
     padding: 10px;
 }
 
+.info_button {
+    user-select: none;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    -webkit-text-decoration-style: dotted;
+    -moz-text-decoration-style: dotted;
+    width: 100%;
+    height: 100%;
+    color: #444;
+}
+
 button.control_button {
     border: 0;
     color: white;
@@ -660,5 +671,21 @@ select.level_select {
     background-color: aquamarine;
     color: black;
     width: 100%;
+    border-radius: 5px;
+}
+
+div.popup_info {
+    font-family: 'Courier New', Courier, monospace, Arial, sans-serif;
+    background-color: lightgray;
+    position: fixed;
+    left: 0;
+    top: 0;
+    /*width: max-content;*/
+    padding: 5px;
+    font-size: 13px;
+    border: 1px solid black;
+    display: none;
+    text-align: justify;
+    overflow: hidden;
     border-radius: 5px;
 }

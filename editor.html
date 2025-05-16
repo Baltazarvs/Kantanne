@@ -40,6 +40,7 @@
                     <div class="editor_column_cell"><input type="text" placeholder="Reading*" id="id_editor_field_reading" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Meaning*" id="id_editor_field_meaning" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Romaji" id="id_editor_field_romaji" class="add_field_stl" /></div>
+                    <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="NOTE" id="id_note_field" class="add_field_stl" /></div>
                     <div class="editor_column_cell" style="border-top-right-radius: 5px;">
                         <select class="level_select" id="id_word_type" style="height: 100%;">
                             <option>Unspecified</option>
@@ -127,6 +128,12 @@
 ]           
             </textarea>
         </div>
+    </div>
+
+    <div class="popup_info" id="id_popup_info">
+        <p id="id_note_text">
+            Info goes there...
+        </p>
     </div>
 
     <script src="script/main.js"></script>

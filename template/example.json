@@ -1,0 +1,27 @@
+{
+    "words": [
+        {
+            "word": "上がる",
+            "furigana": "あがる",
+            "romaji": "agaru",
+            "meaning": "to go up",
+            "jlptlevel": 4
+        },
+        {
+            "word": " 明るい",
+            "furigana": "あかるい",
+            "romaji": "akarui",
+            "meaning": "light, bright",
+            "jlptlevel": 4
+        },
+        {
+            "word": "上手",
+            "furigana": "じょうず",
+            "romaji": "jouzu",
+            "meaning": "skillful, skilled, proficient",
+            "jlptlevel": 5,
+            "type": "な Adjective",
+            "note": "Fun fact: flipping 上 to 下 (下手) will result in antonym of this word."
+        }
+    ]
+}
