@@ -126,7 +126,7 @@ file_input.addEventListener("change", function() {
     }
 });
 
-function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = null, word_type = null, word_note = null, bFirst = false)
+function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_type = null, word_note = null, bFirst = false)
 {
     var finalStr = new String();
     g_JsonObjCounter += 1;
@@ -134,42 +134,16 @@ function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = null, wo
     {
         if(!bFirst) { finalStr += ",\n"; }
     }
-
-    finalStr += `\t\t{\n\t\t\t\"word\": "${word}",\n`;
-    finalStr += `\t\t\t\"furigana\": "${furigana}",\n`;
-    finalStr += `\t\t\t\"romaji": "${romaji}",\n`;
+    finalStr += `\t\t{\n\t\t\t\"word\": "${word.replace(/"/g, '\\"')}",\n`;
+    finalStr += `\t\t\t\"furigana\": "${furigana.replace(/"/g, '\\"')}",\n`;
+    finalStr += `\t\t\t\"romaji": "${romaji.replace(/"/g, '\\"')}",\n`;
     finalStr += `\t\t\t\"meaning": "${meaning.replace(/"/g, '\\"')}"`;
-    
-    if(jlpt_level) {
-        finalStr += ",\n";
-        finalStr += `\t\t\t"jlptlevel": ${jlpt_level}`;
-    } else { finalStr += "\n"; }
-    
-    if(word_type) {
-        finalStr += ",\n";
-        finalStr += `\t\t\t"type": "${word_type}"`;
-    } else { finalStr += "\n"; }
-    
-    if(word_note) {
-        finalStr += ",\n";
-        finalStr += `\t\t\t"note": "${word_note}"\n`;
-    } else { finalStr += "\n"; }
-    
-    finalStr += "\t\t}";
+    if(jlpt_level > 0) { finalStr += `,\n\t\t\t\"jlptlevel": "${jlpt_level}"`; }
+    if(word_type && word_type !== "Unspecified") { finalStr += `,\n\t\t\t\"type": "${word_type}"`; }
+    if(word_note) { finalStr += `,\n\t\t\t\"note": "${word_note.replace(/"/g, '\\"')}"`; }
+    finalStr += "\n\t\t}";
 
     return finalStr;
-}
-
-function WordObject(index, word, reading, romaji, meaning, jlpt_level = null, word_type = null, note = null)
-{
-    this.index = index;
-    this.word = word;
-    this.reading = reading;
-    this.romaji = romaji;
-    this.meaning = meaning;
-    this.jlpt_level = jlpt_level;
-    this.word_type = word_type;
-    this.note = note;
 }
 
 function updateCode()
@@ -253,7 +227,7 @@ function emitSelected(index)
     updateTable();
 }
 
-function pushWord(a = null, b = null, c = null, d = null, e = null, f = null, g = null)
+function pushWord(a = null, b = null, c = null, d = null, e = 0, f = null, g = null)
 {
     let word = document.getElementById("id_editor_field_word");
     let furigana = document.getElementById("id_editor_field_reading");
@@ -266,12 +240,6 @@ function pushWord(a = null, b = null, c = null, d = null, e = null, f = null, g 
     if(!word.value.length || !meaning.value.length)
     {
         alert("Enter required values.");
-        return;
-    }
-
-    if(word.value.includes('"') || furigana.value.includes('"') || romaji.value.includes('"'))
-    {
-        alert("Only meaning can include quote marks.");
         return;
     }
 
@@ -295,11 +263,11 @@ function pushWord(a = null, b = null, c = null, d = null, e = null, f = null, g 
     g_WordArray.push(
         new WordObject(
             g_JsonObjCounter, 
-            (a == null) ? word.value : a, 
-            (b == null) ? furigana.value : b, 
-            (c == null) ? romaji.value : c, 
-            (d == null) ? meaning.value : d, 
-            (e == null) ? jlptlevel.value : e, 
+            (a == null) ? word.value : a,
+            (b == null) ? furigana.value : b,
+            (c == null) ? romaji.value : c,
+            (d == null) ? meaning.value : d,
+            (e == null) ? jlptlevel.value : e,
             (f == null || f == "Unspecified") ? word_type.value : f,
             (g == null) ? note_val : g
         )
@@ -351,6 +319,43 @@ function hideInfo()
     g_DisplayInfo = false;
 }
 
+function updateStyleCode(obj = null)
+{
+    let txtarea = document.getElementById("id_txt_code");
+    let wordVal = null;
+
+    if(obj) {
+        wordVal = obj.value;
+    } else {
+        wordVal = document.getElementById("id_editor_field_word").value;
+    }
+
+    let queryVal = document.querySelector('input[type="radio"][name="highlight_color"]:checked');
+    if(!queryVal) { return; }
+
+    let h_val = queryVal.value;
+    let h_val_added = "";
+
+    for(let i = 0; i < 5; ++i)
+    {
+        let retrobj = document.getElementById(`id_cbx_style_${i}`);
+        if(retrobj.checked) {
+            h_val_added += ` ${retrobj.value}`;
+        }
+    }
+
+    h_val += h_val_added;
+
+    let full_span = `<span class="${h_val}">${wordVal}</span>`;
+    txtarea.value = full_span;
+}
+
+function applyStyles()
+{
+    let applyCode = document.getElementById("id_txt_code").value;
+    document.getElementById("id_editor_field_word").value = applyCode;
+}
+
 document.getElementById("id_editor_field_word").addEventListener("input", () => {
     if(!g_SearchExecuted.valueOf())
     {
@@ -390,4 +395,9 @@ document.addEventListener("mousemove", (e) => {
         info_elem.style.left = `${e.clientX+1}px`;
         info_elem.style.top = `${e.clientY+1}px`;
     }
+});
+
+
+document.getElementById("id_style_options").addEventListener("change", (e) => {
+    updateStyleCode(document.getElementById("id_style_word"));
 });

@@ -27,20 +27,43 @@
                             &lt;-- You can combine HTML tags.
                         </b>
                     </span><br><br>
-                    You can use style attribute and &lt;span&gt; tag too, but be careful as you must use \" instead of normal double quote "
+                    If you know HTML/CSS, you can use "style" attribute and specify CSS styles to make more advanced styles for the entry.<br>
+                    <span style="color: #0f0; border: 1px solid red;background-color: blue;padding: 2px;">
+                        &lt;span style="color: #0f0; border: 1px solid red;background-color: blue;padding: 2px;"&gt;&lt;/span&gt;
+                    </span>
+
+                    <br><br>Some predefined highlighting aids:<br>
+                    <span class="h-red">&lt;span class="h-red"&gt;&lt;/span&gt;<br></span>
+                    <span class="h-green">&lt;span class="h-green"&gt;&lt;/span&gt;<br></span>
+                    <span class="h-blue">&lt;span class="h-blue"&gt;&lt;/span&gt;<br></span>
+                    <span class="h-yellow">&lt;span class="h-yellow"&gt;&lt;/span&gt;<br></span>
+
+                    <br><br>
+                    Predefined styles can be grouped like:<br>
+                    [include: i-] Include certain style (padding, border, underline, strikethrough, bold)<br>
+                    [highlight: h-] Highlight with certain color (red, green, blue, yellow)<br><br>
+                    <span class="h-red i-border i-underline">
+                        &lt;span class="h-red i-border i-underline"&gt;example element...&lt;/span&gt;
+                    </span>
                 </span>
             </div>
         </div>
         <div class="main_panel_subdiv">
             <div class="editor_list" style="height: auto;overflow: hidden;">
                 <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;">
-                    <div class="editor_column_cell" style="width: 2%;border-top-left-radius: 5px;"></div>
-                    <div class="editor_column_cell" style="width: 5%;"><span id="id_editor_field_index_auto">#</span></div>
-                    <div class="editor_column_cell"><input type="text" placeholder="Word*" id="id_editor_field_word" class="add_field_stl"/></div>
+                    <div class="editor_column_cell" style="display: flex; flex-direction: row;">
+                        <button class="word_opt" onclick="displayWindow('id_popup_window_styles');"><b>Add Style +</b></button>
+                    </div>
+                    <div class="editor_column_cell" style="display: flex; flex-direction: row;"><input type="text" placeholder="Word*" id="id_editor_field_word" class="add_field_stl"/></div>
                     <div class="editor_column_cell"><input type="text" placeholder="Reading*" id="id_editor_field_reading" class="add_field_stl" /></div>
-                    <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Meaning*" id="id_editor_field_meaning" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Romaji" id="id_editor_field_romaji" class="add_field_stl" /></div>
-                    <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="NOTE" id="id_note_field" class="add_field_stl" /></div>
+                    <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Meaning*" id="id_editor_field_meaning" class="add_field_stl" /></div>
+                    <div class="editor_column_cell" id="id_word_search_div" style="height: calc(32px + 20px);">
+                        <p id="id_word_search" style="display: none;"><img src="media/loading.gif" style="width: 32px; height: auto;"/></p>
+                        <p id="id_word_found" style="display: none;height: 32px;">Word not found.</p>
+                    </div>
+                </div>
+                <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;">
                     <div class="editor_column_cell" style="border-top-right-radius: 5px;">
                         <select class="level_select" id="id_word_type" style="height: 100%;">
                             <option>Unspecified</option>
@@ -77,12 +100,13 @@
                             <option value="1">Level: N1</option>
                         </select>
                     </div>
+                    <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Note..." id="id_note_field" class="add_field_stl" /></div>
                     <div class="editor_column_cell"><button class="insert_button_cls" onclick="pushWord();">Add</button></div>
                     <div class="editor_column_cell"><button class="insert_button_cls" style="background-color: blue;" onclick="updateCode(); saveJson();">Save</button></div>
-                    <div class="editor_column_cell" id="id_word_search_div" style="height: calc(32px + 20px);">
-                        <p id="id_word_search" style="display: none;"><img src="media/loading.gif" style="width: 32px; height: auto;"/></p>
-                        <p id="id_word_found" style="display: none;height: 32px;">Word not found.</p>
-                    </div>
+                    <div class="editor_column_cell"></div>
+                </div>
+                <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;">
+                    
                 </div>
             </div>
             <div class="editor_list" id="id_list_em">
@@ -136,8 +160,35 @@
         </p>
     </div>
 
+    <div class="popup_window window_mod" id="id_popup_window_styles">
+        <div style="height: auto;" class="popup_window_title" onclick="closeWindow('id_popup_window_styles')">Add style to the Word</div>
+        <div style="height: 100%; padding: 5px; overflow: auto;" id="id_style_options">
+            <input type="text" placeholder="Enter Word..." style="width: calc(100% - 6px);" id="id_style_word" oninput="updateStyleCode(this);"/><br>
+            <hr>
+            <label><input type="radio" name="highlight_color" value="h-red"/>red highlight (h-red)</label><br>
+            <label><input type="radio" name="highlight_color" value="h-green"/>green highlight (h-green)</label><br>
+            <label><input type="radio" name="highlight_color" value="h-blue"/>blue highlight (h-blue)</label><br>
+            <label><input type="radio" name="highlight_color" value="h-yellow" checked/>yellow highlight (h-yellow)</label><br>
+            <br>
+            <label><input type="checkbox" id="id_cbx_style_0" value="i-padding"/>include padding (i-padding)</label><br>
+            <label><input type="checkbox" id="id_cbx_style_1" value="i-border"/>include border (i-border)</label><br>
+            <label><input type="checkbox" id="id_cbx_style_2" value="i-underline"/>include underline (i-underline)</label><br>
+            <label><input type="checkbox" id="id_cbx_style_3" value="i-bold"/>include bold (i-bold)</label><br>
+            <label><input type="checkbox" id="id_cbx_style_4" value="i-strikethrough"/>include strikethrough (i-strikethrough)</label>
+            <br>
+            <hr>
+            <span>
+                <textarea style="min-width: calc(100% - 5px); max-width: calc(100% - 5px);" id="id_txt_code"><span class="h-yellow"> WORD HERE... </span></textarea>
+            </span>
+        </div>
+        <div style="height: 100%; padding: 5px; overflow: auto; align-items: center;align-content: center; text-align: center; padding-bottom: 10px;">
+            <button class="control_button" style="width: 100px;height: 50px;background-color: lightgray; color: black;" onclick="applyStyles(); closeWindow('id_popup_window_styles');">Apply</button>
+        </div>
+    </div>
+
     <script src="script/main.js"></script>
     <script src="script/popup_window.js"></script>
+    <script src="script/kantanne_loader.js"></script>
     <script src="script/editor.js"></script>
     <script src="script/editorQuiz.js"></script>
 </body>

@@ -201,8 +201,17 @@ function flagSwap()
 
 function readWord()
 {
-    let textWord = document.getElementById("kanji_redirect").innerHTML;
+    let textWord = retrieveActualText("kanji_redirect");
     const syn = new SpeechSynthesisUtterance(textWord);
     syn.lang = "ja-JP";
     window.speechSynthesis.speak(syn);
+}
+
+function retrieveActualText(id)
+{
+    let element = document.getElementById(id);
+    while (element && element.children.length > 0) {
+        element = element.children[0];
+    }
+    return (element ? element.innerHTML : null);
 }

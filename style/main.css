@@ -300,6 +300,9 @@ button.cls_conj_tab_active {
     width: 10%;
     padding: 10px;
     overflow: auto;
+    align-items: center;
+    align-content: center;
+    text-align: center;
 }
 
 .insert_button_cls {
@@ -349,6 +352,7 @@ button.cls_conj_tab_active {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     text-align: center;
+    padding: 5px;
 }
 
 .popup_window_title:hover {
@@ -681,6 +685,7 @@ div.popup_info {
     left: 0;
     top: 0;
     /*width: max-content;*/
+    min-width: 350px;
     padding: 5px;
     font-size: 13px;
     border: 1px solid black;
@@ -688,4 +693,42 @@ div.popup_info {
     text-align: justify;
     overflow: hidden;
     border-radius: 5px;
+}
+
+.h-green { background-color: lightgreen; }
+.h-yellow { background-color: yellow; }
+.h-blue { background-color: skyblue; }
+.h-red { background-color: lightcoral; }
+
+.i-padding { padding: 5px; }
+.i-border { border: 1px solid black; }
+.i-bold { font-weight: bold; }
+.i-strikethrough { text-decoration: line-through; }
+.i-underline { text-decoration: underline; }
+
+.word_opt {
+    background-color: #135fff;
+    color: white;
+    width: calc(100%);
+    height: calc(100%);
+    margin: 2px;
+    padding: 10px;
+    border: 0;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.control_button_mod {
+    width: 100px;
+    height: 50px;
+    border: 1px solid white;
+    background-color: crimson;
+}
+
+.window_mod {
+    margin: 30%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    width: 40%;
+    height: auto;
 }
