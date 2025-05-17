@@ -1,15 +1,3 @@
-function WordObject(index, word, reading, romaji, meaning, jlpt_level = null, word_type = null, note = null)
-{
-    this.index = index;
-    this.word = word;
-    this.reading = reading;
-    this.romaji = romaji;
-    this.meaning = meaning;
-    this.jlpt_level = jlpt_level;
-    this.word_type = word_type;
-    this.note = note;
-}
-
 function kantanne_load(fn)
 {
     var retobj = new Array();

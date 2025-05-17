@@ -52,7 +52,7 @@
             <div class="editor_list" style="height: auto;overflow: hidden;">
                 <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;">
                     <div class="editor_column_cell" style="display: flex; flex-direction: row;">
-                        <button class="word_opt" onclick="displayWindow('id_popup_window_styles');"><b>Add Style +</b></button>
+                        <button class="word_opt" onclick="addStyleEvent();"><b>Add Style +</b></button>
                     </div>
                     <div class="editor_column_cell" style="display: flex; flex-direction: row;"><input type="text" placeholder="Word*" id="id_editor_field_word" class="add_field_stl"/></div>
                     <div class="editor_column_cell"><input type="text" placeholder="Reading*" id="id_editor_field_reading" class="add_field_stl" /></div>
@@ -93,16 +93,19 @@
                     <div class="editor_column_cell" style="border-top-right-radius: 5px;">
                         <select class="level_select" id="id_jlpt_level" style="height: 100%;">
                             <option value="0">Level: N-</option>
-                            <option value="5">Level: N5</option>
-                            <option value="4">Level: N4</option>
-                            <option value="3">Level: N3</option>
-                            <option value="2">Level: N2</option>
                             <option value="1">Level: N1</option>
+                            <option value="2">Level: N2</option>
+                            <option value="3">Level: N3</option>
+                            <option value="4">Level: N4</option>
+                            <option value="5">Level: N5</option>
                         </select>
                     </div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Note..." id="id_note_field" class="add_field_stl" /></div>
-                    <div class="editor_column_cell"><button class="insert_button_cls" onclick="pushWord();">Add</button></div>
-                    <div class="editor_column_cell"><button class="insert_button_cls" style="background-color: blue;" onclick="updateCode(); saveJson();">Save</button></div>
+                    <div class="editor_column_cell">
+                        <button class="insert_button_cls edit_btn_mod" id="id_edit_button" style="display: none;" value="0" onclick="applyChanges(this);">Edit</button>
+                        <button class="insert_button_cls" id="id_add_button" onclick="pushWord(false, 0);">Add</button>
+                    </div>
+                    <div class="editor_column_cell"><button class="insert_button_cls insert_button_mod_save" onclick="updateCode(); saveJson();">Save</button></div>
                     <div class="editor_column_cell"></div>
                 </div>
                 <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;">

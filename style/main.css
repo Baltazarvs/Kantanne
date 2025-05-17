@@ -732,3 +732,36 @@ div.popup_info {
     width: 40%;
     height: auto;
 }
+
+.edititmbtn {
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    background-color: #135ddc;
+    color: white;
+    user-select: none;
+}
+
+.edititmbtn:hover {
+    background-color: #5ea1ff;
+}
+
+.edit_btn_mod {
+    background-color: green;
+}
+
+.edit_btn_mod:hover {
+    background-color: #3dff23;
+}
+
+.disable_action_button {
+    background-color: #444;
+}
+
+.insert_button_mod_save {
+    background-color: blue;
+}
+
+.insert_button_mod_save:hover {
+    background-color: #135fff;
+}
