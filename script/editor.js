@@ -1,5 +1,3 @@
-var jsonInitialInline = "{\n\t\"words\":\n\t[\n";
-var jsonFinalInline = "\t]\n}";
 var g_JsonObjCounter = 0;
 var g_WordArray = new Array();
 var g_SelectedWordIndexes = new Array();
@@ -9,6 +7,10 @@ var file_input = document.getElementById("id_upload_json_input");
 var g_SearchExecuted = new Boolean(false);
 var g_WordSearchExecuted = new Boolean(false);
 var g_DisplayInfo = new Boolean(true);
+var g_CompressJSON = false;
+var g_CompressionMethod = 1;
+var jsonInitialInline = "{\n\t\"words\":\n\t[\n";
+var jsonFinalInline = "\t]\n}";
 
 function WordObject(index, word, reading, romaji, meaning, jlpt_level = null, word_type = null, note = null)
 {
@@ -138,28 +140,80 @@ file_input.addEventListener("change", function() {
     }
 });
 
-function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_type = null, word_note = null, bFirst = false)
+function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_type = null, word_note = null, bFirst = false, bLast = false)
 {
     var finalStr = new String();
     g_JsonObjCounter += 1;
     if(g_JsonObjCounter > 1)
     {
-        if(!bFirst) { finalStr += ",\n"; }
+        if(!bFirst) { finalStr += (g_CompressionMethod > 2) ? ',' : ',\n'; }
     }
-    finalStr += `\t\t{\n\t\t\t\"word\": "${word.replace(/"/g, '\\"')}",\n`;
-    finalStr += `\t\t\t\"furigana\": "${furigana.replace(/"/g, '\\"')}",\n`;
-    finalStr += `\t\t\t\"romaji": "${romaji.replace(/"/g, '\\"')}",\n`;
-    finalStr += `\t\t\t\"meaning": "${meaning.replace(/"/g, '\\"')}"`;
-    if(jlpt_level > 0) { finalStr += `,\n\t\t\t\"jlptlevel": ${jlpt_level}`; }
-    if(word_type && word_type !== "Unspecified") { finalStr += `,\n\t\t\t\"type": "${word_type}"`; }
-    if(word_note) { finalStr += `,\n\t\t\t\"note": "${word_note.replace(/"/g, '\\"')}"`; }
-    finalStr += "\n\t\t}";
+
+    switch(g_CompressionMethod)
+    {
+        case 1:
+        {
+            finalStr += `\t\t{\n\t\t\t\"word\": "${word.replace(/"/g, '\\"')}",\n`;
+            finalStr += `\t\t\t\"furigana\": "${furigana.replace(/"/g, '\\"')}",\n`;
+            finalStr += `\t\t\t\"romaji": "${romaji.replace(/"/g, '\\"')}",\n`;
+            finalStr += `\t\t\t\"meaning": "${meaning.replace(/"/g, '\\"')}"`;
+            if(jlpt_level > 0) { finalStr += `,\n\t\t\t\"jlptlevel": ${jlpt_level}`; }
+            if(word_type && word_type !== "Unspecified") { finalStr += `,\n\t\t\t\"type": "${word_type}"`; }
+            if(word_note) { finalStr += `,\n\t\t\t\"note": "${word_note.replace(/"/g, '\\"')}"`; }
+            finalStr += "\n\t\t}";
+            g_CompressJSON = false;
+            break;
+        }
+        case 2:
+        {
+            finalStr += `\t\t{"word\":"${word.replace(/"/g, '\\"')}",`;
+            finalStr += `"furigana\": "${furigana.replace(/"/g, '\\"')}",`;
+            finalStr += `"romaji": "${romaji.replace(/"/g, '\\"')}",`;
+            finalStr += `"meaning": "${meaning.replace(/"/g, '\\"')}"`;
+            if(jlpt_level > 0) { finalStr += `,"jlptlevel": ${jlpt_level}`; }
+            if(word_type && word_type !== "Unspecified") { finalStr += `,"type": "${word_type}"`; }
+            if(word_note) { finalStr += `,"note": "${word_note.replace(/"/g, '\\"')}"`; }
+            finalStr += "}";
+            g_CompressJSON = true;
+            break;
+        }
+        case 3:
+        {
+            finalStr += `{"word\": "${word.replace(/"/g, '\\"')}",`;
+            finalStr += `"furigana\": "${furigana.replace(/"/g, '\\"')}",`;
+            finalStr += `"romaji": "${romaji.replace(/"/g, '\\"')}",`;
+            finalStr += `"meaning": "${meaning.replace(/"/g, '\\"')}"`;
+            if(jlpt_level > 0) { finalStr += `,"jlptlevel": ${jlpt_level}`; }
+            if(word_type && word_type !== "Unspecified") { finalStr += `,"type": "${word_type}"`; }
+            if(word_note) { finalStr += `,"note": "${word_note.replace(/"/g, '\\"')}"`; }
+            finalStr += "}";
+            g_CompressJSON = true;
+            break;
+        }
+        default:
+        {
+            console.error(`Invalid compression method ${g_CompressionMethod}!`);
+        }
+    }
 
     return finalStr;
 }
 
 function updateCode()
 {
+    if(g_CompressionMethod < 1 || g_CompressionMethod > 3) { g_CompressionMethod = 1; }
+    
+    if(g_CompressionMethod < 3)
+    {
+        jsonInitialInline = "{\n\t\"words\":\n\t[\n";
+        jsonFinalInline = "\t]\n}";
+    }
+    else
+    {
+        jsonInitialInline = "{\"words\":[";
+        jsonFinalInline = "]}";
+    }
+
     let txtaText = document.getElementById("id_textarea_json_code");
     txtaText.innerHTML = "";
     txtaText.innerHTML += jsonInitialInline;
@@ -173,11 +227,12 @@ function updateCode()
             g_WordArray[i].jlpt_level,
             g_WordArray[i].word_type,
             g_WordArray[i].note,
-            (i == 0) ? true : false
+            (i == 0) ? true : false,
+            (i == (g_WordArray.length-1)) ? true : false
         );
         txtaText.innerHTML += tempStr;
     }
-    txtaText.innerHTML += "\n" + jsonFinalInline;
+    txtaText.innerHTML += ((g_CompressionMethod < 3) ? "\n" : "") + jsonFinalInline;
 }
 
 function updateTable()
