@@ -167,25 +167,25 @@ function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_
         case 2:
         {
             finalStr += `\t\t{"word\":"${word.replace(/"/g, '\\"')}",`;
-            finalStr += `"furigana\": "${furigana.replace(/"/g, '\\"')}",`;
-            finalStr += `"romaji": "${romaji.replace(/"/g, '\\"')}",`;
-            finalStr += `"meaning": "${meaning.replace(/"/g, '\\"')}"`;
-            if(jlpt_level > 0) { finalStr += `,"jlptlevel": ${jlpt_level}`; }
-            if(word_type && word_type !== "Unspecified") { finalStr += `,"type": "${word_type}"`; }
-            if(word_note) { finalStr += `,"note": "${word_note.replace(/"/g, '\\"')}"`; }
+            finalStr += `"furigana\":"${furigana.replace(/"/g, '\\"')}",`;
+            finalStr += `"romaji":"${romaji.replace(/"/g, '\\"')}",`;
+            finalStr += `"meaning":"${meaning.replace(/"/g, '\\"')}"`;
+            if(jlpt_level > 0) { finalStr += `,"jlptlevel":${jlpt_level}`; }
+            if(word_type && word_type !== "Unspecified") { finalStr += `,"type":"${word_type}"`; }
+            if(word_note) { finalStr += `,"note":"${word_note.replace(/"/g, '\\"')}"`; }
             finalStr += "}";
             g_CompressJSON = true;
             break;
         }
         case 3:
         {
-            finalStr += `{"word\": "${word.replace(/"/g, '\\"')}",`;
-            finalStr += `"furigana\": "${furigana.replace(/"/g, '\\"')}",`;
-            finalStr += `"romaji": "${romaji.replace(/"/g, '\\"')}",`;
-            finalStr += `"meaning": "${meaning.replace(/"/g, '\\"')}"`;
-            if(jlpt_level > 0) { finalStr += `,"jlptlevel": ${jlpt_level}`; }
-            if(word_type && word_type !== "Unspecified") { finalStr += `,"type": "${word_type}"`; }
-            if(word_note) { finalStr += `,"note": "${word_note.replace(/"/g, '\\"')}"`; }
+            finalStr += `{"word\":"${word.replace(/"/g, '\\"')}",`;
+            finalStr += `"furigana\":"${furigana.replace(/"/g, '\\"')}",`;
+            finalStr += `"romaji":"${romaji.replace(/"/g, '\\"')}",`;
+            finalStr += `"meaning":"${meaning.replace(/"/g, '\\"')}"`;
+            if(jlpt_level > 0) { finalStr += `,"jlptlevel":${jlpt_level}`; }
+            if(word_type && word_type !== "Unspecified") { finalStr += `,"type":"${word_type}"`; }
+            if(word_note) { finalStr += `,"note":"${word_note.replace(/"/g, '\\"')}"`; }
             finalStr += "}";
             g_CompressJSON = true;
             break;
