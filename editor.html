@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Kantan-Ne?</title>
     <link href="style/main.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <div class="main_panel">
@@ -121,25 +122,21 @@
                     
                 </div>
             </div>
-            <div class="editor_list" id="id_list_em">
-                <div class="editor_list_item editor_list_item_nopadd">
-                    <div class="editor_column_cell" style="width: 2%;"></div>
-                    <div class="editor_column_cell" style="width: 5%;">#</div>
-                    <div class="editor_column_cell">Word</div>
-                    <div class="editor_column_cell">Reading</div>
-                    <div class="editor_column_cell editor_col_cell_non_terminal">Meaning</div>
+            <div class="editor_list file_draggable table_init_state" id="id_list_em">
+                <div style="width: 100%;height: 100%;align-items: center; align-content: center; text-align: center;" id="id_div_drop_message">
+                    <p style="user-select: none;">Drop JSON file here<br><span style="font-size: 10px;">Or load it via button.</span></p>
                 </div>
             </div>
             <div class="editor_list" style="flex-direction: row;height: auto;overflow: hidden;border-top: 1px solid darkgray;height: calc(32px + 20px);">
                 <div class="editor_column_cell"><button class="insert_button_cls" onclick="displayWindow('id_popup_window'); updateCode();">View JSON</button></div>
                 <div class="editor_column_cell">
-                    <label class="json_upload_editor" title="This will discard currently opened file in editor.">
-                        <input type="file" style="width: 100%;" class="json_upload_old" id="id_upload_json_input"/>
+                    <label class="json_upload_editor file_draggable" id="id_lload" title="This will discard currently opened file in editor.">
+                        <input type="file" style="width: 100%;" class="json_upload_old" id="id_upload_json_input" />
                         Load JSON
                     </label>
                 </div>
                 <div class="editor_column_cell">
-                    <label class="json_upload_editor" title="This will append JSON contents to current loaded state.">
+                    <label class="json_upload_editor file_draggable" id="id_lappend" title="This will append JSON contents to current loaded state.">
                         <input type="file" style="width: 100%;" class="json_upload_old" id="id_append_json_input" multiple/>
                         Append JSON
                     </label>

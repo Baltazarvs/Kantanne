@@ -1,10 +1,10 @@
-var g_JsonObjCounter = 0;
+
 var g_WordArray = new Array();
 var g_SelectedWordIndexes = new Array();
 var g_ShowDeleteButton = new Boolean(false);
 var g_CurrentCode = null;
-var file_input = document.getElementById("id_upload_json_input");
-var file_append = document.getElementById("id_append_json_input");
+var file_input = $("#id_upload_json_input");
+var file_append = $("#id_append_json_input");
 var g_SearchExecuted = new Boolean(false);
 var g_WordSearchExecuted = new Boolean(false);
 var g_DisplayInfo = new Boolean(true);
@@ -12,6 +12,8 @@ var g_CompressJSON = false;
 var g_CompressionMethod = 1;
 var jsonInitialInline = "{\n\t\"words\":\n\t[\n";
 var jsonFinalInline = "\t]\n}";
+var g_DragActive = false;
+var g_JsonObjCounter = g_WordArray.length;
 
 function WordObject(index, word, reading, romaji, meaning, jlpt_level = null, word_type = null, note = null)
 {
@@ -32,28 +34,28 @@ var checkExistingWord = () => {
         return;
     }
 
-    document.getElementById("id_word_found").style.display = "block";
+    $("#id_word_found").css("display", "block");
 
     let bFound = false;
 
     for(let i = 0; i < g_WordArray.length; ++i)
     {
-        if(g_WordArray[i].word === document.getElementById("id_editor_field_word").value)
+        if(g_WordArray[i].word === $("#id_editor_field_word").val())
         {
             bFound = true;
-            document.getElementById("id_word_found").innerHTML = "Word found.";
-            document.getElementById("id_word_search_div").classList.add("word_found_mod");
+            $("#id_word_found").html("Word found.");
+            $("#id_word_search_div").addClass("word_found_mod");
             break;
         }
     }
     
     if(!bFound)
     {    
-        document.getElementById("id_word_found").innerHTML = "&nbsp;";
-        document.getElementById("id_word_search_div").classList.remove("word_found_mod");
+        $("#id_word_found").html("&nbsp;");
+        $("#id_word_search_div").removeClass("word_found_mod");
     }
 
-    document.getElementById("id_word_search").style.display = "none";
+    $("#id_word_search").css("display", "none");
     g_SearchExecuted = false;
     return;
 };
@@ -66,59 +68,57 @@ var searchExistingWord = () => {
     }
 
     let bFound = false;
-    document.getElementById("id_search_message").style.display = "block";
+    $("#id_search_message").css("display", "block");
     
     for(let i = 0; i < g_WordArray.length; i++)
     {
-        if(g_WordArray[i].word === document.getElementById("id_search_field").value)
+        if(g_WordArray[i].word === $("#id_search_field").val())
         {
             bFound = true;
-            document.getElementById("id_search_message").innerHTML = "Word found!";
-            document.getElementById("xbtnid_" + i).scrollIntoView();
+            $("#id_search_message").html("Word found!");
+            $("#xbtnid_" + i)[0].scrollIntoView();
             break;
         }
-        else if(g_WordArray[i].reading === document.getElementById("id_search_field").value)
+        else if(g_WordArray[i].reading === $("#id_search_field").val())
         {
             bFound = true;
-            document.getElementById("id_search_message").innerHTML = "Word found!";
-            document.getElementById("xbtnid_" + i).scrollIntoView();
+            $("#id_search_message").html("Word found!");
+            $("#xbtnid_" + i)[0].scrollIntoView();
             break;
         }
-        else if(g_WordArray[i].romaji === document.getElementById("id_search_field").value)
+        else if(g_WordArray[i].romaji === $("#id_search_field").val())
         {
             bFound = true;
-            document.getElementById("id_search_message").innerHTML = "Word found!";
-            document.getElementById("xbtnid_" + i).scrollIntoView();
+            $("#id_search_message").html("Word found!");
+            $("#xbtnid_" + i)[0].scrollIntoView();
             break;
         }
     }
 
-    if(!bFound)
-    {
-        document.getElementById("id_search_message").innerHTML = "&nbsp;";
+    if(!bFound) {
+        $("#id_search_message").html("&nbsp;");
     }
 
-    document.getElementById("id_search_loading_icon").style.display = "none";
+    $("#id_search_loading_icon").css("display", "none");
     g_WordSearchExecuted = false;
     return;
 };
 
-function Callback_EditorJSONLoad(fn, options = { discardable: true, update: true, singleFile: true })
+function Callback_EditorJSONLoad(fn, options = { discardable: true, update: true, singleFile: true, dropped: false })
 {
     if(fn)
     {
+        if(options.discardable) {
+            g_JsonObjCounter = 0;
+        }
+
         for(let i = 0; i < fn.length; ++i)
         {
-            if(!fn[i]) {
-                console.error("Error during load process.");
-                return;
-            }
-            
             let file = new FileReader();
             file.onload = function() {
                 const fcon = file.result;
                 g_CurrentCode = new String(fcon);
-                document.getElementById("id_textarea_json_code").innerHTML = g_CurrentCode;
+                $("#id_textarea_json_code").html(g_CurrentCode);
                 const data = JSON.parse(g_CurrentCode);
                 
                 if(options.discardable) { g_WordArray.splice(0, g_WordArray.length); }
@@ -139,16 +139,13 @@ function Callback_EditorJSONLoad(fn, options = { discardable: true, update: true
                     }
 
                     let obj = new WordObject(
-                        i, data.words[i].word, data.words[i].furigana, data.words[i].romaji, data.words[i].meaning, jlpt_level, word_type, word_note
+                        g_JsonObjCounter, data.words[i].word, data.words[i].furigana, data.words[i].romaji, data.words[i].meaning, jlpt_level, word_type, word_note
                     );
                     g_WordArray.push(obj);
+                    g_JsonObjCounter += 1;
                 }
-
-                if(options.update)
-                {
-                    updateCode();
-                    updateTable();
-                }
+                updateTable();
+                updateCode();
             };
             file.readAsText(fn[i]);
             if(options.singleFile) break;
@@ -156,19 +153,69 @@ function Callback_EditorJSONLoad(fn, options = { discardable: true, update: true
     }
 }
 
-file_input.addEventListener("change", () => {
-    Callback_EditorJSONLoad(file_input.files, { discardable: true, update: true, singleFile: true });
+function Callback_JSONDropAction(files)
+{
+    if (files.length > 0) {
+        Callback_EditorJSONLoad(files, { discardable: true, update: true, singleFile: true, dropped: true });
+        $(".file_draggable").removeClass("animate_drag");
+        g_DragActive = false;
+    }
+}
+
+$("#id_upload_json_input").on("change", function() {
+    let files = this.files;
+    Callback_EditorJSONLoad(files, { discardable: true, update: true, singleFile: true, dropped: false });
 });
 
-file_append.addEventListener("change", () => {
-    Callback_EditorJSONLoad(file_append.files, { discardable: false, update: true, singleFile: false });
+$("#id_append_json_input").on("change", function() {
+    let files = this.files;
+    Callback_EditorJSONLoad(files, { discardable: false, update: true, singleFile: false, dropped: false });
+});
+
+$(".file_draggable").bind("dragover", (e) => {
+    e.preventDefault();
+    g_DragActive = true;
+    if(g_DragActive) {
+        $(".file_draggable").addClass("animate_drag");
+    } 
+});
+
+$(".file_draggable").bind("dragleave", function (e) {
+    e.preventDefault();
+    g_DragActive = false;
+    $(".file_draggable").removeClass("animate_drag");
+});
+
+$(window).bind("drop", (e) => { e.preventDefault();});
+$(window).bind("dragover", (e) => { e.preventDefault(); });
+
+$("#id_lload").bind("drop", (e) => {
+    const files = e.originalEvent.dataTransfer.files;
+    Callback_JSONDropAction(files, { discardable: true, update: true, singleFile: true, dropped: true });
+    $(".file_draggable").removeClass("animate_drag");
+    g_DragActive = false;
+});
+
+$("#id_list_em").bind("drop", (e) => {
+    const files = e.originalEvent.dataTransfer.files;
+    Callback_JSONDropAction(files, { discardable: true, update: true, singleFile: true, dropped: true });
+    $(".file_draggable").removeClass("animate_drag");
+    g_DragActive = false;
+});
+
+$("#id_lappend").bind("drop", (e) => {
+    const files = e.originalEvent.dataTransfer.files;
+    if (files.length > 0) {
+        Callback_EditorJSONLoad(files, { discardable: false, update: true, singleFile: false, dropped: true });
+    }
+    $(".file_draggable").removeClass("animate_drag");
+    g_DragActive = false;
 });
 
 function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_type = null, word_note = null, bFirst = false, bLast = false)
 {
     var finalStr = new String();
-    g_JsonObjCounter += 1;
-    if(g_JsonObjCounter > 1)
+    if((g_WordArray.length+1) > 1)
     {
         if(!bFirst) { finalStr += (g_CompressionMethod > 2) ? ',' : ',\n'; }
     }
@@ -238,9 +285,9 @@ function updateCode()
         jsonFinalInline = "]}";
     }
 
-    let txtaText = document.getElementById("id_textarea_json_code");
-    txtaText.innerHTML = "";
-    txtaText.innerHTML += jsonInitialInline;
+    let txtaText = $("#id_textarea_json_code");
+    txtaText.html("");
+    txtaText.html(txtaText.html() + jsonInitialInline);
     for(let i = 0; i < g_WordArray.length; ++i)
     {
         let tempStr = jsonObjectInline(
@@ -254,9 +301,9 @@ function updateCode()
             (i == 0) ? true : false,
             (i == (g_WordArray.length-1)) ? true : false
         );
-        txtaText.innerHTML += tempStr;
+        txtaText.html(txtaText.html() + tempStr);
     }
-    txtaText.innerHTML += ((g_CompressionMethod < 3) ? "\n" : "") + jsonFinalInline;
+    txtaText.html(txtaText.html() + ((g_CompressionMethod < 3) ? "\n" : "") + jsonFinalInline);
 }
 
 function updateTable()
@@ -264,8 +311,8 @@ function updateTable()
     let divopen_temp = "<div class=\"editor_list_item item_non_terminal nn\">";
     let divopen = "<div class=\"editor_list_item item_non_terminal nn\">";
     let divclose = "</div>";
-    let list = document.getElementById("id_list_em");
-    list.innerHTML = "";
+    let list = $("#id_list_em");
+    list.html("");
 
     for(let i = 0; i < g_JsonObjCounter; ++i)
     {
@@ -274,7 +321,7 @@ function updateTable()
         } else {
             divopen = divopen_temp;
         }
-
+        
         let embedhtml = divopen;
         embedhtml += `<div class="editor_list_item_cell actionbtn xitmbtn" style="width: 2%;" id="xbtnid_${i}" onclick="emitSelected(${i});">X</div>`;
         embedhtml += `<div class="editor_list_item_cell actionbtn edititmbtn" style="width: 2%;" id="editbtnid_${i}" onclick="editItem(${i});">...</div>`;
@@ -288,15 +335,14 @@ function updateTable()
             embedhtml += `<div class="editor_list_item_cell" style="padding: 0;"><button class="info_button" onmouseenter="displayInfo();" onmouseleave="hideInfo();" onmouseover="textInfo(this);" value="${g_WordArray[i].note}" disabled>note</button></div>`;
         }
         embedhtml += divclose;
-        list.innerHTML += embedhtml;
+        list.html(list.html() + embedhtml);
     }
 }
 
 function restartIDs()
 {
-    let parentDiv = document.getElementById("id_list_em");
-    let xbtns = parentDiv.querySelectorAll("div.xitmbtn");
-    let editBtns = parentDiv.querySelectorAll("div.edititmbtn");
+    let xbtns = $("#id_list_em.xitmbtn");
+    let editBtns = $("#id_list_em.edititmbtn");
 
     for(let i = 0; i < xbtns.length; ++i)
     {
@@ -307,7 +353,7 @@ function restartIDs()
 
 function textInfo(obj)
 {
-    document.getElementById("id_note_text").innerHTML = String(obj.value);
+    $("#id_note_text").html(String($(obj).val()));
 }
 
 function deleteItem(index)
@@ -325,28 +371,28 @@ function emitSelected(index)
 
 function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = null, e = 0, f = null, g = null)
 {
-    let word = document.getElementById("id_editor_field_word");
-    let furigana = document.getElementById("id_editor_field_reading");
-    let romaji = document.getElementById("id_editor_field_romaji");
-    let meaning = document.getElementById("id_editor_field_meaning");
-    let jlptlevel = document.getElementById("id_jlpt_level");
-    let word_type = document.getElementById("id_word_type");
-    let note_field = document.getElementById("id_note_field"); // TODO
+    let word = $("#id_editor_field_word");
+    let furigana = $("#id_editor_field_reading");
+    let romaji = $("#id_editor_field_romaji");
+    let meaning = $("#id_editor_field_meaning");
+    let jlptlevel = $("#id_jlpt_level");
+    let word_type = $("#id_word_type");
+    let note_field = $("#id_note_field");
 
-    if(!word.value.length || !meaning.value.length)
+    if(!word.val().length || !meaning.val().length)
     {
         alert("Enter required values.");
         return;
     }
 
     let note_val = null;
-    if(note_field.value.length > 0) {
-        note_val = note_field.value;
+    if(note_field.val().length > 0) {
+        note_val = note_field.val();
     }
 
     for(let i = 0; i < g_WordArray.length; ++i)
     {
-        if(g_WordArray[i].word === word.value || g_WordArray[i].word === a)
+        if(g_WordArray[i].word === word.val() || g_WordArray[i].word === a)
         {
             let conf = confirm("The world already exists in collection. Do you wish to proceed?");
             if(!conf)
@@ -355,38 +401,37 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
         }
     }
 
-    g_JsonObjCounter += 1;
-
     if(bEdited)
     {
         g_WordArray[index] = new WordObject(
             index+1,
-            (a == null) ? word.value : a,
-            (b == null) ? furigana.value : b,
-            (c == null) ? romaji.value : c,
-            (d == null) ? meaning.value : d,
-            (e == 0) ? jlptlevel.value : e,
-            (f == null || f == "Unspecified") ? word_type.value : f,
+            (a == null) ? word.val() : a,
+            (b == null) ? furigana.val() : b,
+            (c == null) ? romaji.val() : c,
+            (d == null) ? meaning.val() : d,
+            (e == 0) ? jlptlevel.val() : e,
+            (f == null || f == "Unspecified") ? word_type.val() : f,
             (g == null) ? note_val : g
         );
     }
     else
     {
+        g_JsonObjCounter += 1;
         g_WordArray.push(
             new WordObject(
                 g_JsonObjCounter,
-                (a == null) ? word.value : a,
-                (b == null) ? furigana.value : b,
-                (c == null) ? romaji.value : c,
-                (d == null) ? meaning.value : d,
-                (e == 0) ? jlptlevel.value : e,
-                (f == null || f == "Unspecified") ? word_type.value : f,
+                (a == null) ? word.val() : a,
+                (b == null) ? furigana.val() : b,
+                (c == null) ? romaji.val() : c,
+                (d == null) ? meaning.val() : d,
+                (e == 0) ? jlptlevel.val() : e,
+                (f == null || f == "Unspecified") ? word_type.val() : f,
                 (g == null) ? note_val : g
             )
         );
     }
 
-    word.value = ""; furigana.value = ""; romaji.value = ""; meaning.value = ""; note_field.value = "";
+    word.val(""); furigana.val(""); romaji.val(""); meaning.val(""); note_field.val("");
     g_SelectedWordIndexes.splice(0, g_SelectedWordIndexes.length);
     updateTable();
 }
@@ -394,7 +439,7 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
 function saveJson()
 {
     updateCode();
-    const text = document.getElementById("id_textarea_json_code").value;
+    const text = $("#id_textarea_json_code").val();
     const blob = new Blob([text], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -405,119 +450,116 @@ function saveJson()
 
 function toggleShowHideHTML()
 {
-    let showHide = document.getElementById("id_show_hide_html");
-    let htmlBox = document.getElementById("id_html");
+    let showHide = $("#id_show_hide_html");
+    let htmlBox = $("#id_html");
 
-    if(htmlBox.style.display === "block")
+    if(htmlBox.css("display") === "block")
     {
-        htmlBox.style.display = "none";
-        showHide.innerHTML = "show";
+        htmlBox.css("display", "none");
+        showHide.html("show");
     }
     else
     {
-        htmlBox.style.display = "block";
-        showHide.innerHTML = "hide";
+        htmlBox.css("display", "block");
+        showHide.html("hide");
     }
 }
 
 function displayInfo()
 {
-    document.getElementById("id_popup_info").style.display = "block";
+    $("#id_popup_info").css("display", "block");
     g_DisplayInfo = true;
 }
 
 function hideInfo()
 {
-    document.getElementById("id_popup_info").style.display = "none";
+    $("#id_popup_info").css("display", "none");
     g_DisplayInfo = false;
 }
 
 function updateStyleCode(obj = null)
 {
-    let txtarea = document.getElementById("id_txt_code");
+    let txtarea = $("#id_txt_code");
     let wordVal = null;
 
     if(obj) {
-        wordVal = obj.value;
+        wordVal = obj.val();
     } else {
-        wordVal = document.getElementById("id_editor_field_word").value;
+        wordVal = $("#id_editor_field_word").val();
     }
 
-    let queryVal = document.querySelector('input[type="radio"][name="highlight_color"]:checked');
+    let queryVal = $('input[type="radio"][name="highlight_color"]:checked');
     if(!queryVal) { return; }
 
-    let h_val = queryVal.value;
+    let h_val = queryVal.val();
     let h_val_added = "";
 
     for(let i = 0; i < 5; ++i)
     {
-        let retrobj = document.getElementById(`id_cbx_style_${i}`);
-        if(retrobj.checked) {
-            h_val_added += ` ${retrobj.value}`;
+        let retrobj = $(`#id_cbx_style_${i}`);
+        if(retrobj.is(":checked")) {
+            h_val_added += ` ${retrobj.val()}`;
         }
     }
 
     h_val += h_val_added;
 
     let full_span = `<span class="${h_val}">${wordVal}</span>`;
-    txtarea.value = full_span;
+    txtarea.val(full_span);
 }
 
 function applyStyles()
 {
-    let applyCode = document.getElementById("id_txt_code").value;
-    document.getElementById("id_editor_field_word").value = applyCode;
+    let applyCode = $("#id_txt_code").val();
+    $("#id_editor_field_word").val(applyCode);
 }
 
 function editItem(index)
 {
-    document.getElementById("id_editor_field_word").value = g_WordArray[index].word;
-    document.getElementById("id_editor_field_reading").value = g_WordArray[index].reading;
-    document.getElementById("id_editor_field_romaji").value = g_WordArray[index].romaji;
-    document.getElementById("id_editor_field_meaning").value = g_WordArray[index].meaning;
-    document.getElementById("id_jlpt_level").value = (g_WordArray[index].jlpt_level) ? g_WordArray[index].jlpt_level : "0";
-    document.getElementById("id_word_type").value = (g_WordArray[index].type) ? g_WordArray[index].type : "Unspecified";
-    document.getElementById("id_note_field").value = (g_WordArray[index].note) ? g_WordArray[index].note : "";
-
-    document.getElementById("id_edit_button").style.display = "block";
-    document.getElementById("id_add_button").style.display = "none";
+    $("#id_editor_field_word").val(g_WordArray[index].word);
+    $("#id_editor_field_reading").val(g_WordArray[index].reading);
+    $("#id_editor_field_romaji").val(g_WordArray[index].romaji);
+    $("#id_editor_field_meaning").val(g_WordArray[index].meaning);
+    $("#id_jlpt_level").val((g_WordArray[index].jlpt_level) ? g_WordArray[index].jlpt_level : "0");
+    $("#id_word_type").val((g_WordArray[index].type) ? g_WordArray[index].type : "Unspecified");
+    $("#id_note_field").val((g_WordArray[index].note) ? g_WordArray[index].note : "");
+    $("#id_edit_button").css("display", "block");
+    $("#id_add_button").css("display", "none");
     
-    let divs = document.querySelectorAll("div.actionbtn");
-    divs.forEach(elem => {
-        elem.classList.add("disable_action_button");
-        elem.style.pointerEvents = "none";
-    });
+    $("div.actionbtn")
+        .addClass("disable_action_button")
+        .css("pointerEvents", "none")
+    ;
 
-    document.getElementById("id_edit_button").value = index;
+    $("#id_edit_button").val(index);
 }
 
 function applyChanges(e)
 {
-    document.getElementById("id_edit_button").style.display = "none";
-    document.getElementById("id_add_button").style.display = "block";
+    $("#id_edit_button").css("display", "none");
+    $("#id_add_button").css("display", "block");
 
-    let index = e.value;
+    let index = $(e).val();
     pushWord(true, index);
 
-    let divs = document.querySelectorAll("div.actionbtn");
-    divs.forEach(elem => {
-        elem.classList.remove("disable_action_button");
-        elem.style.pointerEvents = "auto";
-    });
+    $("div.actionbtn")
+        .remove("disable_action_button")
+        .css("pointerEvents", "auto")
+    ;
 }
 
 function addStyleEvent()
 {
     displayWindow('id_popup_window_styles');
-    document.getElementById("id_style_word").value = document.getElementById("id_editor_field_word").value;
+    $("#id_style_word").val($("#id_editor_field_word").val());
 }
 
-document.getElementById("id_editor_field_word").addEventListener("input", () => {
+$("#id_editor_field_word").bind("input", () => {
     if(!g_SearchExecuted.valueOf())
     {
-        document.getElementById("id_word_found").style.display = "none";
-        document.getElementById("id_word_search").style.display = "block";
-        document.getElementById("id_word_search_div").classList.remove("word_found_mod");
+        $("#id_word_found").css("display", "none");
+        $("#id_word_search").css("display", "block");
+        $("#id_word_search_div").removeClass("word_found_mod");
 
         setTimeout(
             () => {
@@ -528,11 +570,11 @@ document.getElementById("id_editor_field_word").addEventListener("input", () => 
     }
 });
 
-document.getElementById("id_search_field").addEventListener("input", () => {
+$("#id_search_field").bind("input", () => {
     if(!g_WordSearchExecuted.valueOf())
     {
-        document.getElementById("id_search_message").style.display = "none";
-        document.getElementById("id_search_loading_icon").style.display = "block";
+        $("#id_search_message").css("display", "none");
+        $("#id_search_loading_icon").css("display", "block");
         
         setTimeout(
             () => {
@@ -544,16 +586,16 @@ document.getElementById("id_search_field").addEventListener("input", () => {
     }
 });
 
-document.addEventListener("mousemove", (e) => {
+$(document).bind("mousemove", (e) => {
     if(g_DisplayInfo)
     {
-        const info_elem = document.getElementById("id_popup_info");
-        info_elem.style.left = `${e.clientX+1}px`;
-        info_elem.style.top = `${e.clientY+1}px`;
+        const info_elem = $("#id_popup_info");
+        info_elem.css("left", `${e.clientX+1}px`);
+        info_elem.css("top", `${e.clientY+1}px`);
     }
 });
 
 
-document.getElementById("id_style_options").addEventListener("change", (e) => {
-    updateStyleCode(document.getElementById("id_style_word"));
+$("#id_style_options").bind("change", (e) => {
+    updateStyleCode($("#id_style_word"));
 });

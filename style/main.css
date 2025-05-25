@@ -770,3 +770,45 @@ img.flashcard {
     width: 150px;
     height: auto;
 }
+
+
+
+@keyframes drag_drop_kf {
+    0% { background-color: #ff5151; color: white; }
+    100% { background-color: #ff8f8f; color: lightgray; }
+}
+
+@keyframes drag_drop_kf_table {
+    0% {
+        background-color: #ffffff;
+    }
+    100% {
+        background-color: #dedede;
+    }
+}
+
+.table_init_state {
+    overflow-y: auto;
+}
+
+label.animate_drag {
+    animation-name: drag_drop_kf;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    -webkit-animation-name: drag_drop_kf;
+    -moz-animation-name: drag_drop_kf;
+    -o-animation-name: drag_drop_kf;
+}
+
+div.animate_drag {
+    animation-name: drag_drop_kf_table;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    -webkit-animation-name: drag_drop_kf_table;
+    -moz-animation-name: drag_drop_kf_table;
+    -o-animation-name: drag_drop_kf_table;
+    background-size: 40px 40px;
+    background-image: radial-gradient(circle, #aaa 1px, rgba(0, 0, 0, 0) 1px);
+}
