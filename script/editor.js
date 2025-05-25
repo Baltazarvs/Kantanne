@@ -4,6 +4,7 @@ var g_SelectedWordIndexes = new Array();
 var g_ShowDeleteButton = new Boolean(false);
 var g_CurrentCode = null;
 var file_input = document.getElementById("id_upload_json_input");
+var file_append = document.getElementById("id_append_json_input");
 var g_SearchExecuted = new Boolean(false);
 var g_WordSearchExecuted = new Boolean(false);
 var g_DisplayInfo = new Boolean(true);
@@ -102,42 +103,65 @@ var searchExistingWord = () => {
     return;
 };
 
-file_input.addEventListener("change", function() {
-    const fn = file_input.files[0];
+function Callback_EditorJSONLoad(fn, options = { discardable: true, update: true, singleFile: true })
+{
     if(fn)
     {
-        const file = new FileReader();
-        file.onload = function() {
-            const fcon = file.result;
-            g_CurrentCode = new String(fcon);
-            document.getElementById("id_textarea_json_code").innerHTML = g_CurrentCode;
-            const data = JSON.parse(g_CurrentCode);
-            g_WordArray.splice(0, g_WordArray.length);
-            for(let i = 0; i < data.words.length; ++i)
-            {
-                let jlpt_level = null;
-                let word_type = null;
-                let word_note = null;
-                if('jlptlevel' in data.words[i]) {
-                    jlpt_level = data.words[i].jlptlevel;
-                }
-                if('type' in data.words[i]) {
-                    word_type = data.words[i].type;
-                }
-                if('note' in data.words[i]) {
-                    word_note = data.words[i].note;
+        for(let i = 0; i < fn.length; ++i)
+        {
+            if(!fn[i]) {
+                console.error("Error during load process.");
+                return;
+            }
+            
+            let file = new FileReader();
+            file.onload = function() {
+                const fcon = file.result;
+                g_CurrentCode = new String(fcon);
+                document.getElementById("id_textarea_json_code").innerHTML = g_CurrentCode;
+                const data = JSON.parse(g_CurrentCode);
+                
+                if(options.discardable) { g_WordArray.splice(0, g_WordArray.length); }
+
+                for(let i = 0; i < data.words.length; ++i)
+                {
+                    let jlpt_level = null;
+                    let word_type = null;
+                    let word_note = null;
+                    if('jlptlevel' in data.words[i]) {
+                        jlpt_level = data.words[i].jlptlevel;
+                    }
+                    if('type' in data.words[i]) {
+                        word_type = data.words[i].type;
+                    }
+                    if('note' in data.words[i]) {
+                        word_note = data.words[i].note;
+                    }
+
+                    let obj = new WordObject(
+                        i, data.words[i].word, data.words[i].furigana, data.words[i].romaji, data.words[i].meaning, jlpt_level, word_type, word_note
+                    );
+                    g_WordArray.push(obj);
                 }
 
-                let obj = new WordObject(
-                    i, data.words[i].word, data.words[i].furigana, data.words[i].romaji, data.words[i].meaning, jlpt_level, word_type, word_note
-                );
-                g_WordArray.push(obj);
-            }
-            updateCode();
-            updateTable();
-        };
-        file.readAsText(fn);
+                if(options.update)
+                {
+                    updateCode();
+                    updateTable();
+                }
+            };
+            file.readAsText(fn[i]);
+            if(options.singleFile) break;
+        }
     }
+}
+
+file_input.addEventListener("change", () => {
+    Callback_EditorJSONLoad(file_input.files, { discardable: true, update: true, singleFile: true });
+});
+
+file_append.addEventListener("change", () => {
+    Callback_EditorJSONLoad(file_append.files, { discardable: false, update: true, singleFile: false });
 });
 
 function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_type = null, word_note = null, bFirst = false, bLast = false)
@@ -257,6 +281,7 @@ function updateTable()
         embedhtml += `<div class="editor_list_item_cell" style="width: 5%;"><span>${i+1}.</span></div>`;
         embedhtml += `<div class="editor_list_item_cell"><h4 class="no-margin no-padding" title="${((!g_WordArray[i].jlpt_level) ? "Unspecified level" : "N" + g_WordArray[i].jlpt_level)} word">${g_WordArray[i].word}</h4></div>`;
         embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding">${g_WordArray[i].reading}</p></div>`;
+        embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding">${g_WordArray[i].romaji}</p></div>`;
         embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding">${g_WordArray[i].meaning}</p></div>`;
         embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding color-gray"><i>${((g_WordArray[i].word_type != null) ? g_WordArray[i].word_type : "Unspecified")}</i></p></div>`;
         if(g_WordArray[i].note != null) {
@@ -361,7 +386,7 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
         );
     }
 
-    word.value = ""; furigana.value = ""; romaji.value = ""; meaning.value = "";
+    word.value = ""; furigana.value = ""; romaji.value = ""; meaning.value = ""; note_field.value = "";
     g_SelectedWordIndexes.splice(0, g_SelectedWordIndexes.length);
     updateTable();
 }

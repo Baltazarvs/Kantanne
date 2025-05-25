@@ -765,3 +765,8 @@ div.popup_info {
 .insert_button_mod_save:hover {
     background-color: #135fff;
 }
+
+img.flashcard {
+    width: 150px;
+    height: auto;
+}
