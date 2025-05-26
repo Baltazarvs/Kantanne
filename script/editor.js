@@ -325,6 +325,7 @@ function updateTable()
         let embedhtml = divopen;
         embedhtml += `<div class="editor_list_item_cell actionbtn xitmbtn" style="width: 2%;" id="xbtnid_${i}" onclick="emitSelected(${i});">X</div>`;
         embedhtml += `<div class="editor_list_item_cell actionbtn edititmbtn" style="width: 2%;" id="editbtnid_${i}" onclick="editItem(${i});">...</div>`;
+        embedhtml += `<div class="editor_list_item_cell" style="width: 2%;"><input type="checkbox" id="cbxid_${i}" onclick="emitChecked(${i});"/></div>`;
         embedhtml += `<div class="editor_list_item_cell" style="width: 5%;"><span>${i+1}.</span></div>`;
         embedhtml += `<div class="editor_list_item_cell"><h4 class="no-margin no-padding" title="${((!g_WordArray[i].jlpt_level) ? "Unspecified level" : "N" + g_WordArray[i].jlpt_level)} word">${g_WordArray[i].word}</h4></div>`;
         embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding">${g_WordArray[i].reading}</p></div>`;
@@ -367,6 +368,61 @@ function emitSelected(index)
 {
     deleteItem(index);
     updateTable();
+}
+
+function emitChecked(index)
+{
+    let ind = g_SelectedWordIndexes.indexOf(index);
+    if(ind !== -1) {
+        g_SelectedWordIndexes.splice(ind, 1);
+    } else {
+        g_SelectedWordIndexes.push(index);
+    }
+
+    $("#id_div_show_save_selection").css("display", ((g_SelectedWordIndexes.length > 0) ? "block" : "none"));
+}
+
+function exportSelection()
+{
+    if(g_CompressionMethod < 1 || g_CompressionMethod > 3) { g_CompressionMethod = 1; }
+    
+    if(g_CompressionMethod < 3)
+    {
+        jsonInitialInline = "{\n\t\"words\":\n\t[\n";
+        jsonFinalInline = "\t]\n}";
+    }
+    else
+    {
+        jsonInitialInline = "{\"words\":[";
+        jsonFinalInline = "]}";
+    }
+
+    let finalCode = jsonInitialInline;
+    g_SelectedWordIndexes.sort();
+    for(let i = 0; i < g_SelectedWordIndexes.length; ++i)
+    {
+        finalCode += jsonObjectInline(
+            g_WordArray[g_SelectedWordIndexes[i]].word,
+            g_WordArray[g_SelectedWordIndexes[i]].reading,
+            g_WordArray[g_SelectedWordIndexes[i]].romaji,
+            g_WordArray[g_SelectedWordIndexes[i]].meaning,
+            g_WordArray[g_SelectedWordIndexes[i]].jlpt_level,
+            g_WordArray[g_SelectedWordIndexes[i]].word_type,
+            g_WordArray[g_SelectedWordIndexes[i]].note,
+            (i == 0) ? true : false,
+            (i == (g_SelectedWordIndexes.length-1)) ? true : false
+        );
+    }
+
+    finalCode += (((g_CompressionMethod < 3) ? "\n" : "") + jsonFinalInline);
+
+    const text = finalCode;
+    const blob = new Blob([text], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'kantanne_flashcard.json';
+    link.click();
+    URL.revokeObjectURL(link.href);
 }
 
 function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = null, e = 0, f = null, g = null)

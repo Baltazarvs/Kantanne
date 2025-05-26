@@ -110,6 +110,9 @@
                         <button class="insert_button_cls" id="id_add_button" onclick="pushWord(false, 0);">Add</button>
                     </div>
                     <div class="editor_column_cell"><button class="insert_button_cls insert_button_mod_save" onclick="updateCode(); saveJson();">Save</button></div>
+                    <div class="editor_column_cell" id="id_div_show_save_selection" style="display: none;">
+                        <button class="insert_button_cls insert_button_mod_save" onclick="exportSelection();">Save Selected</button>
+                    </div>
                     <div class="editor_column_cell"><label title="Remove new lines from JSON and put attributes in same line per object.">
                         <select class="level_select" style="height: 100%;" onchange="g_CompressionMethod = parseInt(this.value, '10'); if(g_CompressionMethod != 1) { g_CompressJSON = true; } else { g_CompressJSON = false; }">
                             <option value=1>No compression</option>
