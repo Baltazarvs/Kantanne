@@ -23,8 +23,10 @@ var g_ReusedCounter = 0;
 
 var file_input = document.getElementById("id_file_input");
 
-file_input.addEventListener("change", function() {
-    const fn = file_input.files[0];
+var g_DragActive = false;
+
+function Callback_JSONDropAction(fn)
+{
     if(fn)
     {
         const file = new FileReader();
@@ -43,9 +45,9 @@ file_input.addEventListener("change", function() {
             document.getElementById("id_start_again").style.display = "inline-block";
             startFC();
         };
-        file.readAsText(fn);
+        file.readAsText(fn[0]);
     }
-});
+}
 
 function startFC()
 {
@@ -215,3 +217,32 @@ function retrieveActualText(id)
     }
     return (element ? element.innerHTML : null);
 }
+
+$(".file_draggable").bind("dragover", (e) => {
+    e.preventDefault();
+    if(!g_DragActive) {
+        $(".file_draggable").addClass("animate_drag");
+        g_DragActive = true;
+    }
+});
+
+$(".file_draggable").bind("dragleave", function (e) {
+    e.preventDefault();
+    g_DragActive = false;
+    $(".file_draggable").removeClass("animate_drag");
+});
+
+$(window).bind("drop", (e) => { e.preventDefault();});
+$(window).bind("dragover", (e) => { e.preventDefault(); });
+
+$("#id_file_drop").bind("drop", (e) => {
+    const files = e.originalEvent.dataTransfer.files;
+    Callback_JSONDropAction(files);
+    $(".file_draggable").removeClass("animate_drag");
+    g_DragActive = false;
+});
+
+$("#id_file_input").on("change", function() {
+    const files = this.files;
+    Callback_JSONDropAction(files);
+});

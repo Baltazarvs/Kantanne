@@ -153,10 +153,10 @@ function Callback_EditorJSONLoad(fn, options = { discardable: true, update: true
     }
 }
 
-function Callback_JSONDropAction(files)
+function Callback_JSONDropAction(files, options = { discardable: true, update: true, singleFile: true, dropped: false })
 {
     if (files.length > 0) {
-        Callback_EditorJSONLoad(files, { discardable: true, update: true, singleFile: true, dropped: true });
+        Callback_EditorJSONLoad(files, options);
         $(".file_draggable").removeClass("animate_drag");
         g_DragActive = false;
     }
@@ -198,7 +198,7 @@ $("#id_lload").bind("drop", (e) => {
 
 $("#id_list_em").bind("drop", (e) => {
     const files = e.originalEvent.dataTransfer.files;
-    Callback_JSONDropAction(files, { discardable: true, update: true, singleFile: true, dropped: true });
+    Callback_JSONDropAction(files, { discardable: false, update: true, singleFile: false, dropped: true });
     $(".file_draggable").removeClass("animate_drag");
     g_DragActive = false;
 });
@@ -325,7 +325,7 @@ function updateTable()
         let embedhtml = divopen;
         embedhtml += `<div class="editor_list_item_cell actionbtn xitmbtn" style="width: 2%;" id="xbtnid_${i}" onclick="emitSelected(${i});">X</div>`;
         embedhtml += `<div class="editor_list_item_cell actionbtn edititmbtn" style="width: 2%;" id="editbtnid_${i}" onclick="editItem(${i});">...</div>`;
-        embedhtml += `<div class="editor_list_item_cell" style="width: 2%;"><input type="checkbox" id="cbxid_${i}" onclick="emitChecked(${i});"/></div>`;
+        embedhtml += `<div class="editor_list_item_cell" style="width: 2%;overflow: hidden;"><input class="cbxbtn" type="checkbox" id="cbxid_${i}" onclick="emitChecked(${i});"/></div>`;
         embedhtml += `<div class="editor_list_item_cell" style="width: 5%;"><span>${i+1}.</span></div>`;
         embedhtml += `<div class="editor_list_item_cell"><h4 class="no-margin no-padding" title="${((!g_WordArray[i].jlpt_level) ? "Unspecified level" : "N" + g_WordArray[i].jlpt_level)} word">${g_WordArray[i].word}</h4></div>`;
         embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding">${g_WordArray[i].reading}</p></div>`;
@@ -344,12 +344,17 @@ function restartIDs()
 {
     let xbtns = $("#id_list_em.xitmbtn");
     let editBtns = $("#id_list_em.edititmbtn");
+    let cbxbtns = $("#id_list_em.cbxbtn");
 
     for(let i = 0; i < xbtns.length; ++i)
     {
         xbtns[i].id = `xbtnid_${i}`;
         editBtns[i].id = `editbtnid_${i}`;
+        cbxbtns[i].id = `cbxid_${i}`;
+        $(`#cbxid_${i}`).prop('checked', false);
     }
+    
+    $("#id_div_show_save_selection").css("display", "none");
 }
 
 function textInfo(obj)
@@ -361,6 +366,7 @@ function deleteItem(index)
 {
     g_WordArray.splice(index, 1);
     g_JsonObjCounter -= 1;
+    g_SelectedWordIndexes.splice(0, g_SelectedWordIndexes.length);
     restartIDs();
 }
 

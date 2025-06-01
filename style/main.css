@@ -523,7 +523,7 @@ button.start_again_button:hover {
 }
 
 .file_upload_mod {
-    width: 20%;
+    width: 40%;
     padding: 10px;
 }
 
@@ -771,7 +771,7 @@ img.flashcard {
     height: auto;
 }
 
-
+.cbxbtn { }
 
 @keyframes drag_drop_kf {
     0% { background-color: #ff5151; color: white; }

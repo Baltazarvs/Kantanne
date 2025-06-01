@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Kantan-Ne?</title>
     <link href="style/main.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <div class="card_main" id="id_fc">
@@ -38,9 +39,9 @@
             </h5>
         </div>
         <div class="main_panel_subdiv fc_main_subdiv">
-            <label class="json_upload_editor file_upload_mod">
+            <label class="json_upload_editor file_upload_mod file_draggable" id="id_file_drop">
                 <input type="file" style="width: 100%;" class="json_upload_old" id="id_file_input"/>
-                Upload JSON
+                Drop JSON here<br><span style="font-size: 10px;">or click to upload</span>
             </label>
             <button class="start_again_button" id="id_start_again" onclick="startFC();">Start Again</button>
         </div>
