@@ -285,7 +285,7 @@ button.cls_conj_tab_active {
 
 .editor_column_cell {
     padding: 10px;
-    background-color: azure;
+    background-color: #eee;
     border-right: 1px solid #ceffff;
     border-bottom: 1px solid #ceffff;
     width: 10%;
@@ -759,11 +759,18 @@ div.popup_info {
 }
 
 .insert_button_mod_save {
+    max-height: 40px;
     background-color: blue;
 }
 
 .insert_button_mod_save:hover {
     background-color: #135fff;
+}
+
+.mod_save_chk {
+    margin: 0;
+    margin-left: 3px;
+    width: 100%;
 }
 
 img.flashcard {
@@ -811,4 +818,76 @@ div.animate_drag {
     -o-animation-name: drag_drop_kf_table;
     background-size: 40px 40px;
     background-image: radial-gradient(circle, #aaa 1px, rgba(0, 0, 0, 0) 1px);
+}
+
+.cell-mod {
+    background-color: #aaa;
+    overflow: hidden;
+    border: 0;
+}
+
+.disabled-bg {
+    background-color: #444;
+    color: white;
+}
+
+.disabled-bg:hover {
+    background-color: #444;
+}
+
+.mod-important-cell {
+    color: white;
+    background-color: crimson;
+    user-select: none;
+}
+
+.mod-important-cell:hover {
+    background-color: rgb(226, 79, 108);
+}
+
+.bg-yellow {
+    background-color: yellow;
+}
+
+.grammar-point-mod {
+    padding: 10px;
+    width: calc(100% - 40px);
+}
+
+.grammar-point-link {
+    color: white;
+    border: 0;
+    text-align: left;
+    font-weight: none;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: #ff2727;
+    padding: 10px;
+    width: calc(100% - 10px);
+    margin: 3px;
+}
+
+.grammar-point-link:hover {
+    background-color: #ff2c2c;
+    cursor: pointer;
+}
+
+@keyframes highlight_effect {
+    0% { background-color: crimson; }
+    100% { background-color: lightgray; }
+}
+.highlight-effect {
+    background-color: white;
+    animation-name: highlight_effect;
+    -webkit-animation-name: highlight_effect;
+    -moz-animation-name: highlight_effect;
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-duration: 0.25s;
+    -webkit-animation-duration: 0.25s;
+    -moz-animation-duration: 0.25s;
+    animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
 }

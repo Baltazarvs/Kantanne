@@ -1,0 +1,82 @@
+li.grammar_li {
+    font-size: 20px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+.no-underline-hover:hover {
+    text-decoration: none;
+}
+
+.override-a {
+    color: black;
+}
+
+.override-a:hover {
+    color: gray;
+}
+
+.separator {
+    border: 0;
+    border: 1px solid #bbb;
+}
+
+p.example-p {
+    padding: 5px;
+    background-color: #bbb;
+    border: 2px solid #ff0000;
+    border-radius: 5px;
+}
+
+.example-div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid #ff0000;
+    border-radius: 5px;
+}
+
+.example-p {
+    height: 30px;
+}
+
+.example-cell {
+    padding: 10px;
+}
+
+.cell-example-sign {
+    background-color: #ff0000;
+    color: white;
+    user-select: none;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+
+.example-content {
+    width: 100%;
+}
+
+.example-japanese {
+    font-weight: bold;
+}
+
+.example-translated {
+    font-size: 10px;
+    color: #555;
+    margin-left: 3px;
+}
+
+.example-separator {
+    margin-top: 10px;
+}

@@ -1,0 +1,230 @@
+<!-- Copyright (C) 2025 baltazarus -->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Kantan-Ne?</title>
+    <link href="../style/main.css" rel="stylesheet"/>
+    <link href="../style/grammar_style.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body style="user-select: none;">
+    <div class="main_panel grammar-point-mod">
+        <div class="main_panel_subdiv" style="text-align: center;">
+            <h1>以-Words</h1>
+        </div>
+        <div class="main_panel_subdiv" style="user-select: text;">
+            <p>
+                以-Words are special words in in Japanese that have multiple functions according to suffix attached.
+                They are used for comparison, time, management, etc. They are usually attached directly to word they modify, which is mostly noun (number also as it is treated as noun).<br>
+
+                There are 8 different 以-words:
+                <ul>
+                    <li class="grammar_li"><a href="#id_ijou_effect" id="id_ijou" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">上</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">じょう</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_ika_effect" id="id_ika" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">下</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">か</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_izen_effect" id="id_izen" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">前</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">ぜん</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_igo_effect" id="id_igo" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">後</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">ご</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_igai_effect" id="id_igai" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">外</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">がい</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_inai_effect" id="id_inai" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">内</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">ない</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_irai_effect" id="id_irai" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">来</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">らい</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_ikou_effect" id="id_ikou" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">降</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">こう</span>)</a></li>
+                </ul>
+            </p>
+            <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_ijou_effect">以上</span></h1>
+                <p>
+                    以上 (いじょう) is 以-word that is used for specifying subset of things that are not less than specified from set. It translates as
+                    "not less than ~, ~ and more".<br>
+                    <span style="font-size: 10px;">Mathematically, it can be represented as (≥).</span>
+                </p>
+                
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese"><u>１８歳以上</u>の人は入れる。</div>
+                            <div class="example-translated translate-togglable"><b>People 18 or older</b> can enter.</div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese"><u>３年生以上</u>の学生が宿題をする。</div>
+                            <div class="example-translated translate-togglable">Students of <b>3rd grade and more</b> are taking exam.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_ika_effect">以下</span></h1>
+                <p>
+                    以下 (いか) is 以-word that is used for specifying subset of things that are not greater than specified from set. It translates as
+                    "not greater than ~, ~ and less, no more than ...".<br>
+                    <span style="font-size: 10px;">Mathematically, it can be represented as (≤).</span>
+                </p>
+                
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese"><u>１７歳以下</u>の人はまだ子供だ。</div>
+                            <div class="example-translated translate-togglable"><b>People 17 and less</b> are still kids.</div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese">その貨物は<u>千キロ以下</u>の重さを運べる</div>
+                            <div class="example-translated translate-togglable">I can transport cargo <b>not heavier than 1000 kg</b>.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_izen_effect">以前</span></h1>
+                <p>
+                    以前 (いぜん) is 以-word that is used for time. It is basically same as 前 but more formal and is used in written text. It translates as
+                    "before, ago".
+                </p>
+
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese">試験以前、コーヒーを飲みましょうか。</div>
+                            <div class="example-translated translate-togglable">Let's drink coffee before the exam.</div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese">午後４時半以前は、留守にしないでください。</div>
+                            <div class="example-translated translate-togglable"></b>Don't leave house before 4:30 PM, please.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_igo_effect">以後</span></h1>
+                <p>
+                    以後 (いご) is 以-word that is used for time. It is basically same as 後 but more formal and is used in written text. It translates as
+                    "after, later".
+                </p>
+
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese">試験以後、コーヒーを飲みましょうか。</div>
+                            <div class="example-translated translate-togglable">Let's drink coffee before the exam.</div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese">午後４時半以後は、留守にしないでください。</div>
+                            <div class="example-translated translate-togglable"></b>Don't leave house before 4:30 PM, please.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_igai_effect">以外</span></h1>
+                <p>
+                    以外 (いがい) is 以-word that is used for excepting things from set. It can except multiple items from set.
+                    It translates as "except ..., excepting ..., but ...".
+                </p>
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese"><u>真理子さん以外</u>は、会議室を出てください。</div>
+                            <div class="example-translated translate-togglable">Everybody <b>except Mariko-san</b> leave the conference room, please.</div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese">一体なぜ誰も読み書きができないのか。<u>田中さん以外</u>。</div>
+                            <div class="example-translated translate-togglable"></b>Why in the world can nobody read and write <b>except Mr.Tanaka?</b></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_inai_effect">以内</span></h1>
+                <p>
+                    以内 (いない) is 以-word that is used for creating limit for time, amount, distance, etc.
+                    It translates as "within ..., in range of ...".
+                </p>
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese">買い物で、3000円以内の物は買ってください。</div>
+                            <div class="example-translated translate-togglable">When shopping, buy things that are <b>within 3000 yen</b>, please.</div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese">値段が3500円以内であれば、買ってくれ。</div>
+                            <div class="example-translated translate-togglable"></b>If price is <b>within 3500 yen</b>, buy it.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_irai_effect">以来</span></h1>
+                <p>
+                    以来 (いらい) is 以-word that is used for time where it specified range of time that is happening since certain event.
+                    It translates as "since ..., henceforth".
+
+                    <ul>
+                        <li>NOUN: ~ 以来</li>
+                        <li>VERB: <span class="h-green i-border" style="font-size: 13px;">て-form</span> + 以来</li>
+                    </ul>
+                </p>
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese"><u>事故以来</u>、運転しなくなった。</div>
+                            <div class="example-translated translate-togglable"><b>Since</b> car accident, he stopped driving.</div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese">結婚<u>して以来</u>、毎日が楽しい</div>
+                            <div class="example-translated translate-togglable"><b>Since</b> we got married, every day is fun.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_ikou_effect">以降</span></h1>
+                <p>
+                    以降 (いこう) is 以-word is used for time and captures interval from certain event and afterwards. It translates as
+                    "on and after, from ... onward". Opposite of this is 以前.
+                    <ul>
+                        <li>NOUN: ~ 以降</li>
+                        <li>VERB: <span class="h-green i-border" style="font-size: 13px;">て-form</span> + 以降</li></li>
+                    </ul>
+                </p>
+
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese"><u>アップデート以降</u>バグが出た。</div>
+                            <div class="example-translated translate-togglable">Bugs appeared <b>after/since update</b>.</div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese">中国に家を<u>買って以降</u>、父が悲しくなった。</div>
+                            <div class="example-translated translate-togglable"><b>Since/after I bought house</b> in China, my father became sad.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main_menu" style="position: static;align-items: center;">
+        <div><button class="menu_button" style="background-color: white;"><img src="../media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
+        <div><a href="../main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
+        <div><a href="../editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
+        <div><button class="menu_button" onclick="window.location.href = '../conj.html';">Conjugator<br><b>変化</b></button></div>
+        <div style="width: calc(100% - 450px);"></div>
+        <div>
+            <label>
+                <input type="checkbox" id="id_toggle_translation" onclick="toggleTranslations(this.id);"/>
+                Hide Translations
+            </label>
+        </div>
+    </div>
+    <script src="../script/main.js"></script>
+    <script src="../script/id_highlight_effect.js"></script>
+    <script src="../script/grammar_page.js"></script>
+</body>
+</html>

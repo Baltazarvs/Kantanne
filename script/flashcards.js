@@ -4,6 +4,7 @@ function WordObjectFC(word, reading, romaji, meaning)
     this.reading = reading;
     this.romaji = romaji;
     this.meaning = meaning;
+    this.important = false;
     this.bUsed = false;
 }
 
@@ -39,6 +40,11 @@ function Callback_JSONDropAction(fn)
                 let obj = new WordObjectFC(
                     data.words[i].word, data.words[i].furigana, data.words[i].romaji, data.words[i].meaning
                 );
+
+                if('important' in data.words[i]) {
+                    obj.important = data.words[i].important;
+                }
+
                 g_WordArray.push(obj);
             }
             newFlashcard();
@@ -115,13 +121,21 @@ function newFlashcard(index = -1)
 
             let absolute_addr = "https://jisho.org/search/" + (g_SwapWordMeaning ? newObj.word : newObj.reading);
 
-            document.getElementById("kanji_redirect").innerHTML = g_SwapWordMeaning ? newObj.word : newObj.reading;
-            document.getElementById("kanji_redirect").href = absolute_addr;
-            document.getElementById("fc_romaji").innerHTML = newObj.romaji;
+            $("#kanji_redirect").html(g_SwapWordMeaning ? newObj.word : newObj.reading);
+            $("#kanji_redirect").prop('href', absolute_addr);
+            $("#fc_romaji").html(newObj.romaji);
 
-            document.getElementById("fc_furigana").innerHTML = g_SwapWordMeaning ? newObj.reading : newObj.word;
-            document.getElementById("fc_meaning").innerHTML = newObj.meaning;
-            document.getElementById("id_flipped_meaning").innerHTML = newObj.meaning;
+            $("#fc_furigana").html(g_SwapWordMeaning ? newObj.reading : newObj.word);
+            $("#fc_meaning").html(newObj.meaning);
+            $("#id_flipped_meaning").html(newObj.meaning);
+
+            if(newObj.important) {
+                $("#id_fc").addClass("bg-yellow");
+            }
+            else {
+                $("#id_fc").removeClass("bg-yellow");
+            }
+
             break;
         }
     }

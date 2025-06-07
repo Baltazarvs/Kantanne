@@ -9,45 +9,9 @@
 </head>
 <body>
     <div class="main_panel">
-        <div style="border-bottom: 1px solid black; display: flex;background-color: white;" id="id_tabs_in_editor">
-            <div><button class="editor_tab_button button_radius_mod_right active" onclick="activateTab(this); changeTab(0);">Flashcards</button></div>
-            <div><button class="editor_tab_button button_radius_mod_left" onclick="activateTab(this); changeTab(1); alert('Not yet.');">Quiz</button></div>
-        </div>
-        <div class="main_panel_subdiv" style="text-align: center;">
-            <h1>Flashcard Editor 1.0</h1>
-            <h6>HTML is allowed in fields. <u><a href="javascript:void(0);" id="id_show_hide_html" onclick="toggleShowHideHTML();">show</a></u></h6>
-            <div class="editor_htmlbox" id="id_html">
-                <span style="font-size: 12px;">
-                    &lt;b&gt;<b>bold text</b>&lt;/b&gt;<br>
-                    &lt;i&gt;<i>italic text</i>&lt;/i&gt;<br>
-                    &lt;u&gt;<u>underline text</u>&lt;/u&gt;<br>
-                    &lt;s&gt;<s>strikethrough text</s>&lt;/s&gt;<br>
-                    &lt;i&gt;&lt;u&gt;<i><u>italic + underline text</u></i>&lt;/u&gt;&lt;/i&gt;
-                    <span style="background-color: gray; color: blue;">
-                        <b>
-                            &lt;-- You can combine HTML tags.
-                        </b>
-                    </span><br><br>
-                    If you know HTML/CSS, you can use "style" attribute and specify CSS styles to make more advanced styles for the entry.<br>
-                    <span style="color: #0f0; border: 1px solid red;background-color: blue;padding: 2px;">
-                        &lt;span style="color: #0f0; border: 1px solid red;background-color: blue;padding: 2px;"&gt;&lt;/span&gt;
-                    </span>
-
-                    <br><br>Some predefined highlighting aids:<br>
-                    <span class="h-red">&lt;span class="h-red"&gt;&lt;/span&gt;<br></span>
-                    <span class="h-green">&lt;span class="h-green"&gt;&lt;/span&gt;<br></span>
-                    <span class="h-blue">&lt;span class="h-blue"&gt;&lt;/span&gt;<br></span>
-                    <span class="h-yellow">&lt;span class="h-yellow"&gt;&lt;/span&gt;<br></span>
-
-                    <br><br>
-                    Predefined styles can be grouped like:<br>
-                    [include: i-] Include certain style (padding, border, underline, strikethrough, bold)<br>
-                    [highlight: h-] Highlight with certain color (red, green, blue, yellow)<br><br>
-                    <span class="h-red i-border i-underline">
-                        &lt;span class="h-red i-border i-underline"&gt;example element...&lt;/span&gt;
-                    </span>
-                </span>
-            </div>
+        <div style="border-bottom: 2px solid #aaa; display: flex;background-color: white;" id="id_tabs_in_editor">
+            <div><button class="editor_tab_button button_radius_mod_right active" onclick="activateTab(this); changeTab(0);">Flashcard Editor 1.0</button></div>
+            <div><button class="editor_tab_button button_radius_mod_left disabled-bg" onclick="activateTab(this); changeTab(1); alert('Not yet.');">Quiz Editor</button></div>
         </div>
         <div class="main_panel_subdiv">
             <div class="editor_list" style="height: auto;overflow: hidden;">
@@ -59,10 +23,14 @@
                     <div class="editor_column_cell"><input type="text" placeholder="Reading*" id="id_editor_field_reading" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Romaji" id="id_editor_field_romaji" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Meaning*" id="id_editor_field_meaning" class="add_field_stl" /></div>
+                    <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Note..." id="id_note_field" class="add_field_stl" /></div>
                     <div class="editor_column_cell" id="id_word_search_div" style="height: calc(32px + 20px);">
                         <p id="id_word_search" style="display: none;"><img src="media/loading.gif" style="width: 32px; height: auto;"/></p>
                         <p id="id_word_found" style="display: none;height: 32px;">Word not found.</p>
                     </div>
+                </div>
+                <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;user-select: none;">
+                    &nbsp;
                 </div>
                 <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;">
                     <div class="editor_column_cell" style="border-top-right-radius: 5px;">
@@ -104,15 +72,6 @@
                             <option value="5">Level: N5</option>
                         </select>
                     </div>
-                    <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Note..." id="id_note_field" class="add_field_stl" /></div>
-                    <div class="editor_column_cell">
-                        <button class="insert_button_cls edit_btn_mod" id="id_edit_button" style="display: none;" value="0" onclick="applyChanges(this);">Edit</button>
-                        <button class="insert_button_cls" id="id_add_button" onclick="pushWord(false, 0);">Add</button>
-                    </div>
-                    <div class="editor_column_cell"><button class="insert_button_cls insert_button_mod_save" onclick="updateCode(); saveJson();">Save</button></div>
-                    <div class="editor_column_cell" id="id_div_show_save_selection" style="display: none;">
-                        <button class="insert_button_cls insert_button_mod_save" onclick="exportSelection();">Save Selected</button>
-                    </div>
                     <div class="editor_column_cell"><label title="Remove new lines from JSON and put attributes in same line per object.">
                         <select class="level_select" style="height: 100%;" onchange="g_CompressionMethod = parseInt(this.value, '10'); if(g_CompressionMethod != 1) { g_CompressJSON = true; } else { g_CompressJSON = false; }">
                             <option value=1>No compression</option>
@@ -120,9 +79,57 @@
                             <option value=3>FULL COMPRESSION</option>
                         </select>
                     </div>
+                    <div class="editor_column_cell">
+                        <button class="insert_button_cls edit_btn_mod" id="id_edit_button" style="display: none;" value="0" onclick="applyChanges(this);">Edit</button>
+                        <button class="insert_button_cls" id="id_add_button" onclick="pushWord(false, 0);">Add</button>
+                    </div>
+                    <div class="editor_column_cell"><button class="insert_button_cls insert_button_mod_save" onclick="updateCode(); saveJson();">Save</button></div>
+                    <div class="editor_column_cell" id="id_div_show_save_selection" style="display: none;width: 30%;flex-direction: row;">
+                        <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="exportSelection();">Save Selected</button>
+                        <button class="insert_button_cls insert_button_mod_save mod_save_chk" style="background-color: deeppink;" onclick="markImportant();">Mark</button>
+                        <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="uncheckAll();">Uncheck All</button>
+                    </div>
                 </div>
-                <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;">
-                    
+                <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;"></div>
+            </div>
+            <div style="user-select: none;">&nbsp;</div>
+            <div class="editor_list file_draggable table_init_state" style="height: auto;border-bottom: 2px solid #777;">
+                <div class="editor_list_item item_non_terminal nn">
+                    <div class="editor_list_item_cell cell-mod" style="max-width: 2%;"></div>
+                    <div class="editor_list_item_cell cell-mod" style="max-width: 2%;"></div>
+                    <div class="editor_list_item_cell cell-mod" style="max-width: 2%;overflow: hidden;">
+                        <span></span>
+                    </div>
+                    <div class="editor_list_item_cell cell-mod" style="max-width: 5%;">
+                        <span>
+                            #
+                        </span>
+                    </div>
+                    <div class="editor_list_item_cell cell-mod">
+                        <h4 class="no-margin no-padding" title="Unspecified level word">Word</h4>
+                    </div>
+                    <div class="editor_list_item_cell cell-mod">
+                        <p class="no-margin no-padding">
+                            Reading
+                        </p>
+                    </div>
+                    <div class="editor_list_item_cell cell-mod">
+                        <p class="no-margin no-padding">
+                            Romaji
+                        </p>
+                    </div>
+                    <div class="editor_list_item_cell cell-mod">
+                        <p class="no-margin no-padding">
+                            Meaning
+                        </p>
+                    </div>
+                    <div class="editor_list_item_cell cell-mod">
+                        <p class="no-margin no-padding color-gray">
+                            <i>
+                                Type/Note...
+                            </i>
+                        </p>
+                    </div>
                 </div>
             </div>
             <div class="editor_list file_draggable table_init_state" id="id_list_em">
@@ -152,14 +159,53 @@
                     <span id="id_search_message" style="padding: 8px;">&nbsp;</span>
                 </div>
             </div>
+            <div style="text-align: center;">
+                <h6>HTML is allowed in fields. <u><a href="javascript:void(0);" id="id_show_hide_html" onclick="toggleShowHideHTML();">show</a></u></h6>
+                <div class="editor_htmlbox" id="id_html">
+                    <span style="font-size: 12px;">
+                        &lt;b&gt;<b>bold text</b>&lt;/b&gt;<br>
+                        &lt;i&gt;<i>italic text</i>&lt;/i&gt;<br>
+                        &lt;u&gt;<u>underline text</u>&lt;/u&gt;<br>
+                        &lt;s&gt;<s>strikethrough text</s>&lt;/s&gt;<br>
+                        &lt;i&gt;&lt;u&gt;<i><u>italic + underline text</u></i>&lt;/u&gt;&lt;/i&gt;
+                        <span style="background-color: gray; color: blue;">
+                            <b>
+                                &lt;-- You can combine HTML tags.
+                            </b>
+                        </span><br><br>
+                        If you know HTML/CSS, you can use "style" attribute and specify CSS styles to make more advanced styles for the entry.<br>
+                        <span style="color: #0f0; border: 1px solid red;background-color: blue;padding: 2px;">
+                            &lt;span style="color: #0f0; border: 1px solid red;background-color: blue;padding: 2px;"&gt;&lt;/span&gt;
+                        </span>
+
+                        <br><br>Some predefined highlighting aids:<br>
+                        <span class="h-red">&lt;span class="h-red"&gt;&lt;/span&gt;<br></span>
+                        <span class="h-green">&lt;span class="h-green"&gt;&lt;/span&gt;<br></span>
+                        <span class="h-blue">&lt;span class="h-blue"&gt;&lt;/span&gt;<br></span>
+                        <span class="h-yellow">&lt;span class="h-yellow"&gt;&lt;/span&gt;<br></span>
+
+                        <br><br>
+                        Predefined styles can be grouped like:<br>
+                        [include: i-] Include certain style (padding, border, underline, strikethrough, bold)<br>
+                        [highlight: h-] Highlight with certain color (red, green, blue, yellow)<br><br>
+                        <span class="h-red i-border i-underline">
+                            &lt;span class="h-red i-border i-underline"&gt;example element...&lt;/span&gt;
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p style="text-align: center;font-size: 10px;">Copyright (C) 2025 <a href="https://github.com/baltazarvs">Baltazarus</a>.</p>
         </div>
     </div>
     <div class="main_menu">
         <div><button class="menu_button" style="background-color: white;"><img src="media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
         <div><a href="main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
-        <div><button class="menu_button" onclick="window.location.href = 'quiz.html';">Quiz<br><b>クイズ</b></button></div>
-        <div><button class="menu_button" onclick="window.location.href = 'conj.html';">Conjugator<br><b>変化</b></button></div>
-        <div><button class="menu_button" onclick="window.location.href = 'kanji.html';">Kanji<br><b>漢字</b></button></div>
+        <div><a href="quiz.html"><button class="menu_button">Quiz<br><b>クイズ</b></button></a></div>
+        <div><a href="conj.html"><button class="menu_button">Conjugator<br><b>変化</b></button></a></div>
+        <div><a href="grammar.html"><button class="menu_button">Grammar<br><b>文法</b></button></a></div>
+        <div><a href="kanji.html"><button class="menu_button">Kanji<br><b>漢字</b></button></a></div>
     </div>
     <div class="popup_window_dim" id="id_popup_window_dim"></div>
     <div class="popup_window" id="id_popup_window">
