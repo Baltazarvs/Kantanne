@@ -74,9 +74,84 @@ p.example-p {
 .example-translated {
     font-size: 10px;
     color: #555;
-    margin-left: 3px;
+    margin-left: 1px;
 }
 
 .example-separator {
     margin-top: 10px;
+}
+
+div.cloud-info {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: auto;
+    height: auto;
+    padding: 5px;
+    border: 1px solid black;
+    background-color: lightgray;
+    font-size: 14px;
+    max-width: 300px;
+    border-radius: 5px;
+}
+
+.sentence-part {
+    border-radius: 5px;
+    padding: 5px;
+    margin: 2px;
+    color: white;
+    user-select: none;
+    font-size: 14px;
+}
+
+
+.topic { background-color: #e59500; }
+.time { background-color: #22a584; }
+.locative { background-color: purple; }
+.instrumental { background-color: #c20087; }
+.target { background-color: crimson; }
+.company { background-color: brown;}
+.subject { background-color: red; }
+.object { background-color: green; }
+.predicate { background-color: blue; }
+.sentence-end { background-color: #41668b; }
+.adverb { background-color: cadetblue; }
+.cause_purpose { background-color: chocolate;}
+
+.nominalization { text-decoration: underline; }
+
+.topic-col { color: #e59500; }
+.time-col { color: #22a584; }
+.locative-col { color: purple; }
+.instrumental-col { color: #ae007a; }
+.target-col { color: crimson; }
+.company-col { color: brown;}
+.subject-col { color: red; }
+.object-col { color: green; }
+.predicate-col { color: blue; }
+.sentence-end-col { color: #41668b; }
+.adverb-col { color: cadetblue; }
+.cause_purpose-col { color: chocolate;}
+
+.part-mod { text-align: center; }
+
+.topic:hover { background-color: #ffb732; }
+.time:hover { background-color: #84fadc; }
+.locative:hover, .instrumental:hover { background-color: #e100e1; }
+.target:hover { background-color: #ff446a; }
+.company:hover { background-color: #ed4a4a;}
+.subject:hover { background-color: #ff6a6a; }
+.object:hover { background-color: #00db00; }
+.predicate:hover { background-color: #6262ff; }
+.sentence-end:hover { background-color: #5382b1; }
+.adverb:hover { background-color: #80d1d3; }
+.cause_purpose:hover { background-color: #f2904a;}
+
+.example-info-able {
+    cursor: pointer;
+}
+
+.example-info-able:hover {
+    text-decoration: underline;
 }

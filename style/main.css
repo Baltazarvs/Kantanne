@@ -23,6 +23,51 @@ div.main_menu {
     flex-direction: row;
 }
 
+@keyframes abm_kf {
+    0% {
+        display: flex;
+        translate: 0px +55px;
+    }
+    50% {
+        translate: 0px -75px;
+    }
+    70% {
+        translate: 0px +10px;
+    }
+    90% {
+        translate: 0px -10px;
+    }
+    100% {
+        translate: 0px 0px;
+    }
+}
+
+@keyframes abm_dissappear {
+    0% {
+        translate: 0px 0px;
+    }
+    100% {
+        display: none;
+        translate: 0px +55px;
+    }
+}
+
+div.menu-mod-bottom {
+    bottom: 0;
+}
+
+div.animate-bottom-menu {
+    animation-duration: 0.7s;
+    animation-name: abm_kf;
+    animation-fill-mode: forwards;
+}
+
+div.animate-bottom-menu-off {
+    animation-duration: 1s;
+    animation-name: abm_dissappear;
+    animation-fill-mode: forwards;
+}
+
 button.menu_button {
     border: 0;
     background-color: red;

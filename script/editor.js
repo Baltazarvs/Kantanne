@@ -1,3 +1,4 @@
+// Copyright (C) 2025 baltazarus. Kantanne is free.
 
 var g_WordArray = new Array();
 var g_SelectedWordIndexes = new Array();

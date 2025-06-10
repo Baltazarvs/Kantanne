@@ -1,0 +1,334 @@
+<!-- Copyright (C) 2025 baltazarus -->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Kantan-Ne?</title>
+    <link href="../style/main.css" rel="stylesheet"/>
+    <link href="../style/grammar_style.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+<script>
+var infoarr = new Array(
+    "<b>TOPIC</b> is first element of sentence. If GA word is absent, topic can indicate subject too. If subject is found in sentence with topic, topic works like 'As for... Speaking of...'",
+    "<b>TIME</b> word is part of sentence that specifies time of action. It can be time adverb, clock time, ...",
+    "<b>Place of action (で)</b> indicates the place where an action takes place. It is used with action verbs like eat, fight, study, talk, etc.<br><br><b>Place of Existence/Arrival (に)</b> indicates the place where something exists, goes, or arrives. Used with existence, motion, or arrival verbs like be, go, stay, arrive, etc.",
+    "The <b>COMPANY</b> is the noun marked with「と」that, together with the subject, forms a group performing the action. It shows that the subject is doing the action together with someone else",
+    "The <b>SUBJECT</b> is the doer of the action or the one experiencing a state or emotion, as defined by the predicate. It's a core part of the sentence and answers the question: 'Who/what is doing or feeling something?'",
+    "The <b>INDIRECT OBJECT</b> is the recipient or target of an action. It's the person or thing that receives, benefits from, or is affected by the action — but it's not the main object acted on.",
+    "<b>INSTRUMENTAL</b> is part of sentence that marks tool, means or method by which an action is executed. Name instrument-al is self describing.",
+    "<b>DIRECT OBJECT</b> is receiver of action that undergoes its consequences, outcomes and effects.",
+    "<b>ADVERB</b> describes how, when, where, or to what degree the action is performed. It modifies the predicate or sometimes the whole sentence to give extra info. It is often placed just before the verb.",
+    "This part expresses why something happens or for what reason/purpose an action is done. It shows <b>cause, reason, or intended goal</b>.",
+    "<b>PREDICATE</b> is the main part of sentence. It is the action of sentence.",
+    "<b>CONJUNCTION</b> is part of sentence that links clauses or other sentences. They can be either at the beginning or at the end of sentence.<br><br><b>Ending particles</b> are particles that stay at the end of sentence and have different functions like questions, explainations, exclamations, emphasizes, etc."
+);
+</script>
+    <div class="main_panel grammar-point-mod">
+        <div class="main_panel_subdiv" style="text-align: center;">
+            <h1>Sentence Word Order</h1>
+        </div>
+        <div class="main_panel_subdiv" style="user-select: text;">
+            <p>
+                Word order of Japanese sentence is fixed in three basic parts and they are
+                <span style="user-select: none;">
+                    <span class="sentence-part subject" title="Part of sentence that executes the action.">subject</span>
+                    <span class="sentence-part object" title="Part of sentence that action is being executed upon.">object</span>
+                    <span class="sentence-part predicate" title="Part of sentence that executes the action. Verb is also called a predicate.">verb</span>
+                </span>. Verb is always located at the end of sentence and there are no exceptions regarding its position.
+
+                <ul>
+                    <li class="grammar_li"><a href="#id_basic_effect" id="id_basic" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Basic Order</a></li>
+                    <li class="grammar_li"><a href="#id_complex_effect" id="id_complex" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Complex Sentence</a></li>
+                    <li class="grammar_li"><a href="#id_topic_effect" id="id_topic" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Topic</a></li>
+                    <li class="grammar_li"><a href="#id_time_effect" id="id_time" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Time</a></li>
+                    <li class="grammar_li"><a href="#id_locative_effect" id="id_locative" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Locative</a></li>
+                    <li class="grammar_li"><a href="#id_company_effect" id="id_company" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Companion</a></li>
+                    <li class="grammar_li"><a href="#id_subject_effect" id="id_subject" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Subject</a></li>
+                    <li class="grammar_li"><a href="#id_indirect_object_effect" id="id_indirect_object" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Indirect Object</a></li>
+                    <li class="grammar_li"><a href="#id_instrumental_effect" id="id_instrumental" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Instrumental</a></li>
+                    <li class="grammar_li"><a href="#id_direct_object_inai_effect" id="id_direct_object" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Direct Object</a></li>
+                    <li class="grammar_li"><a href="#id_adverb_effect" id="id_adverb" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Adverb</a></li>
+                    <li class="grammar_li"><a href="#id_predicate_effect" id="id_predicate" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Predicate</a></li>
+                    <li class="grammar_li"><a href="#id_causeorigin_effect" id="id_causeorigin" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Cause / Origin</a></li>
+                    <li class="grammar_li"><a href="#id_sentence_end_effect" id="id_sentence_end" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Conjunction & Ending Particles</a></li>
+                </ul>
+            </p>
+        </div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_basic_effect">Basic Order</span></h1>
+            <p>
+                As said, Japanese sentences follow
+                <span style="user-select: none;">
+                    <span class="sentence-part subject" title="Part of sentence that executes the action.">subject</span>
+                    <span class="sentence-part object" title="Part of sentence that action is being executed upon.">object</span>
+                    <span class="sentence-part predicate" title="Part of sentence that executes the action. Verb is also called a predicate.">verb</span>
+                </span>
+                word order. It is different from Western languages that mainly follow SVO structure. A simple example of such sentence would look
+                like following example.
+
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese">
+                                <span class="subject-col">猫が</span>
+                                <span class="object-col">魚を</span>
+                                <span class="predicate-col">食べる</span>。
+                            </div>
+                            <div class="example-translated translate-togglable">
+                                <span class="subject-col">Cat</span>
+                                <span class="predicate-col">eats</span>
+                                <span class="object-col">fish</span>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                 <span class="sentence-part subject" title="Part of sentence that executes the action.">Subject</span> is marked with particle <span class="subject-col"><b>が</b></span>.<br><br>
+                 <span class="sentence-part object" title="Part of sentence that executes the action.">Object</span> is marked with particle <span class="object-col"><b>を</b></span>.<br><br>
+                 <span class="sentence-part predicate" title="Part of sentence that executes the action. Verb is also called a predicate.">Verb</span> is the final part and ends with kana from <b>う</b> row.<br><br>
+                 In mentioned example: Cat (subject) eats (predicate) fish (object). A subject is executing action of eating and fish is target of the action.
+            </p>
+        </div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_complex_effect">Complex Sentence</span></h1>
+            <p>
+                As simple as it looked, such an order is ineffective of giving detailed information. So other parts are in order too. Japanese uses particles which
+                determine how words will behave in sentences, meaning that word order is not fixed. But... the main point is the order that is most natural and
+                that is most widely accepted. In Japanese, most widely accepted word order is:<br><br>
+                <div style="display: flex; flex-direction: row;">
+                    <div><h5 data-index="0" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod topic">Topic</h5></div>
+                    <div><h5 data-index="1" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod time">Time</h5></div>
+                    <div><h5 data-index="2" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod locative">Locative</h5></div>
+                    <div><h5 data-index="3" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod company">Companion</h5></div>
+                    <div><h5 data-index="4" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod subject">SUBJECT</h5></div>
+                    <div><h5 data-index="5" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod object">OBJECT (in.)</h5></div>
+                    <div><h5 data-index="6" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod instrumental">Instrumental</h5></div>
+                    <div><h5 data-index="7" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod object">OBJECT (dir.)</h5></div>
+                    <div><h5 data-index="8" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod adverb">Adverb</h5></div>
+                    <div><h5 data-index="9" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod cause_purpose">Cause/Purpose</h5></div>
+                    <div><h5 data-index="10" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod predicate">PREDICATE</h5></div>
+                    <div style="align-content: center;">~</div>
+                    <div><h5 data-index="11" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod sentence-end">Conjunction/の/のです/か/よ/ぞ/ぜ</h5></div>
+                </div>
+                <br>
+                or more precisely with particles:
+                <br><br>
+                <div style="display: flex; flex-direction: row;">
+                    <div><h5 data-index="0" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod topic">Topic<br>は</h5></div>
+                    <div><h5 data-index="1" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod time">Time<br>(に)</h5></div>
+                    <div><h5 data-index="2" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod locative">Locative<br>で / に</h5></div>
+                    <div><h5 data-index="3" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod company">Companion<br>と</h5></div>
+                    <div><h5 data-index="4" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod subject">SUBJECT<br>が</h5></div>
+                    <div><h5 data-index="5" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod object">OBJECT　(in.)<br>に</h5></div>
+                    <div><h5 data-index="6" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod instrumental">Instrumental<br>で</h5></div>
+                    <div><h5 data-index="7" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod object">OBJECT　(dir.)<br>を</h5></div>
+                    <div><h5 data-index="8" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod adverb">Adverb<br>(に)</h5></div>
+                    <div><h5 data-index="9" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod cause_purpose">Cause から<br>Purpose ため/のために</h5></div>
+                    <div><h5 data-index="10" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod predicate">PREDICATE<br>る/う</h5></div>
+                    <div style="align-content: center;">~</div>
+                    <div><h5 data-index="11" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="info-cloud-able sentence-part part-mod sentence-end">Conjunction,<br>の/のです/か/よ/ぞ/ぜ</h5></div>
+                </div><br><br>
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese" style="font-size: 25px;">
+                                <span data-index="0" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="example-info-able info-cloud-able topic-col"><ruby>僕<rt>ぼく</rt></ruby>は</span>
+                                <span data-index="1" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="example-info-able info-cloud-able time-col"><ruby>昨日<rt>きのう</rt></ruby></span>
+                                <span data-index="2" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="example-info-able info-cloud-able locative-col"><ruby>湖<rt>みずうみ</rt></ruby>で</span>
+                                <span data-index="3" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="example-info-able info-cloud-able company-col"><ruby>友達<rt>ともだち</rt></ruby>と</span>
+                                <span data-index="7" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="example-info-able info-cloud-able object-col"><ruby>魚<rt>さかな</rt></ruby>を</span>
+                                <span data-index="10" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="example-info-able info-cloud-able  predicate-col"><ruby>釣<rt>つ</rt></ruby>った</span>。
+                            </div>
+                            <div class="example-translated translate-togglable">
+                                <span class="topic-col">I</span>
+                                <span class="predicate-col">fished</span>
+                                (<span class="object-col">fish</span>)
+                                <span class="company-col">with friend</span>
+                                <span class="locative-col">at the lake</span>
+                                <span class="time-col">yesterday</span>.
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese" style="font-size: 25px;">
+                                <span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="0" class="example-info-able info-cloud-able topic-col"><ruby>父<rt>ちち</rt></ruby>は</span>
+                                <span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="1" class="example-info-able info-cloud-able time-col"><ruby>明日<rt>あした</rt></ruby></span>
+                                <span style="text-decoration: underline;"><span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="4" class="example-info-able info-cloud-able subject-col"><ruby>仕事<rt>しごと</rt></ruby>が</span><span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="10" class="example-info-able info-cloud-able predicate-col">ある</span></span>
+                                <span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="11" class="example-info-able info-cloud-able sentence-end-col">のに</span>、
+                                <span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="3" class="example-info-able info-cloud-able company-col">田中さんと</span>
+                                <span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="6" class="example-info-able info-cloud-able instrumental-col"><ruby>車<rt>くるま</rt></ruby>で</span>
+                                <span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="2" class="example-info-able info-cloud-able locative-col"><ruby>釣<rt>つ</rt></ruby>りに</span>
+                                <span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="10" class="example-info-able info-cloud-able predicate-col">行く</span>。
+                            </div>
+                            <div class="example-translated translate-togglable">
+                                <span class="sentence-end-col">Even if</span>
+                                <span class="subject-col">father</span>
+                                <span style="text-decoration: underline;color: black;"> <span class="">works</span></span>
+                                <span class="time-col">tomorrow,</span>
+                                (<span class="subject-col">he</span>)
+                                <span class="predicate-col">goes</span>
+                                <span class="locative-col">fishing</span>
+                                <span class="company-col">with Mr.Tanaka</span>
+                                <span class="instrumental-col">by car.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p>
+        </div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_topic_effect">Topic (は)</span></h1>
+            <p>
+                <span data-index="0" onmouseenter="showCloudInfo(infoarr, this.dataset.index);" class="example-info-able info-cloud-able topic-col">Topic</span> is one of primary parts in Japanese sentences. They are marked with particle 「は」. Topic we are taking about is nearly always known
+                and is recognizable part of sentence, because topic must be known in order to talk about it. It means that question word such as
+                何, 誰, どれ, どんあ, etc. are most often used with particle 「が」. If used with GA, then, answer must be also marked with GA.<br><br>
+                - Certain topic is introduced only once in conversation. In order to change topic, one must be introduced using 「は」 again.<br><br>
+                - It is roughly translated as "speaking of...", "as for...".<br><br>
+                - If 「は」 is used with question words, it adds <u>contrast</u> to sentence. It implies that there is group of people and makes implication. So using GA with question words simply asks question and looks for subject.
+                「は」 is used for <u>contrast and emphasizing</u> from group.
+
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese">
+                                A: 昨日家に<ruby>誰<rt>だれ</rt></ruby>は<ruby>入<rt>はい</rt></ruby>ったの？<br>
+                                B: 僕は入ったんだよ。
+                            </div>
+                            <div class="example-translated translate-togglable">
+                                A: <i>(Others maybe did not but as for one)</i> Who entered the house yesterday?<br>
+                                B: I did <i>(implying that others maybe did not, but you are confirming for yourself)</i>.
+                            </div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese">
+                                A: 昨日家に誰が入ったの？<br>
+                                B: 僕が入ったんだよ。
+                            </div>
+                            <div class="example-translated translate-togglable">
+                                A: Who entered the house yesterday?<br>
+                                B: I did (I entered the house).
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
+
+                This is good example on what is difference between 「は」 and 「が」.<br><br>
+                <span style="font-size: 20px;color: orange;font-weight: bold;">
+                    NOTE: Always try to translate literally from Japanese and try to think in Japanese instead of relocating and reversing sentence order. It will help you not mess up your brain.
+                </span>
+            </p>
+        </div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_time_effect">Time (に)</span></h1>
+            <p>
+                <span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="1" class="example-info-able info-cloud-able time-col">Time</span> specification in sentence is simple and naturally appears at two parts of sentence: either as first part of sentence or after topic.
+                It has mutliple specifications where most common ones are:
+                <ul>
+                    <li>Time Nouns (一昨日、昨日、今日、明日、明後日、来年...)</li>
+                    <li>Clock Time (4:30 PM, 15:45) </li>
+                    <li>Date Time (2025年6月8日) </li>
+                    <li>後 (ご) / 後で (あとで)、前 (まえ)</li>
+                    <li>～時、の間 / の間に</li>
+                </ul><br><br>
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese">
+                                <span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="1" class="example-info-able info-cloud-able time-col"><ruby>夏<rt>なつ</rt></ruby>の<ruby>間<rt>あいだ</rt></ruby>に</span>、アイスクリームを<ruby>食<rt>た</rt></ruby>べたい。
+                            </div>
+                            <div class="example-translated translate-togglable">
+                                I want to eat ice cream <b>during summer</b>.
+                            </div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese">
+                                彼が<span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="1" class="example-info-able info-cloud-able time-col"><ruby>午前７時半<rt>ごぜんななじはん</rt></ruby>に</span>私のお<ruby>弁当<rt>べんとう</rt></ruby>を食べてしまいました。
+                            </div>
+                            <div class="example-translated translate-togglable">
+                                He ate my lunch in <b>7:30 AM</b>.
+                            </div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese">
+                                <span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="1" class="example-info-able info-cloud-able time-col"><ruby>一昨日<rt>おととい</rt></ruby>から<ruby>今日<rt>きょう</rt></ruby>まで</span>、<ruby>同<rt>おな</rt></ruby>じ<ruby>食べ物<rt>たべもの</rt></ruby>を食べているなあ。
+                            </div>
+                            <div class="example-translated translate-togglable">
+                                <b>From day before yesterday until today</b> I've been eating the same food, you know!
+                            </div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese">
+                                <span onmouseenter="showCloudInfo(infoarr, this.dataset.index);" data-index="1" class="example-info-able info-cloud-able time-col"><ruby>二ヶ月<rt>にかげつ</rt>経<rt>た</rt>った</ruby></span>のに、まだ<ruby>利益<rt>りえき</rt></ruby>がないよ。もう<ruby>終<rt>お</rt></ruby>わりにするなあ。
+                            </div>
+                            <div class="example-translated translate-togglable">
+                                <b>Two months</b> have passed and, still, no profit! I want to quit already!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p>
+        </div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_locative_effect">Locative [で / に]</span></h1>
+            <p>
+            </p>
+        </div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_company_effect">Companion [と]</span></h1></div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_subject_effect">Subject [が]</span></h1></div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_indirect_object_effect">Indirect Object [に]</span></h1></div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_instrumental_effect">Instrumental [で]</span></h1></div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_direct_object_inai_effect">Direct Object [を]</span></h1></div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_adverb_effect">Adverb</span></h1></div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_predicate_effect">Predicate</span></h1></div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_sentence_end_effect">Conjunction & Ending Particles</span></h1></div>
+    </div>
+    <div class="cloud-info" id="id_cloud_info" style="display: none;">
+        dsadasd
+    </div>
+    <div class="main_menu menu-mod-bottom" style="align-items: center;user-select: none;translate: 0px 55px;">
+        <div><button class="menu_button" style="background-color: white;"><img src="../media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
+        <div><a href="main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
+        <div><a href="editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
+        <div><a href="quiz.html"><button class="menu_button">Quiz<br><b>クイズ</b></button></a></div>
+        <div><a href="conj.html"><button class="menu_button">Conjugator<br><b>変化</b></button></a></div>
+        <div><a href="kanji.html"><button class="menu_button">Kanji<br><b>漢字</b></button></a></div>
+        <div style="width: calc(100% - auto);"></div>
+        <div>
+            <label>
+                <input type="checkbox" id="id_toggle_translation" onclick="toggleTranslations(this.id);"/>
+                Hide Translations
+            </label>
+            <label>
+                <input type="checkbox" id="id_toggle_furigana" onclick="toggleFurigana(this.id);"/>
+                Hide Furigana
+            </label>
+        </div>
+    </div>
+    <div class="main_menu menu-mod" style="position: absolute;bottom: auto;align-items: center;user-select: none;">
+        <div><button class="menu_button" style="background-color: white;"><img src="../media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
+        <div><a href="main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
+        <div><a href="editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
+        <div><a href="quiz.html"><button class="menu_button">Quiz<br><b>クイズ</b></button></a></div>
+        <div><a href="conj.html"><button class="menu_button">Conjugator<br><b>変化</b></button></a></div>
+        <div><a href="kanji.html"><button class="menu_button">Kanji<br><b>漢字</b></button></a></div>
+        <div style="width: calc(100% - auto);"></div>
+    </div>
+    
+    <script src="../script/main.js"></script>
+    <script src="../script/id_highlight_effect.js"></script>
+    <script src="../script/grammar_page.js"></script>
+
+<script>
+
+</script>
+</body>
+</html>
