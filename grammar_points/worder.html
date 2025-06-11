@@ -289,10 +289,12 @@ var infoarr = new Array(
         <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_direct_object_inai_effect">Direct Object [を]</span></h1></div>
         <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_adverb_effect">Adverb</span></h1></div>
         <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_predicate_effect">Predicate</span></h1></div>
-        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_sentence_end_effect">Conjunction & Ending Particles</span></h1></div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_sentence_end_effect">Conjunction & Ending Particles</span></h1>
+            <p><br><br></p>
+        </div>
     </div>
     <div class="cloud-info" id="id_cloud_info" style="display: none;">
-        dsadasd
+        Cloud info appears here...
     </div>
     <div class="main_menu menu-mod-bottom" style="align-items: center;user-select: none;translate: 0px 55px;">
         <div><button class="menu_button" style="background-color: white;"><img src="../media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
@@ -307,22 +309,27 @@ var infoarr = new Array(
                 <input type="checkbox" id="id_toggle_translation" onclick="toggleTranslations(this.id);"/>
                 Hide Translations
             </label>
+            <span style="color: gray;">|</span>
             <label>
                 <input type="checkbox" id="id_toggle_furigana" onclick="toggleFurigana(this.id);"/>
                 Hide Furigana
+            </label>
+            <span style="color: gray;">|</span>
+            <label title="「ええ、このメニューはなぜここに一体あると思いますか」 Well, that is because of scrolling nature of the article and content navigation. Also, these animations look cool and you got additional options in this bottom menu.">
+                <i><u>?</u></i>
             </label>
         </div>
     </div>
     <div class="main_menu menu-mod" style="position: absolute;bottom: auto;align-items: center;user-select: none;">
         <div><button class="menu_button" style="background-color: white;"><img src="../media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
-        <div><a href="main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
-        <div><a href="editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
-        <div><a href="quiz.html"><button class="menu_button">Quiz<br><b>クイズ</b></button></a></div>
-        <div><a href="conj.html"><button class="menu_button">Conjugator<br><b>変化</b></button></a></div>
-        <div><a href="kanji.html"><button class="menu_button">Kanji<br><b>漢字</b></button></a></div>
+        <div><a href="../main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
+        <div><a href="../editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
+        <div><a href="../quiz.html"><button class="menu_button">Quiz<br><b>クイズ</b></button></a></div>
+        <div><a href="../conj.html"><button class="menu_button">Conjugator<br><b>変化</b></button></a></div>
+        <div><a href="../kanji.html"><button class="menu_button">Kanji<br><b>漢字</b></button></a></div>
         <div style="width: calc(100% - auto);"></div>
     </div>
-    
+
     <script src="../script/main.js"></script>
     <script src="../script/id_highlight_effect.js"></script>
     <script src="../script/grammar_page.js"></script>

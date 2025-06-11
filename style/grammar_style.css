@@ -79,6 +79,7 @@ p.example-p {
 
 .example-separator {
     margin-top: 10px;
+    user-select: none;
 }
 
 div.cloud-info {
