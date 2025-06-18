@@ -1,0 +1,130 @@
+<!-- Copyright (C) 2025 baltazarus -->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Kantan-Ne?</title>
+    <link href="../style/main.css" rel="stylesheet"/>
+    <link href="../style/grammar_style.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="main_panel grammar-point-mod">
+        <div class="main_panel_subdiv" style="text-align: center;">
+            <h1>Parallel Actions 「ながら」</h1>
+            <hr class="article-separator">
+        </div>
+        <div class="main_panel_subdiv">
+            <h1>Syntax</h1>
+            <div class="structure-div">
+                <div class="structure-div-cell">
+                    <span class="structure-div-verb-base bg-struct-red" style="color: white;font-size: 35px;">
+                        <b>連用形: う→い</b>
+                    </span>
+                    <br>
+                </div>
+                <div class="structure-div-cell">
+                    <span class="structure-div-plus">+</span>
+                </div>
+                <div class="structure-div-cell structure-div-cell-attachment">
+                    ながら
+                </div>
+                <div class="structure-div-cell">
+                    <span style="font-size: 30px;font-weight: black;">、</span>
+                </div>
+                <div class="structure-div-cell">
+                    ...
+                </div>
+            </div>
+            <p style="font-size: 10px;">
+                *連用形 is verb base that is made by switching verb ending to い hiragana column.<br><br>
+            </p>
+            <hr class="article-separator">
+        </div>
+        <div class="main_panel_subdiv">
+            <p>
+                ながら is a particle that is used to specify parallel action in sentence. It links two actions where they take place simultaneously. For example - 'She sung crying.' (She singed and cried at same time).<br>
+                As said, 「ながら」 is used for this structure and follows some rules before being attached.
+
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese">
+                                お<ruby>母<rt>かあ</rt></ruby>さんが<ruby>部屋<rt>へや</rt></ruby>を<u class="underline-dot"><ruby>掃除<rt>そうじ</rt></ruby>し<span class="predicate-col">ながら</span></u>、<ruby>音楽<rt>おんがく</rt></ruby>を<ruby>聞<rt>き</rt></ruby>いた。
+                            </div>
+                            <div class="example-translated translate-togglable">
+                                Mother cleaned house <b>while listening</b> to music.
+                            </div>
+                        </div>
+                        <div class="example-separator"></div>
+                        <div class="example-two">
+                            <div class="example-japanese">
+                                <u class="underline-dot"><ruby>運転<rt>うんてん</rt></ruby>し<span class="predicate-col">ながら</span></u>、<ruby>電話<rt>でんわ</rt></ruby>を<ruby>使<rt>つか</rt></ruby>わない<ruby>方<rt>ほう</rt></ruby></ruby>がいい。
+                            </div>
+                            <div class="example-translated translate-togglable">
+                                You should not use phone <b>while driving</b>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p>
+        </div>
+        <div class="main_panel_subdiv">
+            <h1>Difference between 「ながら」and 「間 / 間に」</h1>
+            <hr class="article-separator">
+        </div>
+        <div class="main_panel_subdiv">
+            <p>
+                Some people would find this rather confusing than clear as both these grammar points cover the sense of "parallel actions". Thankfully, there are differences between these two.<br>
+                <ul>
+                    <li>
+                        <b>ながら</b> is used for two actions that are taking place at the same time. But, both of them are done <u>by the same subject</u>. 
+                    </li>
+                    <li>
+                        <b>間/間に</b> is used for two parallel actions too, but... it is not necessarily done by the same subject. And there may be differences between action durations.
+                    </li>
+                </ul>
+                <br><br><br><br><br>
+            </p>
+        </div>
+    </div>
+    <div class="main_menu menu-mod-bottom" style="align-items: center;user-select: none;translate: 0px 55px;">
+        <div><button class="menu_button" style="background-color: white;"><img src="../media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
+        <div><a href="main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
+        <div><a href="editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
+        <div><a href="quiz.html"><button class="menu_button">Quiz<br><b>クイズ</b></button></a></div>
+        <div><a href="conj.html"><button class="menu_button">Conjugator<br><b>変化</b></button></a></div>
+        <div><a href="kanji.html"><button class="menu_button">Kanji<br><b>漢字</b></button></a></div>
+        <div style="width: calc(100% - auto);"></div>
+        <div>
+            &nbsp;
+            <label>
+                <input type="checkbox" id="id_toggle_translation" onclick="toggleTranslations(this.id);"/>
+                Hide Translations
+            </label>
+            <span style="color: gray;">|</span>
+            <label>
+                <input type="checkbox" id="id_toggle_furigana" onclick="toggleFurigana(this.id);"/>
+                Hide Furigana
+            </label>
+            <span style="color: gray;">|</span>
+            <label title="「ええ、このメニューはなぜここに一体あると思いますか」 Well, that is because of scrolling nature of the article and content navigation. Also, these animations look cool and you got additional options in this bottom menu.">
+                <i><u>?</u></i>
+            </label>
+        </div>
+    </div>
+    <div class="main_menu menu-mod" style="position: absolute;bottom: auto;align-items: center;user-select: none;">
+        <div><button class="menu_button" style="background-color: white;"><img src="../media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
+        <div><a href="../main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
+        <div><a href="../editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
+        <div><a href="../quiz.html"><button class="menu_button">Quiz<br><b>クイズ</b></button></a></div>
+        <div><a href="../conj.html"><button class="menu_button">Conjugator<br><b>変化</b></button></a></div>
+        <div><a href="../kanji.html"><button class="menu_button">Kanji<br><b>漢字</b></button></a></div>
+        <div style="width: calc(100% - auto);"></div>
+    </div>
+    <script src="../script/main.js"></script>
+    <script src="../script/id_highlight_effect.js"></script>
+    <script src="../script/grammar_page.js"></script>
+</body>
+</html>

@@ -10,6 +10,10 @@ li.grammar_li {
     text-decoration: underline;
 }
 
+u.underline-dot {
+    text-decoration-style: dotted;
+}
+
 .strikethrough {
     text-decoration: line-through;
 }
@@ -155,4 +159,105 @@ div.cloud-info {
 
 .example-info-able:hover {
     text-decoration: underline;
+}
+
+.example-div {
+    background-color: white;
+}
+
+
+.structure-div {
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.structure-div-cell {
+    padding: 5px;
+}
+
+.structure-div-verb-base {
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.structure-div-cell-attachment {
+    font-size: 35px;
+    color: blue;
+    font-weight: bold;
+}
+
+.structure-div-plus {
+    font-size: auto;
+    font-weight: bold;
+    color: white;
+    background-color: green;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    padding: 10px;
+    display: inline-block;
+    align-items: center;
+    text-align: center;
+    align-content: center;
+    user-select: none;
+    border: 2px solid black;
+}
+
+hr.article-separator {
+    border: 0;
+    border: 1px solid #aaa;
+}
+
+.bg-struct-red { background-color: crimson; }
+.bg-struct-green { background-color: green; }
+.bg-struct-blue { background-color: #135ddc; }
+.bg-struct-yellow { background-color: yellow; }
+.bg-struct-orange { background-color: #f2904a; }
+
+table.adverb-table {
+    border: 0;
+    width: 100%;
+}
+
+table.adverb-table th {
+    background-color: red;
+    color: white;
+    border: 0;
+    padding: 10px;
+    user-select: none;
+}
+
+table.adverb-table td {
+    color: black;
+    border: 0;
+    padding: 10px;
+    background-color: #aaa;
+}
+
+div.image-strngth-div {
+    display: flex;
+    flex-direction: row;
+    width: calc(100% - 10px);
+    padding: 5px;
+}
+
+div.rating-div {
+    background-image: url("../media/kantannerating.png");
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+table.table-default {
+    user-select: none;
+}
+
+table.table-default td {
+    border: 1px solid black;
+    padding: 5px;
 }
