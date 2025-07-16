@@ -1,10 +1,11 @@
-function WordObjectFC(word, reading, romaji, meaning)
+function WordObjectFC(word, reading, romaji, meaning, pitch = 0)
 {
     this.word = word;
     this.reading = reading;
     this.romaji = romaji;
     this.meaning = meaning;
     this.important = false;
+    this.pitch = pitch;
     this.bUsed = false;
 }
 
@@ -38,11 +39,15 @@ function Callback_JSONDropAction(fn)
             for(let i = 0; i < data.words.length; ++i)
             {
                 let obj = new WordObjectFC(
-                    data.words[i].word, data.words[i].furigana, data.words[i].romaji, data.words[i].meaning
+                    data.words[i].word, data.words[i].furigana, data.words[i].romaji, data.words[i].meaning, data.words[i].pitch
                 );
 
                 if('important' in data.words[i]) {
                     obj.important = data.words[i].important;
+                }
+
+                if('pitch' in data.words[i]) {
+                    obj.pitch = data.words[i].pitch;
                 }
 
                 g_WordArray.push(obj);
@@ -128,6 +133,16 @@ function newFlashcard(index = -1)
             $("#fc_furigana").html(g_SwapWordMeaning ? newObj.reading : newObj.word);
             $("#fc_meaning").html(newObj.meaning);
             $("#id_flipped_meaning").html(newObj.meaning);
+            
+            console.log(newObj.pitch);
+
+            switch(newObj.pitch) {
+                case 1: { $("#fc_pitch").html("平板型"); break; }
+                case 2: { $("#fc_pitch").html("頭高型"); break; }
+                case 3: { $("#fc_pitch").html("中高型"); break; }
+                case 4: { $("#fc_pitch").html("尾高"); break; }
+                default: { $("#fc_pitch").html("~型"); }
+            }
 
             if(newObj.important) {
                 $("#id_fc").addClass("bg-yellow");

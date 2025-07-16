@@ -7,7 +7,7 @@
     <link href="style/main.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
-<body>
+<body class="no-sel">
     <div class="main_panel">
         <div style="border-bottom: 2px solid #aaa; display: flex;background-color: white;" id="id_tabs_in_editor">
             <div><button class="editor_tab_button button_radius_mod_right active" onclick="activateTab(this); changeTab(0);">Flashcard Editor 1.0</button></div>
@@ -72,6 +72,15 @@
                             <option value="5">Level: N5</option>
                         </select>
                     </div>
+                    <div class="editor_column_cell" style="border-top-right-radius: 5px;">
+                        <select class="level_select" id="id_pitch_voice" style="height: 100%;">
+                            <option value="0">Pitch Accent: -</option>
+                            <option value="1">Pitch Accent: [1] Heiban [à-áá] (平板型)</option>
+                            <option value="2">Pitch Accent: [2] Atamadaka [á-àà] (頭高型)</option>
+                            <option value="3">Pitch Accent: [3] Nakadaka [à-á-à] (中高型)</option>
+                            <option value="4">Pitch Accent: [4] Odaka [àà-áが] (尾高型)</option>
+                        </select>
+                    </div>
                     <div class="editor_column_cell"><label title="Remove new lines from JSON and put attributes in same line per object.">
                         <select class="level_select" style="height: 100%;" onchange="g_CompressionMethod = parseInt(this.value, '10'); if(g_CompressionMethod != 1) { g_CompressJSON = true; } else { g_CompressJSON = false; }">
                             <option value=1>No compression</option>
@@ -95,35 +104,40 @@
             <div style="user-select: none;">&nbsp;</div>
             <div class="editor_list file_draggable table_init_state" style="height: auto;border-bottom: 2px solid #777;">
                 <div class="editor_list_item item_non_terminal nn">
-                    <div class="editor_list_item_cell cell-mod" style="max-width: 2%;"></div>
-                    <div class="editor_list_item_cell cell-mod" style="max-width: 2%;"></div>
-                    <div class="editor_list_item_cell cell-mod" style="max-width: 2%;overflow: hidden;">
+                    <div class="editor_list_item_cell cell-mod" style="max-width: 2%;" title="This column contains buttons that are used to remove word from the table. Removing it will result in permanent loss of a word from table."></div>
+                    <div class="editor_list_item_cell cell-mod" style="max-width: 2%;" title="This column contains buttons that are used to edit word from table. It activates edit mode that can be either applied or canceled."></div>
+                    <div class="editor_list_item_cell cell-mod" style="max-width: 2%;overflow: hidden;" title="This column contains checkboxes that are used to select word in table. NOTE: Removing word from table will result in uncheck of all words selected!">
                         <span></span>
                     </div>
-                    <div class="editor_list_item_cell cell-mod" style="max-width: 5%;">
+                    <div class="editor_list_item_cell cell-mod" style="max-width: 5%;" title="Current ordinary number of the word in table.">
                         <span>
                             #
                         </span>
                     </div>
-                    <div class="editor_list_item_cell cell-mod">
-                        <h4 class="no-margin no-padding" title="Unspecified level word">Word</h4>
+                    <div class="editor_list_item_cell cell-mod" style="max-width: 2.5%;" title="This is pitch accent rule that is applied to pronouncation. Each word in Japanese have pitch rule and mistaking pitch might result in altered meaning of the word.">
+                        <span>
+                            型
+                        </span>
                     </div>
-                    <div class="editor_list_item_cell cell-mod">
+                    <div class="editor_list_item_cell cell-mod" title="This is dictionary form (辞書形) of the word.">
+                        <h4 class="no-margin no-padding">Word</h4>
+                    </div>
+                    <div class="editor_list_item_cell cell-mod" title="This is actual reading of the word. It contains only kana (仮名)">
                         <p class="no-margin no-padding">
                             Reading
                         </p>
                     </div>
-                    <div class="editor_list_item_cell cell-mod">
+                    <div class="editor_list_item_cell cell-mod" title="This is romanization of the word.">
                         <p class="no-margin no-padding">
                             Romaji
                         </p>
                     </div>
-                    <div class="editor_list_item_cell cell-mod">
+                    <div class="editor_list_item_cell cell-mod" title="This field contains word translation in your language.">
                         <p class="no-margin no-padding">
                             Meaning
                         </p>
                     </div>
-                    <div class="editor_list_item_cell cell-mod">
+                    <div class="editor_list_item_cell cell-mod" title="This is type of the word. There are pre-defined types in Kantanne editor. For more clarity, you can freely modify JSON in order to write whatever you want as type :)">
                         <p class="no-margin no-padding color-gray">
                             <i>
                                 Type/Note...
@@ -132,7 +146,7 @@
                     </div>
                 </div>
             </div>
-            <div class="editor_list file_draggable table_init_state" id="id_list_em">
+            <div class="editor_list file_draggable table_init_state selectable" id="id_list_em">
                 <div style="width: 100%;height: 100%;align-items: center; align-content: center; text-align: center;" id="id_div_drop_message">
                     <p style="user-select: none;">Drop JSON file here<br><span style="font-size: 10px;">Or load it via button.</span></p>
                 </div>
@@ -248,6 +262,11 @@
         <div style="height: 100%; padding: 5px; overflow: auto; align-items: center;align-content: center; text-align: center; padding-bottom: 10px;">
             <button class="control_button" style="width: 100px;height: 50px;background-color: lightgray; color: black;" onclick="applyStyles(); closeWindow('id_popup_window_styles');">Apply</button>
         </div>
+    </div>
+
+    <div class="loading-window" id="id_loading_window">
+        <div><img src="media/loading.gif" style="width: 32px; height: auto;"/></div>
+        <div>Loading File <span id="id_loadprog">0</span>%</div>
     </div>
 
     <script src="script/main.js"></script>

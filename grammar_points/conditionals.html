@@ -1,0 +1,165 @@
+<!-- Copyright (C) 2025 baltazarus -->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Kantan-Ne?</title>
+    <link href="../style/main.css" rel="stylesheet"/>
+    <link href="../style/grammar_style.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body style="user-select: auto;">
+    <div class="main_panel">
+        <div class="main_panel_subdiv">
+            <h1 style="text-align: center;">My Custom Pitch Notation</h1>
+        </div>
+        <div class="main_panel_subdiv">
+            <p style="text-align: justify;">
+                Conditionals are one of most important parts of Japanese grammar. They are sentences where certain action will be executed once
+                condition is satisfied. Sometimes, even Japanese struggle to determine which conditional should be used, so usage can often be
+                subjective choice.
+            </p>
+            <hr class="separator">
+			Contents:
+            <ul>
+                <li class="grammar_li"><a href="#id_tara_effect" id="id_tara" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">たら Conditional</a></li>
+                <li class="grammar_li"><a href="#id_ba_effect" id="id_ba" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">ば Conditional</a></li>
+                <li class="grammar_li"><a href="#id_to_effect" id="id_to" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">と Conditional</a></li>
+                <li class="grammar_li"><a href="#id_to_effect" id="id_to" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">なら Conditional</a></li>
+            </ul>
+        </div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_to_effect">と Definite Conditional</span></h1>
+            <p>
+                This is perhaps the easiest conditional to understand and use since it has simple usage. <u class="h-green">It is used for actions that occur
+                independently of our control. Their actions are automatic consequences when condition is satisfied.
+                </u> For example: natural occurrences, actions we cannot control, など...
+            </p>
+            <hr class="separator">
+            <h3>Syntax</h3>
+            <table class="adverb-table" style="text-align: center;">
+                <tr>
+                    <th>詞 Word Type</th>
+                    <th style="background-color: white;"></th>
+                    <th>+</th>
+                    <th>と</th>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td>Verb (辞書形)</td>
+                    <td style="background-color: white;">-</td>
+                    <td style="background-color: white;"></td>
+                    <td>と</td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td>い Adjective</td>
+                    <td style="background-color: white;">-</td>
+                    <td style="background-color: white;"></td>
+                    <td>と</td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td>な Adjective</td>
+                    <td>だ</td>
+                    <td style="background-color: white;"></td>
+                    <td>と</td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td>名詞 Noun</td>
+                    <td>だ</td>
+                    <td style="background-color: white;"></td>
+                    <td>と</td>
+                </tr>
+            </table><br>
+            <hr class="separator">
+            <br>
+            <div class="example-div">
+                <div class="example-cell cell-example-sign">例</div>
+                <div class="example-cell example-content">
+                    <div class="example-two">
+                        <div class="example-japanese">夏だと暑くなる。</div>
+                        <div class="example-translated translate-togglable">When it is summer, it gets hot.</div>
+                    </div>
+                    <div class="example-separator"></div>
+                    <div class="example-two">
+                        <div class="example-japanese">巨大な岩が落ちるとうるさい音がする。</div>
+                        <div class="example-translated translate-togglable">When big rock falls, a loud sound occurs (it makes a loud sound).</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_tara_effect">たら Real/Hypothetical Conditional</span></h1>
+            <p>
+                たら conditional is perhaps the most commonly used conditional in Japanese. It is interpreted in different ways according to contexts.
+                It can be "when", "if" or "after". <u>It exclusively requires past form of the verb</u>.  
+            </p>
+            <div class="example-div">
+                <div class="example-cell cell-example-sign">例</div>
+                <div class="example-cell example-content">
+                    <div class="example-two">
+                        <div class="example-japanese">そのビスケットを食べたら、<ruby>毒<rt>どく</rt></ruby>に<ruby>当<rt>あ</rt></ruby>たるよ。</div>
+                        <div class="example-translated translate-togglable">If you ate that biscuit, you would get poisoned.</div>
+                    </div>
+                    <div class="example-separator"></div>
+                    <div class="example-two">
+                        <div class="example-japanese"></div>
+                        <div class="example-translated translate-togglable"></div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                As we can see, 神 has first syllable accented or pitch-voiced. 紙 and 髪 have exactly the same.
+            </p>
+        </div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_ba_effect">ば Hypothetical Conditional</span></h1>
+            <p>
+
+            </p>
+        </div>
+        <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_tara_effect">たら Contextual Conditional</span></h1>
+            <p>
+                
+            </p>
+        </div>
+    </div>
+    <div class="main_menu menu-mod-bottom" style="align-items: center;user-select: none;translate: 0px 55px;">
+        <div><button class="menu_button" style="background-color: white;"><img src="../media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
+        <div><a href="../main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
+        <div><a href="../editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
+        <div><a href="../quiz.html"><button class="menu_button">Quiz<br><b>クイズ</b></button></a></div>
+        <div><a href="../conj.html"><button class="menu_button">Conjugator<br><b>変化</b></button></a></div>
+        <div><a href="../kanji.html"><button class="menu_button">Kanji<br><b>漢字</b></button></a></div>
+        <div style="width: calc(100% - auto);"></div>
+        <div>
+            &nbsp;
+            <label>
+                <input type="checkbox" id="id_toggle_translation" onclick="toggleTranslations(this.id);"/>
+                Hide Translations
+            </label>
+            <span style="color: gray;">|</span>
+            <label>
+                <input type="checkbox" id="id_toggle_furigana" onclick="toggleFurigana(this.id);"/>
+                Hide Furigana
+            </label>
+            <span style="color: gray;">|</span>
+            <label>
+                <input type="checkbox" id="id_toggle_select" onclick="$('body').toggleClass('non-sel');"/>
+                Disable Select
+            </label>
+			<span style="color: gray;">|</span>
+            <label title="「ええ、このメニューはなぜここに一体あると思いますか」 Well, that is because of scrolling nature of the article and content navigation. Also, these animations look cool and you got additional options in this bottom menu.">
+                <i><u>?</u></i>
+            </label>
+        </div>
+    </div>
+    <div class="main_menu menu-mod" style="position: absolute;bottom: auto;align-items: center;user-select: none;">
+        <div><button class="menu_button" style="background-color: white;"><img src="../media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
+        <div><a href="../main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
+        <div><a href="../editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
+        <div><a href="../quiz.html"><button class="menu_button">Quiz<br><b>クイズ</b></button></a></div>
+        <div><a href="../conj.html"><button class="menu_button">Conjugator<br><b>変化</b></button></a></div>
+        <div><a href="../kanji.html"><button class="menu_button">Kanji<br><b>漢字</b></button></a></div>
+        <div style="width: calc(100% - auto);"></div>
+    </div>
+    <script src="../script/main.js"></script>
+    <script src="../script/id_highlight_effect.js"></script>
+    <script src="../script/grammar_page.js"></script>
+</body>
+</html>

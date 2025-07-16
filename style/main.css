@@ -259,6 +259,14 @@ button.cls_conj_tab_active {
     font-weight: inherit;
 }
 
+.no-sel {
+    user-select: none;
+}
+
+.selectable {
+    user-select: text;
+}
+
 .conj_tab_content {
     padding: 10px;
     background-color: darkgray;
@@ -455,6 +463,10 @@ input[type=file].json_upload_old {
     display: none;
 }
 
+input[type=file].json_upload_old:disabled {
+    background-color: black;
+}
+
 .json_upload_editor {
     display: inline-block;
     padding: 7px 13px;
@@ -468,7 +480,10 @@ input[type=file].json_upload_old {
     text-align: center;
     align-items: center;
     align-content: center;
-    
+}
+
+.json_upload_editor_disabled {
+    background-color: #555;
 }
 
 div.fc_controls {
@@ -721,6 +736,7 @@ select.level_select {
     color: black;
     width: 100%;
     border-radius: 5px;
+    user-select: none;
 }
 
 div.popup_info {
@@ -871,6 +887,10 @@ div.animate_drag {
     border: 0;
 }
 
+.cell-mod:hover {
+    background-color: #bbb;
+}
+
 .disabled-bg {
     background-color: #444;
     color: white;
@@ -935,4 +955,69 @@ div.animate_drag {
     animation-fill-mode: both;
     -webkit-animation-fill-mode: both;
     -moz-animation-fill-mode: both;
+}
+
+input[type=text].viewer-field {
+    border: 1px solid black;
+}
+
+table.adverb-table td, table.adverb-table-mod1 td {
+    padding: 0;
+}
+
+@keyframes loading-window-kf {
+    0% {
+        translate: 0% calc(100% + 10px);
+    }
+    100% {
+        translate: 0% 0%;
+    } 
+}
+
+@keyframes loading-window-rev-kf {
+    0% {
+        translate: 0% 0%;
+    }
+    100% {
+        translate: 0% calc(100% + 10px);
+    } 
+}
+
+div.loading-window {
+    position: fixed;
+    display: none;
+    flex-direction: row;
+    bottom: 0;
+    left: 0;
+    margin: 10px;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border: 5px solid gray;
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+    align-items: center;
+}
+
+div.loading-window div {
+    padding: 10px;
+}
+
+div.loading-window-anim {
+    display: flex;
+    animation-name: loading-window-kf;
+    animation-duration: 0.4s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-direction: alternate;
+}
+
+div.loading-window-reversed {
+    display: flex;
+    animation-name: loading-window-rev-kf;
+    animation-duration: 0.4s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-direction: alternate;
 }

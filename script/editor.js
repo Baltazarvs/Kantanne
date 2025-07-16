@@ -15,8 +15,10 @@ var jsonInitialInline = "{\n\t\"words\":\n\t[\n";
 var jsonFinalInline = "\t]\n}";
 var g_DragActive = false;
 var g_JsonObjCounter = g_WordArray.length;
+var g_LoadingProgress = 0;
+var g_LoadEnabled = true;
 
-function WordObject(index, word, reading, romaji, meaning, jlpt_level = null, word_type = null, note = null, important = false)
+function WordObject(index, word, reading, romaji, meaning, jlpt_level = null, word_type = null, note = null, important = false, pitch = 0)
 {
     this.index = index;
     this.word = word;
@@ -27,6 +29,7 @@ function WordObject(index, word, reading, romaji, meaning, jlpt_level = null, wo
     this.word_type = word_type;
     this.note = note;
     this.important = important;
+    this.pitch = pitch;
 }
 
 var checkExistingWord = () => {
@@ -106,8 +109,75 @@ var searchExistingWord = () => {
     return;
 };
 
-function Callback_EditorJSONLoad(fn, options = { discardable: true, update: true, singleFile: true, dropped: false })
+var updateLoadingCallback = () => {
+    $("#id_loadprog").html(g_LoadingProgress);
+}
+
+function getPitch(p) {
+    switch(p) {
+        case 1: return '平';
+        case 2: return '頭';
+        case 3: return '中';
+        case 4: return '尾高';
+        default: return '';
+    }
+}
+
+function loadFileChunked(finishCallback, updateCallback, pack = {chunkSize: 20, totalSize: 1, data: null}) {
+    let i = 0;
+    g_LoadEnabled = false;
+
+    function chunkIt() {
+        const final = Math.min(i + pack.chunkSize, pack.totalSize);
+        for(; i < final; ++i) {
+            let jlpt_level = null;
+            let word_type = null;
+            let word_note = null;
+            let important = false;
+            let pitch_accent = 0;
+
+            if('jlptlevel' in pack.data.words[i]) {
+                jlpt_level = pack.data.words[i].jlptlevel;
+            }
+            if('type' in pack.data.words[i]) {
+                word_type = pack.data.words[i].type;
+            }
+            if('pitch' in pack.data.words[i]) {
+                pitch_accent = pack.data.words[i].pitch;
+            }
+            if('note' in pack.data.words[i]) {
+                word_note = pack.data.words[i].note;
+            }
+            if('important' in pack.data.words[i]) {
+                important = pack.data.words[i].important;
+            }
+
+            let obj = new WordObject(
+                g_JsonObjCounter, pack.data.words[i].word, pack.data.words[i].furigana, pack.data.words[i].romaji, pack.data.words[i].meaning, jlpt_level, word_type, word_note, important, pitch_accent
+            );
+                    
+            g_WordArray.push(obj);
+            g_JsonObjCounter += 1; 
+        }
+        
+        
+        if(i < pack.totalSize) {
+            setTimeout(chunkIt, 0);
+            g_LoadingProgress = Math.floor((i/pack.data.words.length)*100);
+            updateCallback();
+        }
+        else {
+            finishCallback();
+        }
+
+    }
+    chunkIt();
+}
+
+function Callback_EditorJSONLoad(fn, options = { discardable: true, update: true, singleFile: true, dropped: false }, pack = { chunkSize: 1, bFixed: true})
 {
+    if(!g_LoadEnabled) { return; }
+
     if(fn)
     {
         if(options.discardable) {
@@ -125,33 +195,36 @@ function Callback_EditorJSONLoad(fn, options = { discardable: true, update: true
                 
                 if(options.discardable) { g_WordArray.splice(0, g_WordArray.length); }
 
-                for(let i = 0; i < data.words.length; ++i)
-                {
-                    let jlpt_level = null;
-                    let word_type = null;
-                    let word_note = null;
-                    let important = false;
-                    if('jlptlevel' in data.words[i]) {
-                        jlpt_level = data.words[i].jlptlevel;
-                    }
-                    if('type' in data.words[i]) {
-                        word_type = data.words[i].type;
-                    }
-                    if('note' in data.words[i]) {
-                        word_note = data.words[i].note;
-                    }
-                    if('important' in data.words[i]) {
-                        important = data.words[i].important;
-                    }
+                let chunkSizeDeter = 20;
+                if(data.words <= 100) { chunkSizeDeter = 10; }
+                else if(data.words.length > 100) { chunkSizeDeter = 30; }
+                else if(data.words.length > 400) { chunkSizeDeter = 60; }
+                else if(data.words.length > 700) { chunkSizeDeter = 90; }
+                else if(data.words.length > 1100) { chunkSizeDeter = 110; }
+                else { chunkSizeDeter = 200; }
 
-                    let obj = new WordObject(
-                        g_JsonObjCounter, data.words[i].word, data.words[i].furigana, data.words[i].romaji, data.words[i].meaning, jlpt_level, word_type, word_note, important
-                    );
-                    g_WordArray.push(obj);
-                    g_JsonObjCounter += 1;
-                }
-                updateTable();
-                updateCode();
+                $("#id_loading_window").toggleClass("loading-window-anim");
+                $("input[type=file].json_upload_old").prop("disabled", true);
+                $(".json_upload_editor").toggleClass("json_upload_editor_disabled");
+                
+                loadFileChunked(
+                    () => {
+                        $("#id_loading_window").toggleClass("loading-window-anim");
+                        $("input[type=file].json_upload_old").prop("disabled", false);
+                        $(".json_upload_editor").toggleClass("json_upload_editor_disabled");
+                        g_LoadEnabled = true;
+                        updateTable();
+                        updateCode();
+                    }, 
+                    updateLoadingCallback, 
+                    {
+                        chunkSize: ((pack.bFixed) ? ((pack.chunkSize > 0) ? pack.chunkSize : 1) : chunkSizeDeter),
+                        totalSize: data.words.length,
+                        data
+                    }
+                );
+
+                g_LoadingProgress = 0;
             };
             file.readAsText(fn[i]);
             if(options.singleFile) break;
@@ -162,7 +235,7 @@ function Callback_EditorJSONLoad(fn, options = { discardable: true, update: true
 function Callback_JSONDropAction(files, options = { discardable: true, update: true, singleFile: true, dropped: false })
 {
     if (files.length > 0) {
-        Callback_EditorJSONLoad(files, options);
+        Callback_EditorJSONLoad(files, options, { bFixed: false });
         $(".file_draggable").removeClass("animate_drag");
         g_DragActive = false;
     }
@@ -170,19 +243,21 @@ function Callback_JSONDropAction(files, options = { discardable: true, update: t
 
 $("#id_upload_json_input").on("change", function() {
     let files = this.files;
-    Callback_EditorJSONLoad(files, { discardable: true, update: true, singleFile: true, dropped: false });
+    Callback_EditorJSONLoad(files, { discardable: true, update: true, singleFile: true, dropped: false }, { bFixed: false });
 });
 
 $("#id_append_json_input").on("change", function() {
     let files = this.files;
-    Callback_EditorJSONLoad(files, { discardable: false, update: true, singleFile: false, dropped: false });
+    Callback_EditorJSONLoad(files, { discardable: false, update: true, singleFile: false, dropped: false }, { bFixed: false });
 });
 
 $(".file_draggable").bind("dragover", (e) => {
     e.preventDefault();
     g_DragActive = true;
     if(g_DragActive) {
-        $(".file_draggable").addClass("animate_drag");
+        if(g_LoadEnabled) {
+            $(".file_draggable").addClass("animate_drag");
+        }
     } 
 });
 
@@ -218,7 +293,7 @@ $("#id_lappend").bind("drop", (e) => {
     g_DragActive = false;
 });
 
-function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_type = null, word_note = null, is_important = false, bFirst = false, bLast = false)
+function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_type = null, word_note = null, is_important = false, pitch = 0, bFirst = false, bLast = false)
 {
     var finalStr = new String();
     if((g_WordArray.length+1) > 1)
@@ -230,13 +305,14 @@ function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_
     {
         case 1:
         {
-            finalStr += `\t\t{\n\t\t\t\"word\": "${word.replace(/"/g, '\\"')}",\n`;
-            finalStr += `\t\t\t\"furigana\": "${furigana.replace(/"/g, '\\"')}",\n`;
-            finalStr += `\t\t\t\"romaji": "${romaji.replace(/"/g, '\\"')}",\n`;
-            finalStr += `\t\t\t\"meaning": "${meaning.replace(/"/g, '\\"')}"`;
-            if(jlpt_level > 0) { finalStr += `,\n\t\t\t\"jlptlevel": ${jlpt_level}`; }
+            finalStr += `\t\t{\n\t\t\t"word": "${word.replace(/"/g, '\\"')}",\n`;
+            finalStr += `\t\t\t"furigana": "${furigana.replace(/"/g, '\\"')}",\n`;
+            finalStr += `\t\t\t"romaji": "${romaji.replace(/"/g, '\\"')}",\n`;
+            finalStr += `\t\t\t"meaning": "${meaning.replace(/"/g, '\\"')}"`;
+            if(jlpt_level > 0) { finalStr += `,\n\t\t\t"jlptlevel": ${jlpt_level}`; }
             if(word_type && word_type !== "Unspecified") { finalStr += `,\n\t\t\t\"type": "${word_type}"`; }
-            if(word_note) { finalStr += `,\n\t\t\t\"note": "${word_note.replace(/"/g, '\\"')}"`; }
+            if(pitch > 0) { finalStr += `,\n\t\t\t"pitch": ${pitch}`; }
+            if(word_note) { finalStr += `,\n\t\t\t"note": "${word_note.replace(/"/g, '\\"')}"`; }
             if(is_important) { finalStr += `,\n\t\t\t"important": ${is_important}`; }
             finalStr += "\n\t\t}";
             g_CompressJSON = false;
@@ -244,12 +320,13 @@ function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_
         }
         case 2:
         {
-            finalStr += `\t\t{"word\":"${word.replace(/"/g, '\\"')}",`;
-            finalStr += `"furigana\":"${furigana.replace(/"/g, '\\"')}",`;
+            finalStr += `\t\t{"word":"${word.replace(/"/g, '\\"')}",`;
+            finalStr += `"furigana":"${furigana.replace(/"/g, '\\"')}",`;
             finalStr += `"romaji":"${romaji.replace(/"/g, '\\"')}",`;
             finalStr += `"meaning":"${meaning.replace(/"/g, '\\"')}"`;
             if(jlpt_level > 0) { finalStr += `,"jlptlevel":${jlpt_level}`; }
             if(word_type && word_type !== "Unspecified") { finalStr += `,"type":"${word_type}"`; }
+            if(pitch > 0) { finalStr += `,"pitch":${pitch}`; }
             if(word_note) { finalStr += `,"note":"${word_note.replace(/"/g, '\\"')}"`; }
             if(is_important) { finalStr += `,"important":${is_important}`; }
             finalStr += "}";
@@ -258,12 +335,13 @@ function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_
         }
         case 3:
         {
-            finalStr += `{"word\":"${word.replace(/"/g, '\\"')}",`;
-            finalStr += `"furigana\":"${furigana.replace(/"/g, '\\"')}",`;
+            finalStr += `{"word":"${word.replace(/"/g, '\\"')}",`;
+            finalStr += `"furigana":"${furigana.replace(/"/g, '\\"')}",`;
             finalStr += `"romaji":"${romaji.replace(/"/g, '\\"')}",`;
             finalStr += `"meaning":"${meaning.replace(/"/g, '\\"')}"`;
             if(jlpt_level > 0) { finalStr += `,"jlptlevel":${jlpt_level}`; }
             if(word_type && word_type !== "Unspecified") { finalStr += `,"type":"${word_type}"`; }
+            if(pitch > 0) { finalStr += `,"pitch":${pitch}`; }
             if(word_note) { finalStr += `,"note":"${word_note.replace(/"/g, '\\"')}"`; }
             if(is_important) { finalStr += `,"important":${is_important}`; }
             finalStr += "}";
@@ -308,6 +386,7 @@ function updateCode()
             g_WordArray[i].word_type,
             g_WordArray[i].note,
             g_WordArray[i].important,
+            g_WordArray[i].pitch,
             (i == 0) ? true : false,
             (i == (g_WordArray.length-1)) ? true : false
         );
@@ -336,12 +415,13 @@ function updateTable()
         embedhtml += `<div class="editor_list_item_cell actionbtn xitmbtn" style="width: 2%;" id="xbtnid_${i}" onclick="emitSelected(${i});">X</div>`;
         embedhtml += `<div class="editor_list_item_cell actionbtn edititmbtn" style="width: 2%;" id="editbtnid_${i}" onclick="editItem(${i});">...</div>`;
         embedhtml += `<div class="editor_list_item_cell" style="width: 2%;overflow: hidden;"><input class="cbxbtn" type="checkbox" id="cbxid_${i}" onclick="emitChecked(${i});"/></div>`;
-        embedhtml += `<div class="editor_list_item_cell ${g_WordArray[i].important ? "mod-important-cell" : "" }" ${ g_WordArray[i].important ? "title=\"This word is important.\"" : ""} style="width: 5%;"><span>${i+1}.</span></div>`;
+        embedhtml += `<div class="editor_list_item_cell no-sel ${g_WordArray[i].important ? "mod-important-cell" : "" }" ${ g_WordArray[i].important ? "title=\"This word is important.\"" : ""} style="width: 5%;"><span>${i+1}.</span></div>`;
+        embedhtml += `<div class="editor_list_item_cell no-sel" style="width: 2%;overflow: hidden; font-size: 12px;">${getPitch(g_WordArray[i].pitch)}</div>`;
         embedhtml += `<div class="editor_list_item_cell"><h4 class="no-margin no-padding" title="${((!g_WordArray[i].jlpt_level) ? "Unspecified level" : "N" + g_WordArray[i].jlpt_level)} word">${g_WordArray[i].word}</h4></div>`;
         embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding">${g_WordArray[i].reading}</p></div>`;
         embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding">${g_WordArray[i].romaji}</p></div>`;
         embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding">${g_WordArray[i].meaning}</p></div>`;
-        embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding color-gray"><i>${((g_WordArray[i].word_type != null) ? g_WordArray[i].word_type : "Unspecified")}</i></p></div>`;
+        embedhtml += `<div class="editor_list_item_cell no-sel"><p class="no-margin no-padding color-gray"><i>${((g_WordArray[i].word_type != null) ? g_WordArray[i].word_type : "Unspecified")}</i></p></div>`;
         if(g_WordArray[i].note != null) {
             embedhtml += `<div class="editor_list_item_cell" style="padding: 0;"><button class="info_button" onmouseenter="displayInfo();" onmouseleave="hideInfo();" onmouseover="textInfo(this);" value="${g_WordArray[i].note}" disabled>note</button></div>`;
         }
@@ -435,6 +515,7 @@ function exportSelection()
             g_WordArray[g_SelectedWordIndexes[i]].word_type,
             g_WordArray[g_SelectedWordIndexes[i]].note,
             g_WordArray[g_SelectedWordIndexes[i]].important,
+            g_WordArray[g_SelectedWordIndexes[i]].pitch,
             (i == 0) ? true : false,
             (i == (g_SelectedWordIndexes.length-1)) ? true : false
         );
@@ -451,13 +532,14 @@ function exportSelection()
     URL.revokeObjectURL(link.href);
 }
 
-function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = null, e = 0, f = null, g = null, h = false)
+function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = null, e = 0, f = null, g = null, h = false, i = 0)
 {
     let word = $("#id_editor_field_word");
     let furigana = $("#id_editor_field_reading");
     let romaji = $("#id_editor_field_romaji");
     let meaning = $("#id_editor_field_meaning");
     let jlptlevel = $("#id_jlpt_level");
+    let pitch_accent = $("#id_pitch_voice");
     let word_type = $("#id_word_type");
     let note_field = $("#id_note_field");
 
@@ -496,7 +578,8 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
             (e == 0) ? jlptlevel.val() : e,
             (f == null || f == "Unspecified") ? word_type.val() : f,
             (g == null) ? note_val : g,
-            h
+            h,
+            (i == 0) ? pitch_accent.val() : i
         );
     }
     else
@@ -512,10 +595,12 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
                 (e == 0) ? jlptlevel.val() : e,
                 (f == null || f == "Unspecified") ? word_type.val() : f,
                 (g == null) ? note_val : g,
-                h
+                h,
+                (i == 0) ? pitch_accent.val() : i
             )
         );
     }
+
 
     word.val(""); furigana.val(""); romaji.val(""); meaning.val(""); note_field.val("");
     g_SelectedWordIndexes.splice(0, g_SelectedWordIndexes.length);
@@ -607,6 +692,7 @@ function editItem(index)
     $("#id_editor_field_romaji").val(g_WordArray[index].romaji);
     $("#id_editor_field_meaning").val(g_WordArray[index].meaning);
     $("#id_jlpt_level").val((g_WordArray[index].jlpt_level) ? g_WordArray[index].jlpt_level : "0");
+    $("#id_pitch_voice").val((g_WordArray[index].pitch_accent) ? g_WordArray[index].pitch_accent : "0");
     $("#id_word_type").val((g_WordArray[index].type) ? g_WordArray[index].type : "Unspecified");
     $("#id_note_field").val((g_WordArray[index].note) ? g_WordArray[index].note : "");
     $("#id_edit_button").css("display", "block");

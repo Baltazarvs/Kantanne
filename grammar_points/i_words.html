@@ -8,26 +8,26 @@
     <link href="../style/grammar_style.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
-<body style="user-select: none;">
+<body>
     <div class="main_panel grammar-point-mod">
         <div class="main_panel_subdiv" style="text-align: center;">
             <h1>以-Words</h1>
         </div>
-        <div class="main_panel_subdiv" style="user-select: text;">
+        <div class="main_panel_subdiv">
             <p>
                 以-Words are special words in in Japanese that have multiple functions according to suffix attached.
                 They are used for comparison, time, management, etc. They are usually attached directly to word they modify, which is mostly noun (number also as it is treated as noun).<br>
 
                 There are 8 different 以-words:
                 <ul>
-                    <li class="grammar_li"><a href="#id_ijou_effect" id="id_ijou" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">上</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">じょう</span>)</a></li>
-                    <li class="grammar_li"><a href="#id_ika_effect" id="id_ika" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">下</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">か</span>)</a></li>
-                    <li class="grammar_li"><a href="#id_izen_effect" id="id_izen" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">前</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">ぜん</span>)</a></li>
-                    <li class="grammar_li"><a href="#id_igo_effect" id="id_igo" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">後</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">ご</span>)</a></li>
-                    <li class="grammar_li"><a href="#id_igai_effect" id="id_igai" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">外</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">がい</span>)</a></li>
-                    <li class="grammar_li"><a href="#id_inai_effect" id="id_inai" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">内</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">ない</span>)</a></li>
-                    <li class="grammar_li"><a href="#id_irai_effect" id="id_irai" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">来</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">らい</span>)</a></li>
-                    <li class="grammar_li"><a href="#id_ikou_effect" id="id_ikou" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}_effect`);">以<span class="bold">降</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">こう</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_ijou_effect" id="id_ijou" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">以<span class="bold">上</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">じょう</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_ika_effect" id="id_ika" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">以<span class="bold">下</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">か</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_izen_effect" id="id_izen" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">以<span class="bold">前</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">ぜん</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_igo_effect" id="id_igo" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">以<span class="bold">後</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">ご</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_igai_effect" id="id_igai" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">以<span class="bold">外</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">がい</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_inai_effect" id="id_inai" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">以<span class="bold">内</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">ない</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_irai_effect" id="id_irai" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">以<span class="bold">来</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">らい</span>)</a></li>
+                    <li class="grammar_li"><a href="#id_ikou_effect" id="id_ikou" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">以<span class="bold">降</span>&nbsp;&nbsp;&nbsp;(い<span class="underline">こう</span>)</a></li>
                 </ul>
             </p>
             <div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_ijou_effect">以上</span></h1>
@@ -41,12 +41,12 @@
                     <div class="example-cell cell-example-sign">例</div>
                     <div class="example-cell example-content">
                         <div class="example-two">
-                            <div class="example-japanese"><u>１８歳以上</u>の人は入れる。</div>
+                            <div class="example-japanese"><u><ruby>１８歳<rt>じゅうはちさい</rt></ruby><ruby>以上<rt>いじょう</rt></ruby></u>の人は入れる。</div>
                             <div class="example-translated translate-togglable"><b>People 18 or older</b> can enter.</div>
                         </div>
                         <div class="example-separator"></div>
                         <div class="example-two">
-                            <div class="example-japanese"><u>３年生以上</u>の学生が試験を受ける。</div>
+                            <div class="example-japanese"><u><ruby>３年生<rt>さんねんせい</rt></ruby>以上</u>の<ruby>学生<rt>がくせい</rt></ruby>が<ruby>試験<rt>しけん</rt></ruby>を<ruby>受<rt>う</rt></ruby>ける。</div>
                             <div class="example-translated translate-togglable">Students of <b>3rd grade and more</b> are taking exam.</div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                     <div class="example-cell cell-example-sign">例</div>
                     <div class="example-cell example-content">
                         <div class="example-two">
-                            <div class="example-japanese"><u>１７歳以下</u>の人はまだ子供だ。</div>
+                            <div class="example-japanese"><u><ruby>１７歳<rt>じゅうななさい</rt></ruby><ruby>以下<rt>いか</rt></ruby></u>の人はまだ<ruby>子供<rt>こども</rt></ruby>だ。</div>
                             <div class="example-translated translate-togglable"><b>People 17 and less</b> are still kids.</div>
                         </div>
                         <div class="example-separator"></div>
@@ -86,7 +86,7 @@
                     <div class="example-cell cell-example-sign">例</div>
                     <div class="example-cell example-content">
                         <div class="example-two">
-                            <div class="example-japanese">試験以前、コーヒーを飲みましょうか。</div>
+                            <div class="example-japanese"><ruby>試験<rt>しけん</rt></ruby><ruby>以前<rt>いぜん</rt></ruby>、コーヒーを飲みましょうか。</div>
                             <div class="example-translated translate-togglable">Let's drink coffee before the exam.</div>
                         </div>
                         <div class="example-separator"></div>
@@ -107,12 +107,12 @@
                     <div class="example-cell cell-example-sign">例</div>
                     <div class="example-cell example-content">
                         <div class="example-two">
-                            <div class="example-japanese">試験以後、コーヒーを飲みましょうか。</div>
+                            <div class="example-japanese"><ruby>試験<rt>しけん</rt></ruby><ruby>以後<rt>いご</rt></ruby>、コーヒーを飲みましょうか。</div>
                             <div class="example-translated translate-togglable">Let's drink coffee before the exam.</div>
                         </div>
                         <div class="example-separator"></div>
                         <div class="example-two">
-                            <div class="example-japanese">午後４時半以後は、留守にしないでください。</div>
+                            <div class="example-japanese"><ruby>午後<rt>ごご</rt></ruby><ruby>４時半<rt>よじはん</rt></ruby>以後は、<ruby>留守<rt>るす</rt></ruby>にしないでください。</div>
                             <div class="example-translated translate-togglable"></b>Don't leave house before 4:30 PM, please.</div>
                         </div>
                     </div>
@@ -127,12 +127,12 @@
                     <div class="example-cell cell-example-sign">例</div>
                     <div class="example-cell example-content">
                         <div class="example-two">
-                            <div class="example-japanese"><u>真理子さん以外</u>は、会議室を出てください。</div>
+                            <div class="example-japanese"><u><ruby>真理子<rt>まりこ</rt></ruby>さん以外</u>は、<ruby>会議室<rt>かいぎしつ</rt></ruby>を出てください。</div>
                             <div class="example-translated translate-togglable">Everybody <b>except Mariko-san</b> leave the conference room, please.</div>
                         </div>
                         <div class="example-separator"></div>
                         <div class="example-two">
-                            <div class="example-japanese">一体なぜ誰も読み書きができないのか。<u>田中さん以外</u>。</div>
+                            <div class="example-japanese"><ruby>一体<rt>いったい</rt></ruby>なぜ誰も読み書きができないのか。<u>田中さん以外</u>。</div>
                             <div class="example-translated translate-togglable"></b>Why in the world can nobody read and write <b>except Mr.Tanaka?</b></div>
                         </div>
                     </div>
@@ -147,12 +147,12 @@
                     <div class="example-cell cell-example-sign">例</div>
                     <div class="example-cell example-content">
                         <div class="example-two">
-                            <div class="example-japanese">買い物で、3000円以内の物は買ってください。</div>
+                            <div class="example-japanese">買い物で、<ruby>3000<rt>さんぜん</rt></ruby><ruby>円<rt>えん</rt></ruby><ruby>以内<rt>いない</rt></ruby>の物は買ってください。</div>
                             <div class="example-translated translate-togglable">When shopping, buy things that are <b>within 3000 yen</b>, please.</div>
                         </div>
                         <div class="example-separator"></div>
                         <div class="example-two">
-                            <div class="example-japanese">値段が3500円以内であれば、買ってくれ。</div>
+                            <div class="example-japanese"><ruby>値段<rt>ねだん</rt></ruby>が3500円以内であれば、買ってくれ。</div>
                             <div class="example-translated translate-togglable"></b>If price is <b>within 3500 yen</b>, buy it.</div>
                         </div>
                     </div>
@@ -172,12 +172,12 @@
                     <div class="example-cell cell-example-sign">例</div>
                     <div class="example-cell example-content">
                         <div class="example-two">
-                            <div class="example-japanese"><u>事故以来</u>、運転しなくなった。</div>
+                            <div class="example-japanese"><u><ruby>事故<rt>じこ</rt></ruby><ruby>以来<rt>いらい</rt></ruby></u>、運転しなくなった。</div>
                             <div class="example-translated translate-togglable"><b>Since</b> car accident, he stopped driving.</div>
                         </div>
                         <div class="example-separator"></div>
                         <div class="example-two">
-                            <div class="example-japanese">結婚<u>して以来</u>、毎日が楽しい</div>
+                            <div class="example-japanese"><ruby>結婚<rt>けっこん</rt></ruby><u>して以来</u>、<ruby>毎日<rt>まいにち</rt></ruby>が楽しい。</div>
                             <div class="example-translated translate-togglable"><b>Since</b> we got married, every day is fun.</div>
                         </div>
                     </div>
@@ -197,12 +197,12 @@
                     <div class="example-cell cell-example-sign">例</div>
                     <div class="example-cell example-content">
                         <div class="example-two">
-                            <div class="example-japanese"><u>アップデート以降</u>バグが出た。</div>
+                            <div class="example-japanese"><u>アップデート<ruby>以降<rt>いこう</rt></ruby></u>バグが出た。</div>
                             <div class="example-translated translate-togglable">Bugs appeared <b>after/since update</b>.</div>
                         </div>
                         <div class="example-separator"></div>
                         <div class="example-two">
-                            <div class="example-japanese">中国に家を<u>買って以降</u>、父が悲しくなった。</div>
+                            <div class="example-japanese"><ruby>中国<rt>ちゅうごく</rt></ruby>に家を<u>買って以降</u>、<ruby>父<rt>ちち</rt></ruby>が<ruby>悲<rt>かな</rt></ruby>しくなった。</div>
                             <div class="example-translated translate-togglable"><b>Since/after I bought house</b> in China, my father became sad.</div>
                         </div>
                     </div>
@@ -229,6 +229,11 @@
             <label>
                 <input type="checkbox" id="id_toggle_furigana" onclick="toggleFurigana(this.id);"/>
                 Hide Furigana
+            </label>
+			<span style="color: gray;">|</span>
+            <label>
+                <input type="checkbox" id="id_toggle_select" onclick="$('body').toggleClass('non-sel');"/>
+                Disable Select
             </label>
             <span style="color: gray;">|</span>
             <label title="「ええ、このメニューはなぜここに一体あると思いますか」 Well, that is because of scrolling nature of the article and content navigation. Also, these animations look cool and you got additional options in this bottom menu.">

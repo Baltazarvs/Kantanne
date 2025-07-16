@@ -100,27 +100,27 @@ function conjugate_kuru(formal = false)
     sarenai = span_it(sarenai);
 
     let standard_pos = (formal ? conjunctive + positive_verb_suffix : terminal);
-    let standard_neg = (formal ? conjunctive + negative_verb : irrealis + negative_verb);
+    let standard_neg = (formal ? conjunctive + negative_verb : "<ruby>来<rt>こ</rt></ruby>" + negative_verb);
 
-    let perfective_pos = (formal ? conjunctive + span_it("ました") : euphonic + ta_particle);
-    let perfective_neg = (formal ? conjunctive +  span_it("ませんでした") : irrealis + span_it("なかった"));
+    let perfective_pos = (formal ? conjunctive + span_it("ました") : "<ruby>来<rt>き</rt></ruby>" + ta_particle);
+    let perfective_neg = (formal ? conjunctive +  span_it("ませんでした") : "<ruby>来<rt>こ</rt></ruby>" + span_it("なかった"));
 
-    let presumptive_pos = (formal ? conjunctive + presumptive_particle : tentative + presumptive_particle);
-    let presumptive_neg = (irrealis + span_it("ない") + formal_darou);
+    let presumptive_pos = (formal ? conjunctive + presumptive_particle : "<ruby>来<rt>こ</rt></ruby>" + presumptive_particle);
+    let presumptive_neg = ("<ruby>来<rt>こ</rt></ruby>" + span_it("ない") + formal_darou);
 
-    let imperative_pos = (formal ? euphonic + te_particle + span_it("ください") : imperative + "い");
-    let imperative_neg = (formal ? irrealis + span_it("ないで") + span_it("ください") : terminal + span_it(" な"));
+    let imperative_pos = (formal ? "<ruby>来<rt>き</rt></ruby>" + te_particle + span_it("ください") : "<ruby>来<rt>こ</rt></ruby>い");
+    let imperative_neg = (formal ? "<ruby>来<rt>こ</rt></ruby>" + span_it("ないで") + span_it("ください") : "<ruby>来<rt>く</rt></ruby>る" + span_it(" な"));
 
     set_conj_values(
         standard_pos, standard_neg,
         perfective_pos, perfective_neg,
         presumptive_pos, presumptive_neg,
-        "来たら", "来なかったら",
-        "来られる", "来られない",
-        "来させる", "来させない",
-        "来られる", "来られない",
+        "<ruby>来<rt>き</rt></ruby>たら", "<ruby>来<rt>こ</rt></ruby>なかったら",
+        "<ruby>来<rt>こ</rt></ruby>られる", "<ruby>来<rt>こ</rt></ruby>られない",
+        "<ruby>来<rt>こ</rt></ruby>させる", "<ruby>来<rt>こ</rt></ruby>させない",
+        "<ruby>来<rt>こ</rt></ruby>られる", "<ruby>来<rt>こ</rt></ruby>られない",
         imperative_pos, imperative_neg,
-        euphonic + te_particle, "Godan 五段", true
+        "<ruby>来<rt>き</rt></ruby>" + te_particle, "Godan 五段", true
     );
 }
 
@@ -532,8 +532,8 @@ function conj_formal()
 
 window.addEventListener("load", function() {
     bFormalActive = false;
-    document.getElementById("id_tab_normal").disabled = true;
-    document.getElementById("id_tab_formal").disabled = true;
+    //document.getElementById("id_tab_normal").disabled = true;
+    //document.getElementById("id_tab_formal").disabled = true;
 });
 
 document.getElementById("conj_text_input").addEventListener("input", function() {

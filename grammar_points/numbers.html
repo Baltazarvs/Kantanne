@@ -1,0 +1,209 @@
+<!-- Copyright (C) 2025 baltazarus -->
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Kantan-Ne?</title>
+    <link href="../style/main.css" rel="stylesheet"/>
+    <link href="../style/grammar_style.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="main_panel grammar-point-mod">
+        <div class="main_panel_subdiv" style="text-align: center;">
+            <h1>Japanese Numbers</h1>
+        </div>
+        <div class="main_panel_subdiv">
+            <p>
+                Japanese numbers are quite different from English and can be complex when it comes to usage.
+				Complexity is mainly due to: <br>
+				<ul>
+					<li>Two different readings</li>
+					<li>Counters</li>
+				</ul>
+				<hr class="separator">
+				Contents:
+                <ul>
+                    <li class="grammar_li"><a href="#id_intro_effect" id="id_intro" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Introduction</a></li>
+                    <li class="grammar_li"><a href="#id_japn_effect" id="id_japn" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Japanese Reading</a></li>
+                    <li class="grammar_li"><a href="#id_sinojapn_effect" id="id_sinojapn" class="no-underline-hover override-a" onclick="highlightEffect(`#${this.id}`);">Sino-Japanese Reading</a></li>
+                </ul>
+            </p>
+			<div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_intro_effect">Introduction</span></h1>
+                <p>
+					The most important thing about number complexity in Japanese is two different ways to read numbers and learning when to use which.
+                </p>
+				<table class="adverb-table">
+					<tr>
+						<th>#</th>
+						<th>字</th>
+						<th>音読み (On'yomi)</th>
+						<th>訓読み (Kun'yomi)</th>
+					</tr>
+					<tr>
+						<td>０</td><td>零、〇、ゼロ</td><td>レイ</td><td></td>
+					</tr>
+					<tr>
+						<td>１</td><td>一</td><td>イチ</td><td>ひとつ</td>
+					</tr>
+					<tr>
+						<td>２</td><td>二</td><td>ニ</td><td>ふたつ</td>
+					</tr>
+					<tr>
+						<td>３</td><td>三</td><td>サン</td><td><b>みっつ</b></td>
+					</tr>
+					<tr>
+						<td>４</td><td>四</td><td>シ</td><td><b>よっつ</b></td>
+					</tr>
+					<tr>
+						<td>５</td><td>五</td><td>ゴ</td><td>いつつ</td>
+					</tr>
+					<tr>
+						<td>６</td><td>六</td><td>ロク</td><td><b>むっつ</b></td>
+					</tr>
+					<tr>
+						<td>７</td><td>七</td><td>シチ</td><td>ななつ</td>
+					</tr>
+					<tr>
+						<td>８</td><td>八</td><td>ハチ</td><td><b>やっつ</b></td>
+					</tr>
+					<tr>
+						<td>９</td><td>九</td><td>キュウ、ク</td><td>ここのつ</td>
+					</tr>
+					<tr>
+						<td>１０</td><td>十</td><td>ジュウ</td><td>とお</td>
+					</tr>
+				</table>
+				<p>
+					It is obvious that each 訓読み (kunyomi) character is suffixed with つ. It is general-purpose counter that is exclusive to Japanese read numberals.
+					Life would be by far easier if these native Japanese numbers were used only, but then we have numbers that use Sino-Japanese reading. They are by far
+					more complex in terms of usage as many different counters are attached to them instead of Japanese ones and, even more troublesome, Japanese read numbers are limited to 10 when it comes to counting. 
+				</p>
+                <div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese"></div>
+                            <div class="example-translated translate-togglable"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_japn_effect">Japanese Reading</span></h1>
+				<p>
+					As already said, Japanese read numbers are limited to 10 and they use general-purpose counter つ.
+					When they are used for counting, they are mostly used after thing they are counting. It means that they usually go after object.
+				</p>
+				<div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese"><ruby>椅子<rt>いす</rt>を六つ持ち上げてください。</div>
+                            <div class="example-translated translate-togglable">Please, hand me <b>six chairs</b>.</div>
+                        </div>
+                    </div>
+                </div>
+				<p>
+					And again, つ is used as general-purpose counter and is good mechanism if we don't know certain counter. Alas, it is limited to 10 and if we get unlucky enough to not know counter and have number 26, クソ.
+				</p>
+			</div>
+			<div class="main_panel_subdiv"><hr class="separator"><h1><span id="id_sinojapn_effect">Sino-Japanese Reading</span></h1>
+				<p>
+					Sino-Japanese reading is basically 音読み of given number character. It is reading borrowed from China and is native reading for Kanji.
+				</p>
+				<div class="example-div">
+                    <div class="example-cell cell-example-sign">例</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two">
+                            <div class="example-japanese">椅子を<ruby>六脚<rt>ろっきゃく</rt></ruby>持ち上げてください。</div>
+                            <div class="example-translated translate-togglable">Please, hand me <b>six chairs</b>.</div>
+                        </div>
+                    </div>
+                </div>
+				<br>
+				<div class="example-div example-setsumei">
+                    <div class="example-cell cell-example-sign setsumei">説明</div>
+                    <div class="example-cell example-content">
+                        <div class="example-two-setsumei">
+                            <div class="example-japanese">脚 (きゃく) is counter for chairs or seats.</div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+			<p>
+				<table class="simple-table">
+					<tr>
+						<td>
+							<table>
+								<tr><td class="irregular">１脚 <span class="srdn">(いっきゃく)</span></td></tr>
+								<tr><td class="even">２脚 <span class="srdn">(にきゃく)</span></td></tr>
+								<tr><td>３脚 <span class="srdn">(さんきゃく)</span></td></tr>
+								<tr><td class="even">４脚 <span class="srdn">(よんきゃく)</span></td></tr>
+								<tr><td>５脚 <span class="srdn">(ごきゃく)</span></td></tr>
+							</table>
+						</td>
+						<td>
+							<table>
+								<tr><td class="irregular">６脚 <span class="srdn">(ろっきゃく)</span></td></tr>
+								<tr><td>７脚 <span class="srdn">(ななきゃく)</span></td></tr>
+								<tr><td class="irregular">８脚 <span class="srdn">(はっきゃく)</span></td></tr>
+								<tr><td>９脚 <span class="srdn">(きゅうきゃく)</span></td></tr>
+								<tr><td class="irregular">１０脚 <span class="srdn">(じっきゃく)</span></td></tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<br>
+				<br>
+				Some other counters are <span class="char-of-value non-sel" title="「ねん」　This is counter used for years."><ruby>年<rt>ねん</rt></ruby></span><span class="char-of-value non-sel" title="「がつ」　This is counter used for months or months in a year."><ruby>月<rt>がつ</rt></ruby></span><span class="char-of-value non-sel" title="「かげつ」　This is counter used for months as unlimited count (amount)."><ruby>ヶ月<rt>かげつ</rt></ruby></span><span class="char-of-value non-sel" title="「か」　This is counter used for counting days in a month. This counter is heavy on irregular readings!"><ruby>日<rt>か</rt></ruby></span><span class="char-of-value non-sel" title="「にち」　This is counter used for counting days as unlimited count (amount)."><ruby>日<rt>にち</rt></ruby></span><span class="char-of-value non-sel" title="「かい」　This is counter used for counting occurrences or rounds. It is same as English ... times."><ruby>回<rt>かい</rt></ruby></span><span class="char-of-value non-sel" title="「ばい」　This is counter used for multiplications. It is similar to english xN (e.g. x1, x2, x4... n times)"><ruby>倍<rt>ばい</rt></ruby></span><span class="char-of-value non-sel" title="「はい」　This is counter that is used for cupfuls, bowlfuls, spoonfuls, boats, octopuses... Approximate semantical usage: Containers with liquid in them or non-solid containers that have contents inside."><ruby>杯<rt>はい</rt></ruby></span><span class="char-of-value non-sel" title="「にん」　This counter is self-explanatory. Used for humans. 1 and 2 have irregular readings - 一人(ひとり) 二人(ふたり)"><ruby>人<rt>にん</rt></ruby></span><span class="char-of-value non-sel" title="「ほん」　This is counter for long, cylindrical things."><ruby>本<rt>ほん</rt></ruby></span><span class="char-of-value non-sel" title="「さつ」　This is counter used for books."><ruby>冊<rt>さつ</rt></ruby></span><span class="char-of-value non-sel" title="「とう」　This is counter for large animals (e.g. head of cattle)."><ruby>頭<rt>とう</rt></span><span class="char-of-value non-sel" title="「ひき」　This is counter for small animals."><ruby>匹<rt>ひき</rt></ruby></span><span class="char-of-value non-sel" title="「わ」　This is counter for birds."><ruby>羽<rt>わ</rt></ruby></span><span class="char-of-value non-sel" title="「だい」　This is counter for machimes and devices."><ruby>台<rt>だい</rt></ruby></span>.<br>
+				<span style="font-size: 8px;">*Move mouse over character to see the info.</span>
+				<br>
+				<br>
+				As for irregular readings, that are very common in counters, it is not that bad. There is <a href="counter_table.html">table</a> that includes counter syllables that are prone to changes. With some exceptions, table is very consistent and reliable.
+			</p>
+        </div>
+    </div>
+    <div class="main_menu menu-mod-bottom" style="align-items: center;user-select: none;translate: 0px 55px;">
+        <div><button class="menu_button" style="background-color: white;"><img src="../media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
+        <div><a href="main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
+        <div><a href="editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
+        <div><a href="quiz.html"><button class="menu_button">Quiz<br><b>クイズ</b></button></a></div>
+        <div><a href="conj.html"><button class="menu_button">Conjugator<br><b>変化</b></button></a></div>
+        <div><a href="kanji.html"><button class="menu_button">Kanji<br><b>漢字</b></button></a></div>
+        <div style="width: calc(100% - auto);"></div>
+        <div>
+            &nbsp;
+            <label>
+                <input type="checkbox" id="id_toggle_translation" onclick="toggleTranslations(this.id);"/>
+                Hide Translations
+            </label>
+            <span style="color: gray;">|</span>
+            <label>
+                <input type="checkbox" id="id_toggle_furigana" onclick="toggleFurigana(this.id);"/>
+                Hide Furigana
+            </label>
+            <span style="color: gray;">|</span>
+            <label>
+                <input type="checkbox" id="id_toggle_select" onclick="$('body').toggleClass('non-sel');"/>
+                Disable Select
+            </label>
+			<span style="color: gray;">|</span>
+            <label title="「ええ、このメニューはなぜここに一体あると思いますか」 Well, that is because of scrolling nature of the article and content navigation. Also, these animations look cool and you got additional options in this bottom menu.">
+                <i><u>?</u></i>
+            </label>
+        </div>
+    </div>
+    <div class="main_menu menu-mod" style="position: absolute;bottom: auto;align-items: center;user-select: none;">
+        <div><button class="menu_button" style="background-color: white;"><img src="../media/kantannelogo.png" style="width: 32px;height: auto;" /></button></div>
+        <div><a href="../main.html"><button class="menu_button">Home<br><b>家</b></button></a></div>
+        <div><a href="../editor.html"><button class="menu_button">Editor<br><b>エディター</b></button></a></div>
+        <div><a href="../quiz.html"><button class="menu_button">Quiz<br><b>クイズ</b></button></a></div>
+        <div><a href="../conj.html"><button class="menu_button">Conjugator<br><b>変化</b></button></a></div>
+        <div><a href="../kanji.html"><button class="menu_button">Kanji<br><b>漢字</b></button></a></div>
+        <div style="width: calc(100% - auto);"></div>
+    </div>
+    <script src="../script/main.js"></script>
+    <script src="../script/id_highlight_effect.js"></script>
+    <script src="../script/grammar_page.js"></script>
+</body>
+</html>

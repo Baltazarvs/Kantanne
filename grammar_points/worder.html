@@ -29,7 +29,7 @@ var infoarr = new Array(
         <div class="main_panel_subdiv" style="text-align: center;">
             <h1>Sentence Word Order</h1>
         </div>
-        <div class="main_panel_subdiv" style="user-select: text;">
+        <div class="main_panel_subdiv">
             <p>
                 Word order of Japanese sentence is fixed in three basic parts and they are
                 <span style="user-select: none;">
@@ -316,7 +316,12 @@ var infoarr = new Array(
                 Hide Furigana
             </label>
             <span style="color: gray;">|</span>
-            <label title="「ええ、このメニューはなぜここに一体あると思いますか」 Well, that is because of scrolling nature of the article and content navigation. Also, these animations look cool and you got additional options in this bottom menu.">
+            <label>
+                <input type="checkbox" id="id_toggle_select" onclick="$('body').toggleClass('non-sel');"/>
+                Disable Select
+            </label>
+            <span style="color: gray;">|</span>
+			<label title="「ええ、このメニューはなぜここに一体あると思いますか」 Well, that is because of scrolling nature of the article and content navigation. Also, these animations look cool and you got additional options in this bottom menu.">
                 <i><u>?</u></i>
             </label>
         </div>

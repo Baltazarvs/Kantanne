@@ -13,7 +13,7 @@
         <div class="main_panel_subdiv" style="text-align: center;">
             <h1>Combined Particles</h1>
         </div>
-        <div class="main_panel_subdiv" style="user-select: text;">
+        <div class="main_panel_subdiv">
             <p>
                 Combined particles (e.g. には, では, への, にも, ...) are, of course, particle compounds that have more than one particle. They are mostly used
                 for forming complex ideas, emphasizing, precision, manner, etc.<br>
@@ -341,6 +341,11 @@
             <label>
                 <input type="checkbox" id="id_toggle_furigana" onclick="toggleFurigana(this.id);"/>
                 Hide Furigana
+            </label>
+			<span style="color: gray;">|</span>
+            <label>
+                <input type="checkbox" id="id_toggle_select" onclick="$('body').toggleClass('non-sel');"/>
+                Disable Select
             </label>
             <span style="color: gray;">|</span>
             <label title="「ええ、このメニューはなぜここに一体あると思いますか」 Well, that is because of scrolling nature of the article and content navigation. Also, these animations look cool and you got additional options in this bottom menu.">

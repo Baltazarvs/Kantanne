@@ -50,6 +50,10 @@ p.example-p {
     border-radius: 5px;
 }
 
+.example-setsumei {
+    border: 2px solid #55f;
+}
+
 .example-p {
     height: 30px;
 }
@@ -65,6 +69,10 @@ p.example-p {
     text-align: center;
     align-items: center;
     align-content: center;
+}
+
+.setsumei {
+	background-color: #55f;
 }
 
 .example-content {
@@ -84,6 +92,11 @@ p.example-p {
 .example-separator {
     margin-top: 10px;
     user-select: none;
+}
+
+.example-two-setsumei {
+	align-content: center;
+	height: 100%;
 }
 
 div.cloud-info {
@@ -259,5 +272,43 @@ table.table-default {
 
 table.table-default td {
     border: 1px solid black;
-    padding: 5px;
+}
+
+table.simple-table {
+	background-color: #ddd;
+	border-radius: 3px;
+	padding: 0;
+}
+
+table.simple-table table td {
+	background-color: #aaa;
+	min-width: 100px;
+	padding: 5px;
+	border: 0;
+}
+
+table.simple-table table td.even {
+	background-color: #bbb;
+}
+
+table.simple-table table td span.srdn {
+	font-weight: bold;
+}
+
+table.simple-table table .irregular {
+	background-color: #faa;
+}
+
+.non-sel {
+	user-select: none;
+}
+
+.char-of-value {
+	background-color: #f00;
+	color: white;
+	font-weight: bold;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 5px;
+	cursor: pointer;
 }
