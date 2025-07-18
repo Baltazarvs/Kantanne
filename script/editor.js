@@ -604,17 +604,6 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
         note_val = note_field.val();
     }
 
-    for(let i = 0; i < g_WordArray.length; ++i)
-    {
-        if(g_WordArray[i].word === word.val() || g_WordArray[i].word === a)
-        {
-            let conf = confirm("The world already exists in collection. Do you wish to proceed?");
-            if(!conf)
-                return;
-            break;
-        }
-    }
-
     if(bEdited)
     {
         if(!h) { h = g_WordArray[index].marked; }
@@ -634,6 +623,17 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
     }
     else
     {
+        for(let i = 0; i < g_WordArray.length; ++i)
+        {
+            if(g_WordArray[i].word === word.val() || g_WordArray[i].word === a)
+            {
+                let conf = confirm("The world already exists in collection. Do you wish to proceed?");
+                if(!conf)
+                    return;
+                break;
+            }
+        }
+        
         g_JsonObjCounter += 1;
         g_WordArray.push(
             new WordObject(
@@ -752,6 +752,9 @@ function editItem(index)
         .css("pointerEvents", "none")
     ;
 
+    $(".disable-control-mod").prop("disabled", true);
+    $(".label-mod-controls").toggleClass("bg-gray");
+    g_LoadEnabled = false;
     $("#id_edit_button").val(index);
 }
 
@@ -767,6 +770,10 @@ function applyChanges(e)
         .remove("disable_action_button")
         .css("pointerEvents", "auto")
     ;
+
+    $(".disable-control-mod").prop("disabled", false);
+    $(".label-mod-controls").toggleClass("bg-gray");
+    g_LoadEnabled = true;
 }
 
 function uncheckAll()

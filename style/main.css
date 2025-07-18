@@ -918,6 +918,10 @@ div.animate_drag {
     background-color: yellow;
 }
 
+.bg-gray {
+    background-color: #555;
+}
+
 .grammar-point-mod {
     padding: 10px;
     width: calc(100% - 40px);
