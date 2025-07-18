@@ -1,7 +1,6 @@
 // Copyright (C) 2025 baltazarus. Kantanne is free.
 
 var g_WordArray = new Array();
-var g_SelectedWordIndexes = new Array();
 var g_ShowDeleteButton = new Boolean(false);
 var g_CurrentCode = null;
 var file_input = $("#id_upload_json_input");
@@ -17,8 +16,9 @@ var g_DragActive = false;
 var g_JsonObjCounter = g_WordArray.length;
 var g_LoadingProgress = 0;
 var g_LoadEnabled = true;
+var g_IsAnyChecked = false;
 
-function WordObject(index, word, reading, romaji, meaning, jlpt_level = null, word_type = null, note = null, important = false, pitch = 0)
+function WordObject(index, word, reading, romaji, meaning, jlpt_level = null, word_type = null, note = null, marked = false, pitch = 0, checked = false)
 {
     this.index = index;
     this.word = word;
@@ -28,8 +28,11 @@ function WordObject(index, word, reading, romaji, meaning, jlpt_level = null, wo
     this.jlpt_level = jlpt_level;
     this.word_type = word_type;
     this.note = note;
-    this.important = important;
+    this.marked = marked;
     this.pitch = pitch;
+
+    // This option is independent and is only used in editor. It is not exported to JSON. It is mainly used for easing checking usage.
+    this.checked = checked;
 }
 
 var checkExistingWord = () => {
@@ -45,12 +48,11 @@ var checkExistingWord = () => {
 
     for(let i = 0; i < g_WordArray.length; ++i)
     {
-        if(g_WordArray[i].word === $("#id_editor_field_word").val())
-        {
+        if(g_WordArray[i] === $("#id_editor_field_word").val()) {
             bFound = true;
             $("#id_word_found").html("Word found.");
             $("#id_word_search_div").addClass("word_found_mod");
-            break;
+            return;
         }
     }
     
@@ -75,28 +77,27 @@ var searchExistingWord = () => {
     let bFound = false;
     $("#id_search_message").css("display", "block");
     
-    for(let i = 0; i < g_WordArray.length; i++)
-    {
+    for(let i = 0; i < g_WordArray.length; ++i) {
         if(g_WordArray[i].word === $("#id_search_field").val())
         {
             bFound = true;
             $("#id_search_message").html("Word found!");
             $("#xbtnid_" + i)[0].scrollIntoView();
-            break;
+            return;
         }
         else if(g_WordArray[i].reading === $("#id_search_field").val())
         {
             bFound = true;
             $("#id_search_message").html("Word found!");
             $("#xbtnid_" + i)[0].scrollIntoView();
-            break;
+            return;
         }
         else if(g_WordArray[i].romaji === $("#id_search_field").val())
         {
             bFound = true;
             $("#id_search_message").html("Word found!");
             $("#xbtnid_" + i)[0].scrollIntoView();
-            break;
+            return;
         }
     }
 
@@ -111,6 +112,10 @@ var searchExistingWord = () => {
 
 var updateLoadingCallback = () => {
     $("#id_loadprog").html(g_LoadingProgress);
+}
+
+function toggleOption(bDisp, opt1="block", opt2="none") {
+    return (bDisp) ? opt1 : opt2;
 }
 
 function getPitch(p) {
@@ -133,7 +138,7 @@ function loadFileChunked(finishCallback, updateCallback, pack = {chunkSize: 20, 
             let jlpt_level = null;
             let word_type = null;
             let word_note = null;
-            let important = false;
+            let marked = false;
             let pitch_accent = 0;
 
             if('jlptlevel' in pack.data.words[i]) {
@@ -148,12 +153,12 @@ function loadFileChunked(finishCallback, updateCallback, pack = {chunkSize: 20, 
             if('note' in pack.data.words[i]) {
                 word_note = pack.data.words[i].note;
             }
-            if('important' in pack.data.words[i]) {
-                important = pack.data.words[i].important;
+            if('marked' in pack.data.words[i]) {
+                marked = pack.data.words[i].marked;
             }
 
             let obj = new WordObject(
-                g_JsonObjCounter, pack.data.words[i].word, pack.data.words[i].furigana, pack.data.words[i].romaji, pack.data.words[i].meaning, jlpt_level, word_type, word_note, important, pitch_accent
+                g_JsonObjCounter, pack.data.words[i].word, pack.data.words[i].furigana, pack.data.words[i].romaji, pack.data.words[i].meaning, jlpt_level, word_type, word_note, marked, pitch_accent
             );
                     
             g_WordArray.push(obj);
@@ -293,7 +298,7 @@ $("#id_lappend").bind("drop", (e) => {
     g_DragActive = false;
 });
 
-function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_type = null, word_note = null, is_important = false, pitch = 0, bFirst = false, bLast = false)
+function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_type = null, word_note = null, is_marked = false, pitch = 0, bFirst = false, bLast = false)
 {
     var finalStr = new String();
     if((g_WordArray.length+1) > 1)
@@ -313,7 +318,7 @@ function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_
             if(word_type && word_type !== "Unspecified") { finalStr += `,\n\t\t\t\"type": "${word_type}"`; }
             if(pitch > 0) { finalStr += `,\n\t\t\t"pitch": ${pitch}`; }
             if(word_note) { finalStr += `,\n\t\t\t"note": "${word_note.replace(/"/g, '\\"')}"`; }
-            if(is_important) { finalStr += `,\n\t\t\t"important": ${is_important}`; }
+            if(is_marked) { finalStr += `,\n\t\t\t"marked": ${is_marked}`; }
             finalStr += "\n\t\t}";
             g_CompressJSON = false;
             break;
@@ -328,7 +333,7 @@ function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_
             if(word_type && word_type !== "Unspecified") { finalStr += `,"type":"${word_type}"`; }
             if(pitch > 0) { finalStr += `,"pitch":${pitch}`; }
             if(word_note) { finalStr += `,"note":"${word_note.replace(/"/g, '\\"')}"`; }
-            if(is_important) { finalStr += `,"important":${is_important}`; }
+            if(is_marked) { finalStr += `,"marked":${is_marked}`; }
             finalStr += "}";
             g_CompressJSON = true;
             break;
@@ -343,7 +348,7 @@ function jsonObjectInline(word, furigana, romaji, meaning, jlpt_level = 0, word_
             if(word_type && word_type !== "Unspecified") { finalStr += `,"type":"${word_type}"`; }
             if(pitch > 0) { finalStr += `,"pitch":${pitch}`; }
             if(word_note) { finalStr += `,"note":"${word_note.replace(/"/g, '\\"')}"`; }
-            if(is_important) { finalStr += `,"important":${is_important}`; }
+            if(is_marked) { finalStr += `,"marked":${is_marked}`; }
             finalStr += "}";
             g_CompressJSON = true;
             break;
@@ -375,23 +380,24 @@ function updateCode()
     let txtaText = $("#id_textarea_json_code");
     txtaText.html("");
     txtaText.html(txtaText.html() + jsonInitialInline);
-    for(let i = 0; i < g_WordArray.length; ++i)
-    {
+
+    g_WordArray.forEach(elem => {
         let tempStr = jsonObjectInline(
-            g_WordArray[i].word,
-            g_WordArray[i].reading,
-            g_WordArray[i].romaji,
-            g_WordArray[i].meaning,
-            g_WordArray[i].jlpt_level,
-            g_WordArray[i].word_type,
-            g_WordArray[i].note,
-            g_WordArray[i].important,
-            g_WordArray[i].pitch,
-            (i == 0) ? true : false,
-            (i == (g_WordArray.length-1)) ? true : false
+            elem.word,
+            elem.reading,
+            elem.romaji,
+            elem.meaning,
+            elem.jlpt_level,
+            elem.word_type,
+            elem.note,
+            elem.marked,
+            elem.pitch,
+            (elem.index == 0) ? true : false,
+            (elem.index == (g_WordArray.length-1)) ? true : false
         );
         txtaText.html(txtaText.html() + tempStr);
-    }
+    });
+
     txtaText.html(txtaText.html() + ((g_CompressionMethod < 3) ? "\n" : "") + jsonFinalInline);
 }
 
@@ -414,8 +420,8 @@ function updateTable()
         let embedhtml = divopen;
         embedhtml += `<div class="editor_list_item_cell actionbtn xitmbtn" style="width: 2%;" id="xbtnid_${i}" onclick="emitSelected(${i});">X</div>`;
         embedhtml += `<div class="editor_list_item_cell actionbtn edititmbtn" style="width: 2%;" id="editbtnid_${i}" onclick="editItem(${i});">...</div>`;
-        embedhtml += `<div class="editor_list_item_cell" style="width: 2%;overflow: hidden;"><input class="cbxbtn" type="checkbox" id="cbxid_${i}" onclick="emitChecked(${i});"/></div>`;
-        embedhtml += `<div class="editor_list_item_cell no-sel ${g_WordArray[i].important ? "mod-important-cell" : "" }" ${ g_WordArray[i].important ? "title=\"This word is important.\"" : ""} style="width: 5%;"><span>${i+1}.</span></div>`;
+        embedhtml += `<div class="editor_list_item_cell" style="width: 2%;overflow: hidden;"><input class="cbxbtn" type="checkbox" id="cbxid_${i}" onclick="emitChecked(${i},$(this).is(':checked'));" ${((g_WordArray[i].checked) ? "checked" : "")}/></div>`;
+        embedhtml += `<div class="editor_list_item_cell no-sel ${g_WordArray[i].marked ? "mod-important-cell" : "" }" ${ g_WordArray[i].marked ? "title=\"This word is marked.\"" : ""} style="width: 5%;"><span>${i+1}.</span></div>`;
         embedhtml += `<div class="editor_list_item_cell no-sel" style="width: 2%;overflow: hidden; font-size: 12px;">${getPitch(g_WordArray[i].pitch)}</div>`;
         embedhtml += `<div class="editor_list_item_cell"><h4 class="no-margin no-padding" title="${((!g_WordArray[i].jlpt_level) ? "Unspecified level" : "N" + g_WordArray[i].jlpt_level)} word">${g_WordArray[i].word}</h4></div>`;
         embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding">${g_WordArray[i].reading}</p></div>`;
@@ -430,6 +436,16 @@ function updateTable()
     }
 }
 
+function checkIfAnyChecked()
+{
+    for(let i = 0; i < g_WordArray.length; ++i) {
+        if(g_WordArray[i].checked) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function restartIDs()
 {
     let xbtns = $("#id_list_em.xitmbtn");
@@ -441,10 +457,7 @@ function restartIDs()
         xbtns[i].id = `xbtnid_${i}`;
         editBtns[i].id = `editbtnid_${i}`;
         cbxbtns[i].id = `cbxid_${i}`;
-        $(`#cbxid_${i}`).prop('checked', false);
     }
-    
-    $("#id_div_show_save_selection").css("display", "none");
 }
 
 function textInfo(obj)
@@ -455,8 +468,12 @@ function textInfo(obj)
 function deleteItem(index)
 {
     g_WordArray.splice(index, 1);
+    
+    for(let i = 0; i < g_WordArray.length; ++i) {
+        g_WordArray[i].index = i;
+    }
+
     g_JsonObjCounter -= 1;
-    g_SelectedWordIndexes.splice(0, g_SelectedWordIndexes.length);
     restartIDs();
 }
 
@@ -464,27 +481,59 @@ function emitSelected(index)
 {
     deleteItem(index);
     updateTable();
+    updateCheckStatus();
+    $("#id_div_show_save_selection").css("display", toggleOption((g_IsAnyChecked), "flex", "none"));
 }
 
-function emitChecked(index)
+function updateCheckStatus()
 {
-    let ind = g_SelectedWordIndexes.indexOf(index);
-    if(ind !== -1) {
-        g_SelectedWordIndexes.splice(ind, 1);
-    } else {
-        g_SelectedWordIndexes.push(index);
-    }
-
-    $("#id_div_show_save_selection").css("display", ((g_SelectedWordIndexes.length > 0) ? "flex" : "none"));
+    g_IsAnyChecked = false;
+    g_WordArray.forEach(elem => {
+        if(elem.checked) { g_IsAnyChecked = true; }
+    });
 }
 
-function markImportant()
+function emitChecked(index, bState)
 {
-    for(let i = 0; i < g_SelectedWordIndexes.length; ++i) {
-        g_WordArray[g_SelectedWordIndexes[i]].important = true;
-    }
+    g_WordArray[index].checked = bState;
+    g_IsAnyChecked = false;
+
+    g_WordArray.forEach(elem => {
+        if(elem.checked) { g_IsAnyChecked = true; }
+    });
+
+    $("#id_div_show_save_selection").css("display", toggleOption((g_IsAnyChecked), "flex", "none"));
+    $("#id_clear_marks").css("display", toggleOption(g_IsAnyChecked, "flex", "none"));
+}
+
+function markTheWord()
+{
+    g_WordArray.forEach(elem => {
+        if(elem.checked) {
+            elem.marked = true;
+        }
+    });
+
     updateTable();
     updateCode();
+}
+
+function toggleSelMarks()
+{
+    g_WordArray.forEach(elem => {
+        if(elem.checked) {
+            elem.marked = !(elem.marked);
+        }
+    });
+    updateTable();
+}
+
+function inverseSelection()
+{
+    g_WordArray.forEach(element => {
+        element.checked = !(element.checked);
+        $(`#cbxid_${element.index}`).prop("checked", toggleOption(element.checked, "checked", ""));
+    });
 }
 
 function exportSelection()
@@ -503,23 +552,24 @@ function exportSelection()
     }
 
     let finalCode = jsonInitialInline;
-    g_SelectedWordIndexes.sort();
-    for(let i = 0; i < g_SelectedWordIndexes.length; ++i)
-    {
-        finalCode += jsonObjectInline(
-            g_WordArray[g_SelectedWordIndexes[i]].word,
-            g_WordArray[g_SelectedWordIndexes[i]].reading,
-            g_WordArray[g_SelectedWordIndexes[i]].romaji,
-            g_WordArray[g_SelectedWordIndexes[i]].meaning,
-            g_WordArray[g_SelectedWordIndexes[i]].jlpt_level,
-            g_WordArray[g_SelectedWordIndexes[i]].word_type,
-            g_WordArray[g_SelectedWordIndexes[i]].note,
-            g_WordArray[g_SelectedWordIndexes[i]].important,
-            g_WordArray[g_SelectedWordIndexes[i]].pitch,
-            (i == 0) ? true : false,
-            (i == (g_SelectedWordIndexes.length-1)) ? true : false
-        );
-    }
+
+    g_WordArray.forEach(elem => {
+        if(elem.checked) {
+            finalCode += jsonObjectInline(
+                elem.word,
+                elem.reading,
+                elem.romaji,
+                elem.meaning,
+                elem.jlpt_level,
+                elem.word_type,
+                elem.note,
+                elem.marked,
+                elem.pitch,
+                (elem.index == 0) ? true : false,
+                (elem.index == (g_WordArray.length-1)) ? true : false
+            );
+        }
+    });
 
     finalCode += (((g_CompressionMethod < 3) ? "\n" : "") + jsonFinalInline);
 
@@ -567,7 +617,7 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
 
     if(bEdited)
     {
-        if(!h) { h = g_WordArray[index].important; }
+        if(!h) { h = g_WordArray[index].marked; }
 
         g_WordArray[index] = new WordObject(
             index+1,
@@ -603,7 +653,6 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
 
 
     word.val(""); furigana.val(""); romaji.val(""); meaning.val(""); note_field.val("");
-    g_SelectedWordIndexes.splice(0, g_SelectedWordIndexes.length);
     updateTable();
 }
 
@@ -722,20 +771,31 @@ function applyChanges(e)
 
 function uncheckAll()
 {
-    for(let i = 0; i < g_SelectedWordIndexes.length; ++i) {
-        $(`#cbxid_${i}`).prop("checked", "false");
-    }
+    g_WordArray.forEach(element => {
+        $(`#cbxid_${element.index}`).prop("checked", "");
+        element.checked = false;
+    });
 
-    g_SelectedWordIndexes.splice(0, g_SelectedWordIndexes.length);
+    g_IsAnyChecked = false;
 
     $("#id_edit_button").css("display", "none");
     $("#id_add_button").css("display", "block");
+    $("#id_div_show_save_selection").css("display", "none");
+    $("#id_clear_marks").css("display", "none");
 }
 
 function addStyleEvent()
 {
     displayWindow('id_popup_window_styles');
     $("#id_style_word").val($("#id_editor_field_word").val());
+}
+
+function clearAllMarks()
+{
+    g_WordArray.forEach(element => {
+        element.marked = false;
+    });
+    updateTable();
 }
 
 $("#id_editor_field_word").bind("input", () => {

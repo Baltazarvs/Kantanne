@@ -13,6 +13,7 @@ var euphonic = new String;
 var bFormalActive = new Boolean(false);
 var bForceCustom = new Boolean(false);
 var bInputSubmit = new Boolean(false);
+var bIrregular = new Boolean(false);
 
 //var godan_verbs_iru_eru = [
 //    // iru
@@ -120,9 +121,71 @@ function conjugate_kuru(formal = false)
         "<ruby>来<rt>こ</rt></ruby>させる", "<ruby>来<rt>こ</rt></ruby>させない",
         "<ruby>来<rt>こ</rt></ruby>られる", "<ruby>来<rt>こ</rt></ruby>られない",
         imperative_pos, imperative_neg,
-        "<ruby>来<rt>き</rt></ruby>" + te_particle, "Godan 五段", true
+        "<ruby>来<rt>き</rt></ruby>" + te_particle, "Irregular Verb", true
     );
 }
+
+function conjugate_suru(formal = false)
+{
+    terminal = set_base_entry("terminal", "する");
+    attributive = set_base_entry("attributive", "する");
+    hypothetical = set_base_entry("hypothetical", "すれ");
+    potential = set_base_entry("potential", "できる");
+    imperative = set_base_entry("imperative", "しろ");
+    irrealis = set_base_entry("irrealis", "し");
+    tentative = set_base_entry("tentative", "し");
+    conjunctive = set_base_entry("conjunctive", "し");
+    euphonic = set_base_entry("euphonic", "し");
+
+    let ta_particle = span_it("た");
+    let te_particle = span_it("て");
+    
+    let presumptive_particle = span_it((formal ? "ましょう" : "よう"));
+
+    let negative_verb = span_it("ない");
+    let positive_verb_suffix = span_it("る");
+    let formal_darou = span_it("だろう");
+
+    let saseru = "させる";
+    let sareru = "される";
+    let sasenai = "させない";
+    let sarenai = "されない";
+
+    if(formal)
+    {
+        negative_verb = span_it("ません");
+        positive_verb_suffix = span_it("ます");
+        formal_darou = span_it("でしょう");
+        saseru = "させます";
+        sareru = "されます";
+        sasenai = "させません";
+        sarenai = "されません";
+    }
+
+    let standard_pos = (formal ? conjunctive + positive_verb_suffix : terminal);
+    let standard_neg = (formal ? conjunctive + negative_verb : irrealis + negative_verb);
+
+    let perfective_pos = (formal ? conjunctive + span_it("ました") : euphonic + ta_particle);
+    let perfective_neg = (formal ? conjunctive +  span_it("ませんでした") : irrealis + span_it("なかった"));
+
+    let presumptive_pos = (formal ? conjunctive + presumptive_particle : tentative + presumptive_particle);
+    let presumptive_neg = (irrealis + span_it("ない") + formal_darou);
+
+    let imperative_pos = (formal ? euphonic + te_particle + span_it("ください") : imperative);
+    let imperative_neg = (formal ? irrealis + span_it("ないで") + span_it("ください") : terminal + span_it(" な"));
+
+    set_conj_values(
+        standard_pos, standard_neg,
+        perfective_pos, perfective_neg,
+        presumptive_pos, presumptive_neg,
+        hypothetical + span_it("ば"), irrealis + span_it("なければ"),
+        `<span class=\"h-darkblue c-white\" title=\"'be able to do = can'\">${potential}</span>`, "<span class=\"h-darkblue c-white\" title=\"'be able to do = can'\">できない</span>",
+        saseru, sasenai,
+        sareru, sarenai,
+        imperative_pos, imperative_neg,
+        euphonic + te_particle, "Irregular Verb"
+    );
+} 
 
 function conjugate_ichidan(verb, formal)
 {
@@ -460,13 +523,28 @@ function conjugate_verb(verb, formal = false)
         }
 
         bInputSubmit = true;
+        bIrregular = false;
 
         // Here conjugate irregular verbs...
         if(verb === "くる" || verb === "来る")
         {
+            bIrregular = true;
             conjugate_kuru(bFormalActive);
+        }
+        
+        if(verb === "する" || verb === "為る")
+        {
+            bIrregular = true;
+            conjugate_suru(bFormalActive);
+        }
+
+        if(bIrregular)
+        {
+            if(bIrregular.valueOf()) { $("#id_irregular_sign").css("display", "contents"); }
             return;
         }
+
+        $("#id_irregular_sign").css("display", "none");
         
         // Here conjugate other verb types...
         if(strval[strval.length-1] == "る")

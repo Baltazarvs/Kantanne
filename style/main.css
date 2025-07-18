@@ -759,7 +759,11 @@ div.popup_info {
 .h-green { background-color: lightgreen; }
 .h-yellow { background-color: yellow; }
 .h-blue { background-color: skyblue; }
+.h-darkblue { background-color: blue; }
 .h-red { background-color: lightcoral; }
+.h-darkred { background-color: #ce1818;}
+
+.c-white { color: white; }
 
 .i-padding { padding: 5px; }
 .i-border { border: 1px solid black; }

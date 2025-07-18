@@ -95,7 +95,8 @@
                     <div class="editor_column_cell"><button class="insert_button_cls insert_button_mod_save" onclick="updateCode(); saveJson();">Save</button></div>
                     <div class="editor_column_cell" id="id_div_show_save_selection" style="display: none;width: 30%;flex-direction: row;">
                         <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="exportSelection();">Save Selected</button>
-                        <button class="insert_button_cls insert_button_mod_save mod_save_chk" style="background-color: deeppink;" onclick="markImportant();">Mark</button>
+                        <button class="insert_button_cls insert_button_mod_save mod_save_chk" style="background-color: deeppink;" onclick="markTheWord();">Mark</button>
+                        <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="inverseSelection();">Invert</button>
                         <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="uncheckAll();">Uncheck All</button>
                     </div>
                 </div>
@@ -167,6 +168,16 @@
                 </div>
                 <div class="editor_column_cell">
                     <input type="text" class="search_field" placeholder="Search Word..." title="If word is found, it will appear at the top of table." id="id_search_field" />
+                </div>
+                <div style="width: 1px; background-color: #aaa;">
+                </div>
+                <div class="editor_column_cell" style="display: none; flex-direction: row;width: 300px;" id="id_clear_marks">
+                    <button class="insert_button_cls" style="margin: 5px;" onclick="clearAllMarks();">
+                        Clear All Marks
+                    </button>
+                    <button class="insert_button_cls" style="margin: 5px;" onclick="toggleSelMarks();">
+                        Toggle Marks
+                    </button>
                 </div>
                 <div class="editor_column_cell">
                     <img src="media/loading.gif" style="width: 32px; height: auto; display: none;" id="id_search_loading_icon"/>
