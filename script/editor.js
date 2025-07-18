@@ -83,21 +83,21 @@ var searchExistingWord = () => {
             bFound = true;
             $("#id_search_message").html("Word found!");
             $("#xbtnid_" + i)[0].scrollIntoView();
-            return;
+            break;
         }
         else if(g_WordArray[i].reading === $("#id_search_field").val())
         {
             bFound = true;
             $("#id_search_message").html("Word found!");
             $("#xbtnid_" + i)[0].scrollIntoView();
-            return;
+            break;
         }
         else if(g_WordArray[i].romaji === $("#id_search_field").val())
         {
             bFound = true;
             $("#id_search_message").html("Word found!");
             $("#xbtnid_" + i)[0].scrollIntoView();
-            return;
+            break;
         }
     }
 
@@ -609,7 +609,7 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
         if(!h) { h = g_WordArray[index].marked; }
 
         g_WordArray[index] = new WordObject(
-            index+1,
+            index,
             (a == null) ? word.val() : a,
             (b == null) ? furigana.val() : b,
             (c == null) ? romaji.val() : c,
@@ -618,7 +618,8 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
             (f == null || f == "Unspecified") ? word_type.val() : f,
             (g == null) ? note_val : g,
             h,
-            (i == 0) ? pitch_accent.val() : i
+            (i == 0) ? pitch_accent.val() : i,
+            g_WordArray[index].checked
         );
     }
     else
