@@ -137,10 +137,10 @@ function newFlashcard(index = -1)
             console.log(newObj.pitch);
 
             switch(newObj.pitch) {
-                case 1: { $("#fc_pitch").html("平板型"); break; }
-                case 2: { $("#fc_pitch").html("頭高型"); break; }
-                case 3: { $("#fc_pitch").html("中高型"); break; }
-                case 4: { $("#fc_pitch").html("尾高"); break; }
+                case 1: { $("#fc_pitch").html("平 <sup>[1]</sup>"); break; }
+                case 2: { $("#fc_pitch").html("頭 <sup>[2]</sup>"); break; }
+                case 3: { $("#fc_pitch").html("中 <sup>[3]</sup>"); break; }
+                case 4: { $("#fc_pitch").html("尾 <sup>[4]</sup>"); break; }
                 default: { $("#fc_pitch").html("~型"); }
             }
 
@@ -169,6 +169,27 @@ function flipFlashcard()
         document.getElementById("id_fc_flipped").style.display = "flex";
     }
     g_Flipped = !g_Flipped;
+}
+
+function copyObject()
+{
+    let json_format = `{"word":"${g_WordArray[g_CurrentIndex].word}","furigana":"${g_WordArray[g_CurrentIndex].furigana}","romaji":"${g_WordArray[g_CurrentIndex].romaji}","meaning":"${g_WordArray[g_CurrentIndex].meaning}"}`;
+    navigator.clipboard.writeText(json_format);
+
+    $("#id_temp_code").html(json_format);
+    $("#id_loading_window").toggleClass("loading-window-anim");
+    $("input[type=file].json_upload_old").prop("disabled", true);
+    $(".json_upload_editor").toggleClass("json_upload_editor_disabled");
+
+    setTimeout(function() {
+        $("#id_loading_window").toggleClass("loading-window-anim");
+        $("input[type=file].json_upload_old").prop("disabled", false);
+        $(".json_upload_editor").toggleClass("json_upload_editor_disabled");
+        
+        g_HideViewShow = true;
+        $(".hidden-textarea").addClass("control-hide");
+        $("#id_view_hide").html("view");
+    }, 7000);
 }
 
 function toggleFurigana()

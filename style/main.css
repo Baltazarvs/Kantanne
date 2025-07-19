@@ -109,6 +109,13 @@ button.menu_button:hover {
     user-select: none;
 }
 
+/* This is used whenever control is hidden by button action. */
+.control-hide {
+    display: none;
+}
+
+#id_temp_code { resize: vertical; }
+
 .card_mod:hover {
     background-color: #ff5151;
     cursor: pointer;
@@ -1005,7 +1012,7 @@ div.loading-window {
     background-color: white;
     border-radius: 10px;
     color: black;
-    align-items: center;
+    align-items: left;
 }
 
 div.loading-window div {

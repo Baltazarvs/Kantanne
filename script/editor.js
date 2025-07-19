@@ -794,8 +794,9 @@ function uncheckAll()
 
 function addStyleEvent()
 {
-    displayWindow('id_popup_window_styles');
     $("#id_style_word").val($("#id_editor_field_word").val());
+    $("#id_txt_code").html(`<span class="h-yellow">${$("#id_style_word").val()}</span>`);
+    displayWindow('id_popup_window_styles');
 }
 
 function clearAllMarks()
