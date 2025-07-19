@@ -173,7 +173,7 @@ function flipFlashcard()
 
 function copyObject()
 {
-    let json_format = `{"word":"${g_WordArray[g_CurrentIndex].word}","furigana":"${g_WordArray[g_CurrentIndex].furigana}","romaji":"${g_WordArray[g_CurrentIndex].romaji}","meaning":"${g_WordArray[g_CurrentIndex].meaning}"}`;
+    let json_format = `{"word":"${g_WordArray[g_CurrentIndex].word}","furigana":"${g_WordArray[g_CurrentIndex].reading}","romaji":"${g_WordArray[g_CurrentIndex].romaji}","meaning":"${g_WordArray[g_CurrentIndex].meaning}"}`;
     navigator.clipboard.writeText(json_format);
 
     $("#id_temp_code").html(json_format);
