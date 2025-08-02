@@ -17,6 +17,7 @@ var g_JsonObjCounter = g_WordArray.length;
 var g_LoadingProgress = 0;
 var g_LoadEnabled = true;
 var g_IsAnyChecked = false;
+var g_LastGeneratedSheetPreview = new String();
 
 function WordObject(index, word, reading, romaji, meaning, jlpt_level = null, word_type = null, note = null, marked = false, pitch = 0, checked = false)
 {
@@ -36,34 +37,59 @@ function WordObject(index, word, reading, romaji, meaning, jlpt_level = null, wo
 }
 
 var checkExistingWord = () => {
+    // If word array is empty, mark search execution as true and terminate callback.
     if(g_WordArray.length == 0)
     {
         g_SearchExecuted = false;
+        // Remove green background.
+        $("#id_word_search_div").removeClass("word_found_mod");
+        // Hide search icon. 
+        $("#id_word_search_ico").css("display", "none");
+
+        console.log("No words in table. Terminating callback.");
         return;
     }
 
-    $("#id_word_found").css("display", "block");
+    let req_word = $("#id_editor_field_word").val();
 
-    let bFound = false;
-
+    // Iterate through array and check if word is already in there...
     for(let i = 0; i < g_WordArray.length; ++i)
     {
-        if(g_WordArray[i] === $("#id_editor_field_word").val()) {
+        // If current indexed word matches one in field.
+        if(g_WordArray[i].word === req_word) {
+            // Mark word as found.
             bFound = true;
-            $("#id_word_found").html("Word found.");
+            // Display message and modify it as it should include the word.
+            $("#id_word_found")
+                .css("display", "block")
+                .html(`Word '${g_WordArray[i].word}' found.`)
+            ;
+            // Add green color as background.
             $("#id_word_search_div").addClass("word_found_mod");
+            // Hide search icon. 
+            $("#id_word_search_ico").css("display", "none");
+            // Terminate the iteration and callback.
+            g_SearchExecuted = false;
             return;
         }
     }
-    
-    if(!bFound)
-    {    
-        $("#id_word_found").html("&nbsp;");
-        $("#id_word_search_div").removeClass("word_found_mod");
+
+    // Hide search icon. 
+    $("#id_word_search_ico").css("display", "none");
+    // Remove green background.
+    $("#id_word_search_div").removeClass("word_found_mod");
+    // Hide message for word status.
+    if(req_word.length > 0) {
+        $("#id_word_found").css("display", "block").html(`'${req_word}' not found.`);
+    }
+    else {
+        $("#id_word_found").css("display", "none");
     }
 
-    $("#id_word_search").css("display", "none");
+    // Reset the search variable.
     g_SearchExecuted = false;
+
+    // Exit the callback.
     return;
 };
 
@@ -119,13 +145,16 @@ function toggleOption(bDisp, opt1="block", opt2="none") {
 }
 
 function getPitch(p) {
+    let target_rule = "-";
+
     switch(p) {
-        case 1: return '平';
-        case 2: return '頭';
-        case 3: return '中';
-        case 4: return '尾高';
-        default: return '';
+        case 1: target_rule = '平'; break;
+        case 2: target_rule = '頭'; break;
+        case 3: target_rule = '中'; break;
+        case 4: target_rule = '尾高'; break;
+        default: target_rule = '';
     }
+    return target_rule;
 }
 
 function loadFileChunked(finishCallback, updateCallback, pack = {chunkSize: 20, totalSize: 1, data: null}) {
@@ -422,7 +451,7 @@ function updateTable()
         embedhtml += `<div class="editor_list_item_cell actionbtn edititmbtn" style="width: 2%;" id="editbtnid_${i}" onclick="editItem(${i});">...</div>`;
         embedhtml += `<div class="editor_list_item_cell" style="width: 2%;overflow: hidden;"><input class="cbxbtn" type="checkbox" id="cbxid_${i}" onclick="emitChecked(${i},$(this).is(':checked'));" ${((g_WordArray[i].checked) ? "checked" : "")}/></div>`;
         embedhtml += `<div class="editor_list_item_cell no-sel ${g_WordArray[i].marked ? "mod-important-cell" : "" }" ${ g_WordArray[i].marked ? "title=\"This word is marked.\"" : ""} style="width: 5%;"><span>${i+1}.</span></div>`;
-        embedhtml += `<div class="editor_list_item_cell no-sel" style="width: 2%;overflow: hidden; font-size: 12px;">${getPitch(g_WordArray[i].pitch)}</div>`;
+        embedhtml += `<div class="editor_list_item_cell no-sel" style="width: 2%;overflow: hidden; font-size: 12px;">${getPitch(g_WordArray[i].pitch).valueOf()}</div>`;
         embedhtml += `<div class="editor_list_item_cell"><h4 class="no-margin no-padding" title="${((!g_WordArray[i].jlpt_level) ? "Unspecified level" : "N" + g_WordArray[i].jlpt_level)} word">${g_WordArray[i].word}</h4></div>`;
         embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding">${g_WordArray[i].reading}</p></div>`;
         embedhtml += `<div class="editor_list_item_cell"><p class="no-margin no-padding">${g_WordArray[i].romaji}</p></div>`;
@@ -482,7 +511,7 @@ function emitSelected(index)
     deleteItem(index);
     updateTable();
     updateCheckStatus();
-    $("#id_div_show_save_selection").css("display", toggleOption((g_IsAnyChecked), "flex", "none"));
+    $(".toggle-div-action").css("display", toggleOption((g_IsAnyChecked), "flex", "none"));
 }
 
 function updateCheckStatus()
@@ -502,7 +531,7 @@ function emitChecked(index, bState)
         if(elem.checked) { g_IsAnyChecked = true; }
     });
 
-    $("#id_div_show_save_selection").css("display", toggleOption((g_IsAnyChecked), "flex", "none"));
+    $(".toggle-div-action").css("display", toggleOption((g_IsAnyChecked), "flex", "none"));
     $("#id_clear_marks").css("display", toggleOption(g_IsAnyChecked, "flex", "none"));
 }
 
@@ -582,7 +611,7 @@ function exportSelection()
     URL.revokeObjectURL(link.href);
 }
 
-function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = null, e = 0, f = null, g = null, h = false, i = 0)
+function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = null, e = 0, f = null, g = null, h = false, i = 0, j = false)
 {
     let word = $("#id_editor_field_word");
     let furigana = $("#id_editor_field_reading");
@@ -665,6 +694,179 @@ function saveJson()
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = 'kantanne_flashcard.json';
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+
+function createPrintableSheet(bJustPreview = false)
+{
+    let generatedCode = new String();
+    let generatedPCode = new String();
+    let note_index = 0;
+
+    let arr = new Array();
+    g_WordArray.forEach(elem => {
+        if(elem.checked) {
+            arr.push(elem.index);
+        }
+    });
+    
+    for(let i = 0; i < arr.length; ++i) {
+        if(g_WordArray[arr[i]].checked) {
+            if(g_WordArray[arr[i]].word.length < 1 && g_WordArray[arr[i]].word.length > 3) {
+                alert("Sheet cell can contain up to 3 characters.");
+            }
+
+            if(i == 0) {
+                generatedCode += `<div class="row">`;
+            }
+            else {
+                if((i % 10) == 0) {
+                    generatedCode += `\t\t</div>\n\t\t<div class="row">`;
+                }
+            }
+            
+            let temp_word = g_WordArray[arr[i]].word;
+
+            if(g_WordArray[arr[i]].note != null) {
+                note_index += 1;
+                if(g_WordArray[arr[i]].note.length > 0) {
+                    if(generatedPCode.length < 1) {
+                        generatedPCode += `<p class="note" ${bJustPreview ? 'style="text-align: left;"' : ''}>`;
+                    }
+
+                    generatedPCode += `${note_index}.${g_WordArray[arr[i]].note}<br>`;
+                    temp_word += `<sup class="sup-mod">${note_index}</sup>`;
+                }
+            }
+
+
+            generatedCode += `
+\t\t\t<div class="cell">
+\t\t\t\t<div class="reading">
+\t\t\t\t\t<div class="onyomi">
+\t\t\t\t\t\t${g_WordArray[arr[i]].reading}
+\t\t\t\t\t</div>
+\t\t\t\t\t<div class="kunyomi">
+\t\t\t\t\t\t${g_WordArray[arr[i]].romaji}
+\t\t\t\t\t</div>
+\t\t\t\t</div>
+\t\t\t\t<div class="kanji">${temp_word}</div>
+\t\t\t\t<div class="translate">${g_WordArray[arr[i]].meaning}</div>
+\t\t\t</div>
+`;
+        }
+    }
+
+    if(generatedPCode.length > 0) {
+        generatedPCode += "</p>";
+    }
+
+    if(bJustPreview) {
+        let generatedCodeT = `<div class="sheet">${generatedCode}</div>${generatedPCode}`;
+        g_LastGeneratedSheetPreview = generatedCodeT;
+        $("#id_preview_area").html(g_LastGeneratedSheetPreview);
+        return;
+    }
+
+    const printableSheetBegin = `
+<!DOCTYPE html>
+<html>
+<head>
+\t<meta charset="UTF-8"/>
+\t<title>Kantanne Kanji Sheet</title>
+\t<style>
+body {
+\tbackground: none;
+\tcolor: black;
+\tmargin: 0;
+\tpadding: 0;
+\tfont-family: sans-serif, Arial, Tahoma, Times New Roman;
+}
+
+div.sheet {
+\tdisplay: flex;
+\tflex-direction: column;
+\tpadding: 5px;
+\ttext-align: center;
+\twidth: calc(100% - 10px);
+\tmargin: 0;
+\twhite-space: nowrap;
+\toverflow: hidden;
+\ttext-overflow: ellipsis;
+}
+
+div.sheet div.row {
+\tdisplay: flex;
+\tflex-direction: row;
+\tmax-width: 100%;
+}
+
+div.row div.cell {
+\tdisplay: flex;
+\tflex-direction: column;
+\tmargin: 1px;
+\tmin-width: 130px;
+}
+
+div.cell div.reading {
+\twidth: 100%;
+\tdisplay: flex;
+\tflex-direction: row;
+\tborder: 0;
+\tborder-left: 0;
+}
+
+div.cell div.reading div {
+\tpadding: 5px;
+\tbox-sizing: border-box;
+\tborder: 1px solid black;
+\tborder-right: 0;
+\twidth: 100%;
+\tfont-size: 10px;
+}
+
+div.cell div.reading div.kunyomi {
+\tborder-right: 1px solid black;
+}
+
+div.cell div.translate {
+\tpadding: 5px;
+\tborder: 1px solid black;
+\tborder-top: 0;
+\tfont-size: 13px;
+}
+
+div.cell div.kanji {
+\tborder: 1px solid black;
+\tborder-top: 0;
+\tfont-size: 30px;
+}
+
+p.note { font-size: 10px; margin: 5px; }
+sup.sup-mod { font-size: 10px; }
+
+.h-inside { border-left: 0; }
+.v-inside { border-top: 0; }
+
+\t</style>
+</head>
+<body>
+\t<div class="sheet">
+${generatedCode}
+\t\t</div>
+\t</div>
+${(generatedPCode.length > 0) ? generatedPCode : '' }
+</body>
+</html>
+`;
+
+    g_LastGeneratedSheetPreview = generatedCode;
+
+    const blob = new Blob([printableSheetBegin], { type: 'text/html' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'kantanne_sheet.html';
     link.click();
     URL.revokeObjectURL(link.href);
 }
@@ -788,7 +990,7 @@ function uncheckAll()
 
     $("#id_edit_button").css("display", "none");
     $("#id_add_button").css("display", "block");
-    $("#id_div_show_save_selection").css("display", "none");
+    $(".toggle-div-action").css("display", "none");
     $("#id_clear_marks").css("display", "none");
 }
 
@@ -807,18 +1009,38 @@ function clearAllMarks()
     updateTable();
 }
 
+function checkAll()
+{
+    g_WordArray.forEach(elem => {
+        elem.checked = true;
+        $(`#cbxid_${elem.index}`).prop("checked", true);
+    });
+}
+
 $("#id_editor_field_word").bind("input", () => {
     if(!g_SearchExecuted.valueOf())
     {
-        $("#id_word_found").css("display", "none");
-        $("#id_word_search").css("display", "block");
-        $("#id_word_search_div").removeClass("word_found_mod");
+        if(g_WordArray.length < 1) {
+            g_SearchExecuted = false;
+            return;
+        }
+        
+        //$("#id_word_found").css("display", "none");                 // Hide found message.
+        $("#id_word_search_ico").css("display", "block");           // Display searching image.
+        
+        // Remove green color.
+        $("#id_word_search_div")
+            .removeClass("word_found_mod")
+        ;
 
+        // Execute search...
         setTimeout(
             () => {
                 checkExistingWord();
-            }, 1000
+            }, 500
         );
+
+        // Mark search as executed.
         g_SearchExecuted = true;
     }
 });
@@ -832,7 +1054,7 @@ $("#id_search_field").bind("input", () => {
         setTimeout(
             () => {
                 searchExistingWord();
-            }, 1000
+            }, 3000
         );
 
         g_WordSearchExecuted = true;

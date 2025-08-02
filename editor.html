@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Kantan-Ne?</title>
     <link href="style/main.css" rel="stylesheet"/>
+    <link href="style/sheet.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body class="no-sel">
@@ -24,8 +25,8 @@
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Romaji" id="id_editor_field_romaji" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Meaning*" id="id_editor_field_meaning" class="add_field_stl" /></div>
                     <div class="editor_column_cell editor_col_cell_non_terminal"><input type="text" placeholder="Note..." id="id_note_field" class="add_field_stl" /></div>
-                    <div class="editor_column_cell" id="id_word_search_div" style="height: calc(32px + 20px);">
-                        <p id="id_word_search" style="display: none;"><img src="media/loading.gif" style="width: 32px; height: auto;"/></p>
+                    <div class="editor_column_cell" id="id_word_search_div" style="width: auto; height: calc(32px + 20px);">
+                        <p id="id_word_search_ico" style="display: none;"><img src="media/loading.gif" style="width: 32px; height: auto;"/></p>
                         <p id="id_word_found" style="display: none;height: 32px;">Word not found.</p>
                     </div>
                 </div>
@@ -93,11 +94,21 @@
                         <button class="insert_button_cls" id="id_add_button" onclick="pushWord(false, 0);">Add</button>
                     </div>
                     <div class="editor_column_cell"><button class="insert_button_cls insert_button_mod_save" onclick="updateCode(); saveJson();">Save</button></div>
-                    <div class="editor_column_cell" id="id_div_show_save_selection" style="display: none;width: 30%;flex-direction: row;">
-                        <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="exportSelection();">Save Selected</button>
-                        <button class="insert_button_cls insert_button_mod_save mod_save_chk" style="background-color: deeppink;" onclick="markTheWord();">Mark</button>
-                        <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="inverseSelection();">Invert</button>
-                        <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="uncheckAll();">Uncheck All</button>
+                </div>
+                <div class="editor_list_item editor_list_item_nopadd toggle-div-action" style="background-color: lightgray;display: none;">
+                    <div style="display: flex; flex-direction: column;width: 100%;">
+                        <div class="editor_column_cell" id="id_div_show_save_selection" style="width: 70%;display: flex;flex-direction: row;">
+                            <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="exportSelection();">Save Selected</button>
+                            <button class="insert_button_cls insert_button_mod_save mod_save_chk" style="background-color: deeppink;" onclick="markTheWord();">Mark</button>
+                            <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="inverseSelection();">Invert</button>
+                            <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="checkAll();">Select All</button>
+                            <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="uncheckAll();">Unselect All</button>
+                            <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="createPrintableSheet();">Printable Sheet</button>
+                            <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="createPrintableSheet(true); displayWindow('id_popup_window_preview');">Preview Sheet</button>
+                        </div>
+                        <div>
+                            <span style="font-size: 10px;margin: 5px;">*If you want to add element to printable sheet, use fields as WORD, ON'YOMI, KUN'YOMI, MEANING respectfully.</span>
+                        </div>
                     </div>
                 </div>
                 <div class="editor_list_item editor_list_item_nopadd" style="background-color: lightgray;"></div>
@@ -273,6 +284,13 @@
         </div>
         <div style="height: 100%; padding: 5px; overflow: auto; align-items: center;align-content: center; text-align: center; padding-bottom: 10px;">
             <button class="control_button" style="width: 100px;height: 50px;background-color: lightgray; color: black;" onclick="applyStyles(); closeWindow('id_popup_window_styles');">Apply</button>
+        </div>
+    </div>
+    
+    <div class="popup_window" id="id_popup_window_preview" style="margin: 5px;width: calc(100% - 10px);height: calc(100% - 10px);border-radius: 0;background-color: white;color: black;">
+        <div style="height: auto; border-radius: 0;" class="popup_window_title" onclick="closeWindow('id_popup_window_preview')">Preview Kanji Sheet</div>
+        <div style="height: 100%;" id="id_preview_area">
+
         </div>
     </div>
 

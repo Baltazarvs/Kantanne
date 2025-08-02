@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="card_main" id="id_fc">
-        <div class="card_main_furigana" style="align-content: right;text-align: right;" id="fc_pitch">
+        <div class="card_main_furigana" style="align-content: right;text-align: right;user-select: none;" id="fc_pitch">
         </div>
         <div class="card_main_furigana" id="fc_furigana"></div>
         <div class="card_main_kanji"><a class="kanji_link" href="" id="kanji_redirect" target="_blank"></a></div>
@@ -68,11 +68,11 @@
             <div class="control_cbx_subdiv"><label><input type="checkbox" id="id_cbx_showall" onchange="toggleAll();"/>Show All</label></div>
             <div class="control_cbx_subdiv"><label><input type="checkbox" id="id_cbx_swprd" onchange="flagSwap();"/>Swap Reading</label></div>
             <div class="control_cbx_subdiv"><label><input type="checkbox" id="id_cbx_disppn" onchange="togglePN();"/>Display Prev/Next</label></div>
-            <div class="control_cbx_subdiv"><button class="control_button" style="width: 100%;" id="id_copyobj_button" onclick="copyObject();">Copy Card JSON</button></div>
+            <div class="control_cbx_subdiv"><p><button class="control_button" style="width: 100%; min-height: 50px;" id="id_copyobj_button" onclick="copyObject();">Copy Card JSON</button></p></div>
         </div>
     </span>
 
-    <div class="loading-window" style="align-content: left; flex-direction: column;font-size: 12px; width: 20%;" id="id_loading_window">
+    <div class="loading-window" style="user-select: none;align-content: left; flex-direction: column;font-size: 12px; width: 20%;" id="id_loading_window">
         <div style="width: 100%;text-align: center;">Object copied to clipboard. <a href="void:javascript(0)" onclick="toggleCode();" id="id_view_hide"><u>view</u></a></div>
         <div style="width: 100%;" class="hidden-textarea control-hide">
             <textarea id="id_temp_code" style="height: 150px; border: 0; background-color: lightgray; padding: 5px; border-radius: 5px; width: calc(100% - 20px);" disabled></textarea>

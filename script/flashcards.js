@@ -137,11 +137,11 @@ function newFlashcard(index = -1)
             console.log(newObj.pitch);
 
             switch(newObj.pitch) {
-                case 1: { $("#fc_pitch").html("平 <sup>[1]</sup>"); break; }
-                case 2: { $("#fc_pitch").html("頭 <sup>[2]</sup>"); break; }
-                case 3: { $("#fc_pitch").html("中 <sup>[3]</sup>"); break; }
-                case 4: { $("#fc_pitch").html("尾 <sup>[4]</sup>"); break; }
-                default: { $("#fc_pitch").html("~型"); }
+                case 1: { $("#fc_pitch").html("平 <sup>[1]</sup>").prop("title", "Heiban pitch rule. First syllable low, rest high."); break; }
+                case 2: { $("#fc_pitch").html("頭 <sup>[2]</sup>").prop("title", "Atamadaka pitch rule. First syllable high, rest low."); break; }
+                case 3: { $("#fc_pitch").html("中 <sup>[3]</sup>").prop("title", "Nakadaka pitch rule. First syllable low, high in middle, ends in low."); break; }
+                case 4: { $("#fc_pitch").html("尾 <sup>[4]</sup>").prop("title", "Odaka pitch rule. Pitch drops on particle."); break; }
+                default: { $("#fc_pitch").html("~型").prop("title", "Unspecified pitch rule."); }
             }
 
             if(newObj.important) {
@@ -173,13 +173,14 @@ function flipFlashcard()
 
 function copyObject()
 {
-    let json_format = `{"word":"${g_WordArray[g_CurrentIndex].word}","furigana":"${g_WordArray[g_CurrentIndex].furigana}","romaji":"${g_WordArray[g_CurrentIndex].romaji}","meaning":"${g_WordArray[g_CurrentIndex].meaning}"}`;
+    let json_format = `{"word":"${g_WordArray[g_CurrentIndex].word}","furigana":"${g_WordArray[g_CurrentIndex].reading}","romaji":"${g_WordArray[g_CurrentIndex].romaji}","meaning":"${g_WordArray[g_CurrentIndex].meaning}"}`;
     navigator.clipboard.writeText(json_format);
 
     $("#id_temp_code").html(json_format);
     $("#id_loading_window").toggleClass("loading-window-anim");
     $("input[type=file].json_upload_old").prop("disabled", true);
     $(".json_upload_editor").toggleClass("json_upload_editor_disabled");
+    $("#id_copyobj_button").prop("disabled", true);
 
     setTimeout(function() {
         $("#id_loading_window").toggleClass("loading-window-anim");
@@ -189,7 +190,8 @@ function copyObject()
         g_HideViewShow = true;
         $(".hidden-textarea").addClass("control-hide");
         $("#id_view_hide").html("view");
-    }, 7000);
+        $("#id_copyobj_button").prop("disabled", false);
+    }, 5000);
 }
 
 function toggleFurigana()

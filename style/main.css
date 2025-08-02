@@ -551,7 +551,7 @@ button.control_button:disabled {
 div.control_cbx {
     left: 80%;
     right: 0;
-    top: 70%;
+    top: 50%;
     padding: 20px;
     align-items: center;
     text-align: center;
@@ -1035,4 +1035,8 @@ div.loading-window-reversed {
     animation-timing-function: linear;
     animation-fill-mode: forwards;
     animation-direction: alternate;
+}
+
+#fc_pitch {
+    color: darkblue;
 }
