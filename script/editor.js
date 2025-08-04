@@ -13,7 +13,7 @@ var g_CompressionMethod = 1;
 var jsonInitialInline = "{\n\t\"words\":\n\t[\n";
 var jsonFinalInline = "\t]\n}";
 var g_DragActive = false;
-var g_JsonObjCounter = g_WordArray.length;
+var g_JsonObjCounter = 0;
 var g_LoadingProgress = 0;
 var g_LoadEnabled = true;
 var g_IsAnyChecked = false;
@@ -151,7 +151,7 @@ function getPitch(p) {
         case 1: target_rule = '平'; break;
         case 2: target_rule = '頭'; break;
         case 3: target_rule = '中'; break;
-        case 4: target_rule = '尾高'; break;
+        case 4: target_rule = '尾'; break;
         default: target_rule = '';
     }
     return target_rule;
@@ -664,7 +664,6 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
             }
         }
         
-        g_JsonObjCounter += 1;
         g_WordArray.push(
             new WordObject(
                 g_JsonObjCounter,
@@ -679,6 +678,8 @@ function pushWord(bEdited = false, index = 0, a = null, b = null, c = null, d = 
                 (i == 0) ? pitch_accent.val() : i
             )
         );
+        
+        g_JsonObjCounter += 1;
     }
 
 
@@ -867,6 +868,126 @@ ${(generatedPCode.length > 0) ? generatedPCode : '' }
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = 'kantanne_sheet.html';
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+
+function generatePrintableVocabTable(bUseMarked = false)
+{
+    if(g_WordArray.length < 1) {
+        alert("Vocabulary list is empty.");
+        return;
+    }
+
+    let generatedCode = new String();
+    let arr = new Array();
+
+    g_WordArray.forEach(elem => {
+        if(bUseMarked) {
+            if(elem.marked) {
+                arr.push(elem.index);
+            }
+        }
+        else {
+            if(elem.checked) {
+                arr.push(elem.index);
+            }
+        }
+    });
+
+    if(arr.length < 1) {
+        alert("Please, either select or mark words in order to create vocabulary table. If you want whole table, click select all button.");
+        return;
+    }
+
+    let bColorFlag = false;
+    for(let i = 0; i < arr.length; ++i) {
+        if(i != 0) {
+            if((i % 2) == 0) {
+                bColorFlag = false;
+            }
+            else {
+                bColorFlag = true;
+            }
+        }
+
+        generatedCode += `\t\t<tr${(bColorFlag ? " class=\"even-tr\"" : "")}><td>${g_WordArray[arr[i]].word}</td><td class="pitch-voice">${getPitch(g_WordArray[arr[i]].pitch).valueOf()}</td><td>${g_WordArray[arr[i]].reading}</td><td>${g_WordArray[arr[i]].meaning}</td></tr>\n`;
+    }
+
+    const finalCode = `
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Kantanne Vocabulary</title>
+<style>
+body {
+	font-family: sans-serif, Arial, Tahoma, Times New Roman;
+	margin: 0;
+	padding: 0;
+}
+
+table.table-main {
+	border: 0;
+	border-collapse: collapse;
+	width: 100%;
+    border-bottom: 1px solid black;
+}
+
+table.table-main th {
+	padding: 2px;
+}
+
+table.table-main th.odd {
+	background-color: #aaa;
+}
+
+table.table-main th.even {
+	background-color: lightgray;
+}
+
+table.table-main td {
+	padding: 2px;
+}
+
+tr.even-tr td {
+	background-color: #ddd;
+}
+
+td.pitch-voice {
+    font-size: 10px;
+	text-align: center;
+}
+
+h4.table-title {
+    background-color: lightgray;
+    text-align: center;
+	margin: 0;
+    padding: 15px;
+	border-bottom: 1px solid darkgray;
+}
+
+</style>
+</head>
+<body>
+    <h4 class="table-title">Vocabulary Word List<br><span style="font-size: 12px;">単語表</span></h4>
+	<table class="table-main">
+		<tr>
+			<th class="odd">Word</th>
+			<th class="even">型</th>
+            <th class="odd">Reading</th>
+			<th class="even">Translation</th>
+		</tr>
+${generatedCode}
+	</table>
+    <p style="font-size: 10px;text-align: center;">平 - Heiban, 頭 - Atamadaka, 中 - Nakadaka, 尾 - Odaka<br>Kantanne by baltazarus</p>
+</body>
+</html>
+`;
+
+    const blob = new Blob([finalCode], { type: 'text/html' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'kantanne_vocabulary.html';
     link.click();
     URL.revokeObjectURL(link.href);
 }

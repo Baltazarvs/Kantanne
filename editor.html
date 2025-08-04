@@ -104,6 +104,7 @@
                             <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="checkAll();">Select All</button>
                             <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="uncheckAll();">Unselect All</button>
                             <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="createPrintableSheet();">Printable Sheet</button>
+                            <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="displayWindow('id_popup_window_vocab');">Printable Vocabulary</button>
                             <button class="insert_button_cls insert_button_mod_save mod_save_chk" onclick="createPrintableSheet(true); displayWindow('id_popup_window_preview');">Preview Sheet</button>
                         </div>
                         <div>
@@ -175,6 +176,12 @@
                     <label class="json_upload_editor file_draggable label-mod-controls" id="id_lappend" title="This will append JSON contents to current loaded state. Also, dragging and dropping into table directly appends file.">
                         <input type="file" style="width: 100%;" class="json_upload_old disable-control-mod" id="id_append_json_input" multiple/>
                         Append JSON
+                    </label>
+                </div>
+                <div class="editor_column_cell">
+                    <label class="json_upload_editor file_draggable label-mod-controls" id="id_lappend" title="This will append JSON contents to current loaded state. Also, dragging and dropping into table directly appends file.">
+                        <input type="button" style="display: none;" onclick="displayWindow('id_popup_window_vocab');"/>
+                        Print
                     </label>
                 </div>
                 <div class="editor_column_cell">
@@ -290,7 +297,20 @@
     <div class="popup_window" id="id_popup_window_preview" style="margin: 5px;width: calc(100% - 10px);height: calc(100% - 10px);border-radius: 0;background-color: white;color: black;">
         <div style="height: auto; border-radius: 0;" class="popup_window_title" onclick="closeWindow('id_popup_window_preview')">Preview Kanji Sheet</div>
         <div style="height: 100%;" id="id_preview_area">
+        </div>
+    </div>
 
+    <div class="popup_window window_mod" id="id_popup_window_vocab" style="background-color: white;">
+        <div style="height: auto;" class="popup_window_title" onclick="closeWindow('id_popup_window_vocab')">Choose a selection method</div>
+        <div style="height: 100%; padding: 5px; overflow: auto;" id="id_style_options">
+            <label style="margin: 5px; width: calc(100% - 40px);" class="json_upload_editor file_draggable label-mod-controls" id="id_lappend" title="This will append JSON contents to current loaded state. Also, dragging and dropping into table directly appends file.">
+                <input type="button" style="display: none;" onclick="generatePrintableVocabTable();"/>
+                Selected Words
+            </label>
+            <label style="margin: 5px; width: calc(100% - 40px);" class="json_upload_editor file_draggable label-mod-controls" id="id_lappend" title="This will append JSON contents to current loaded state. Also, dragging and dropping into table directly appends file.">
+                <input type="button" style="display: none;" onclick="generatePrintableVocabTable(true);"/>
+                Marked Words
+            </label>
         </div>
     </div>
 
